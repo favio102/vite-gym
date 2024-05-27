@@ -2,6 +2,7 @@ import { Box, Stack, Typography } from "@mui/material";
 import Pagination from "@mui/material/Pagination";
 import React, { useEffect, useState } from "react";
 import { exerciseOptions, fetchData } from "../utils/fetchData";
+import ExerciseCard from "./ExerciseCard";
 
 const Exercises = ({ exercises, setExercises, bodyPart }) => {
   console.log(exercises);
@@ -17,7 +18,7 @@ const Exercises = ({ exercises, setExercises, bodyPart }) => {
         justifyContent="center"
       >
         {exercises.map((exercise, index) => (
-          <Typography key={exercise.id} variant="body1">{exercise.name}</Typography>
+          <ExerciseCard key={index} exercise={exercise} />
         ))}
       </Stack>
     </Box>
