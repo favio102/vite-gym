@@ -8,7 +8,7 @@ const Exercises = ({ exercises, setExercises, bodyPart }) => {
   console.log(exercises);
 
   const [currentPage, setCurrentPage] = useState(1);
-  const exercisesPage = 9;
+  const exercisesPage = 8;
 
   const indexOfLastExercise = currentPage * exercisesPage;
   const indexOfFirstExercise = indexOfLastExercise - exercisesPage;
@@ -28,7 +28,7 @@ const Exercises = ({ exercises, setExercises, bodyPart }) => {
 
       if (bodyPart === "all") {
         exercisesData = await fetchData(
-          "https://exercisedb.p.rapidapi.com/exercises",
+          "https://exercisedb.p.rapidapi.com/exercises?offset=0&limit=2",
           exerciseOptions
         );
       } else {
@@ -58,7 +58,7 @@ const Exercises = ({ exercises, setExercises, bodyPart }) => {
         ))}
       </Stack>
       <Stack mt="100px" alignItems="center">
-        {exercises.length > 9 && (
+        {exercises.length > 8 && (
           <Pagination
             color="standard"
             shape="rounded"
