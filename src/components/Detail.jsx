@@ -3,6 +3,7 @@ import React from "react";
 import BodyPartImage from "../assets/icons/body-part.png";
 import TargetImage from "../assets/icons/target.png";
 import EquipmentImage from "../assets/icons/equipment.png";
+import Loader from "./Loader";
 
 const Detail = ({ exerciseDetail }) => {
   const { bodyPart, gifUrl, name, target, equipment } = exerciseDetail;
@@ -27,7 +28,9 @@ const Detail = ({ exerciseDetail }) => {
       gap="60px"
       sx={{ flexDirection: { lg: "row" }, p: "20px", alignItems: "center" }}
     >
-      <img src={gifUrl} alt={name} loading="lazy" className="detail-image" />
+      {gifUrl ? 
+      <>
+             <img src={gifUrl} alt={name} loading="lazy" className="detail-image" />
       <Stack sx={{ gap: { lg: "35px", xs: "20px" } }}>
         <Typography variant="h3">{name}</Typography>
         <Typography variant="h6">
@@ -51,6 +54,10 @@ const Detail = ({ exerciseDetail }) => {
           </Stack>
         ))}
       </Stack>
+      </>
+       :
+       <Loader/>}
+
     </Stack>
   );
 };
