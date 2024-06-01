@@ -17,7 +17,7 @@ const ExerciseDetail = () => {
     const fetchExercisesData = async () => {
       const exerciseDBUrl = "ttps://exercisedb.p.rapidapi.co";
       const youtubeSearchUrl =
-        "ttps://youtube-search-and-download.p.rapidapi.co";
+        "https://youtube-search-and-download.p.rapidapi.com";
 
       const exerciseDetailData = await fetchData(
         `${exerciseDBUrl}/exercises/exercise/${id}`,
