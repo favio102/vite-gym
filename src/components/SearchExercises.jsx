@@ -1,39 +1,55 @@
 import { Box, Button, Stack, TextField, Typography } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { fetchData, exerciseOptions } from "../utils/fetchData";
 import HorizontalScrollbar from "./HorizontalScrollbar";
 
 const SearchExercises = ({ setExercises, bodyPart, setBodyPart }) => {
   const [search, setSearch] = useState("");
   const [bodyParts, setBodyParts] = useState([]);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchExercisesData = async () => {
+    const fetchBodyPartsData = async () => {
+      setError(null); // Reset error state
       const bodyPartsData = await fetchData(
         "https://exercisedb.p.rapidapi.com/exercises/bodyPartList",
         exerciseOptions
       );
-      setBodyParts(["all", ...bodyPartsData]);
+
+      if (bodyPartsData) {
+        setBodyParts(["all", ...bodyPartsData]);
+      } else {
+        setError("Failed to fetch body parts. Please try again later.");
+        setBodyParts(["all"]); // Handle the case where fetchData returns null
+      }
     };
 
-    fetchExercisesData();
+    fetchBodyPartsData();
   }, []);
 
   const handleSearch = async () => {
     if (search) {
+      setError(null); // Reset error state
       const exercisesData = await fetchData(
-        "ttps://exercisedb.p.rapidapi.com/exercises",
+        "https://exercisedb.p.rapidapi.com/exercises",
         exerciseOptions
       );
-      const searchedExercises = exercisesData.filter(
-        (item) =>
-          item.name.toLowerCase().includes(search) ||
-          item.target.toLowerCase().includes(search) ||
-          item.equipment.toLowerCase().includes(search) ||
-          item.bodyPart.toLowerCase().includes(search)
-      );
-      setSearch("");
-      setExercises(searchedExercises);
+
+      if (exercisesData) {
+        const searchedExercises = exercisesData.filter(
+          (item) =>
+            item.name.toLowerCase().includes(search) ||
+            item.target.toLowerCase().includes(search) ||
+            item.equipment.toLowerCase().includes(search) ||
+            item.bodyPart.toLowerCase().includes(search)
+        );
+
+        setSearch("");
+        setExercises(searchedExercises);
+      } else {
+        setError("Failed to fetch exercises. Please try again later.");
+        setExercises([]); // Handle the case where fetchData returns null
+      }
     }
   };
 
@@ -52,7 +68,7 @@ const SearchExercises = ({ setExercises, bodyPart, setBodyPart }) => {
           sx={{
             input: { fontWeight: "700", border: "none", borderRadius: "4px" },
             width: { lg: "800px", xs: "350px" },
-            backgroundColor: "fff",
+            backgroundColor: "#fff",
             borderRadius: "40px",
           }}
           height="76px"
@@ -78,6 +94,11 @@ const SearchExercises = ({ setExercises, bodyPart, setBodyPart }) => {
           Search
         </Button>
       </Box>
+      {error && (
+        <Typography variant="h6" color="error">
+          {error}
+        </Typography>
+      )}
       <Box sx={{ position: "relative", width: "100%", p: "20px" }}>
         <HorizontalScrollbar
           data={bodyParts}

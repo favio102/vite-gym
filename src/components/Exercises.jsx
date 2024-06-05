@@ -6,8 +6,8 @@ import ExerciseCard from "./ExerciseCard";
 import Loader from "./Loader";
 
 const Exercises = ({ exercises, setExercises, bodyPart }) => {
-
   const [currentPage, setCurrentPage] = useState(1);
+  const [error, setError] = useState(null);
   const exercisesPage = 8;
 
   const indexOfLastExercise = currentPage * exercisesPage;
@@ -24,30 +24,41 @@ const Exercises = ({ exercises, setExercises, bodyPart }) => {
 
   useEffect(() => {
     const fetchExercisesData = async () => {
+      setError(null); // Reset error state
       let exercisesData = [];
 
       if (bodyPart === "all") {
         exercisesData = await fetchData(
-          "ttps://exercisedb.p.rapidapi.com/exercises?offset=0&limit=2",
+          "https://exercisedb.p.rapidapi.com/exercises",
           exerciseOptions
         );
       } else {
         exercisesData = await fetchData(
-          `ttps://exercisedb.p.rapidapi.com/exercises/bodyPart/${bodyPart}`,
+          `https://exercisedb.p.rapidapi.com/exercises/bodyPart/${bodyPart}`,
           exerciseOptions
         );
       }
-      setExercises(exercisesData);
+
+      if (exercisesData) {
+        setExercises(exercisesData);
+      } else {
+        setError('Failed to fetch exercises. Please try again later.');
+      }
     };
+
     fetchExercisesData();
-  }, [bodyPart]);
+  }, [bodyPart, setExercises]);
 
   return (
     <Box id="exercises" sx={{ mt: { lg: "10px", xs: "50px" } }} p="20px">
       <Typography variant="h3" mb="46px">
         Showing Results
       </Typography>
-      {!exercises ? (
+      {error ? (
+        <Typography variant="h6" color="error">{error}</Typography>
+      ) : !exercises.length ? (
+        <Loader />
+      ) : (
         <>
           <Stack
             direction="row"
@@ -73,8 +84,6 @@ const Exercises = ({ exercises, setExercises, bodyPart }) => {
             )}
           </Stack>
         </>
-      ) : (
-        <Loader />
       )}
     </Box>
   );
