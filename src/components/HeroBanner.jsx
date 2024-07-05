@@ -41,6 +41,7 @@ const HeroBanner = () => {
             textTransform: "none",
             color: "white",
             borderRadius: "4px",
+            fontFamily: "Alegreya"
           }}
         >
           Explore Exercises
