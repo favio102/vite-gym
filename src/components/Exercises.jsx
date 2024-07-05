@@ -42,7 +42,7 @@ const Exercises = ({ exercises, setExercises, bodyPart }) => {
       if (exercisesData) {
         setExercises(exercisesData);
       } else {
-        setError('Failed to fetch exercises. Please try again later.');
+        setError('No results. Please try again later.');
       }
     };
 

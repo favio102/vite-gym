@@ -19,7 +19,7 @@ const SearchExercises = ({ setExercises, bodyPart, setBodyPart }) => {
       if (bodyPartsData) {
         setBodyParts(["all", ...bodyPartsData]);
       } else {
-        setError("Failed to fetch body parts. Please try again later.");
+        setError("No results. Please try again later.");
         setBodyParts(["all"]); // Handle the case where fetchData returns null
       }
     };
@@ -29,7 +29,7 @@ const SearchExercises = ({ setExercises, bodyPart, setBodyPart }) => {
 
   const handleSearch = async () => {
     if (search) {
-      setError(null); // Reset error state
+      setError(null);
       const exercisesData = await fetchData(
         "https://exercisedb.p.rapidapi.com/exercises",
         exerciseOptions
@@ -47,8 +47,8 @@ const SearchExercises = ({ setExercises, bodyPart, setBodyPart }) => {
         setSearch("");
         setExercises(searchedExercises);
       } else {
-        setError("Failed to fetch exercises. Please try again later.");
-        setExercises([]); // Handle the case where fetchData returns null
+        setError("No results. Please try again later.");
+        setExercises([]);
       }
     }
   };

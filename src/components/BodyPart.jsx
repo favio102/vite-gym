@@ -1,5 +1,4 @@
 import { Stack, Typography } from "@mui/material";
-import React from "react";
 import Icon from "../assets/icons/gym.png";
 
 const BodyPart = ({ item, bodyPart, setBodyPart }) => {
@@ -31,6 +30,7 @@ const BodyPart = ({ item, bodyPart, setBodyPart }) => {
       <Typography
         fontSize="24px"
         fontWeight="bold"
+        fontFamily=''
         color="#3A1212"
         textTransform="capitalize"
       >
