@@ -10,7 +10,7 @@ const SearchExercises = ({ setExercises, bodyPart, setBodyPart }) => {
 
   useEffect(() => {
     const fetchBodyPartsData = async () => {
-      setError(null); // Reset error state
+      setError(null);
       const bodyPartsData = await fetchData(
         "https://exercisedb.p.rapidapi.com/exercises/bodyPartList",
         exerciseOptions
@@ -20,7 +20,7 @@ const SearchExercises = ({ setExercises, bodyPart, setBodyPart }) => {
         setBodyParts(["all", ...bodyPartsData]);
       } else {
         setError("No results. Please try again later.");
-        setBodyParts(["all"]); // Handle the case where fetchData returns null
+        setBodyParts(["all"]);
       }
     };
 
@@ -67,7 +67,7 @@ const SearchExercises = ({ setExercises, bodyPart, setBodyPart }) => {
         <TextField
           sx={{
             input: { fontWeight: "700", border: "none", borderRadius: "4px" },
-            width: { lg: "800px", xs: "350px" },
+            width: { lg: "1170px", xs: "350px" },
             backgroundColor: "#fff",
             borderRadius: "40px",
           }}
@@ -87,7 +87,7 @@ const SearchExercises = ({ setExercises, bodyPart, setBodyPart }) => {
             fontSize: { lg: "20px", xs: "14px" },
             height: "56px",
             position: "absolute",
-            right: 0,
+            right: "0px",
           }}
           onClick={handleSearch}
         >
