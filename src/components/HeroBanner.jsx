@@ -1,5 +1,5 @@
 import { Box, Stack, Typography } from "@mui/material";
-import HeroBannerImage from "../assets/images/banner.jpg";
+import HeroBannerImage from "@/assets/images/banner.jpg";
 
 const HeroBanner = () => (
   <Box
