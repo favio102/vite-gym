@@ -1,7 +1,7 @@
 import { Stack } from "@mui/material";
 import React from "react";
 import { Link } from "react-router-dom";
-import Logo from "../assets/images/Logo.png";
+import Logo from "../assets/images/logo.png";
 
 const Navbar = () => {
   return (
@@ -17,7 +17,7 @@ const Navbar = () => {
       <Link to="/">
         <img
           src={Logo}
-          style={{ width: "48px", height: "48ox", margin: "0 20px" }}
+          style={{ width: "60px", height: "60px", margin: "0 20px" }}
         />
       </Link>
       <Stack direction="row" gap="40px" fontSize="24px" alignItems="flex-end">
