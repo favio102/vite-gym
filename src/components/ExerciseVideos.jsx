@@ -1,4 +1,3 @@
-import React from "react";
 import { Box, Stack, Typography } from "@mui/material";
 import Loader from "./Loader";
 
@@ -13,22 +12,24 @@ const ExerciseVideos = ({ exerciseVideos, name }) => {
       >
         Watch{" "}
         <span style={{ color: "fff2625", textTransform: "capitalize" }}>
-          {name}squad{" "}
+          {name}{" "}
         </span>
         exercise videos
       </Typography>
       {!exerciseVideos ? (
+        <Loader />
+      ) : (
         <Stack
           justifyContent="flex-start"
           flexWrap="wrap"
           alignItems="center"
-          sx={{ flexDirection: { lg: "row" }, gap: { lg: "110px", xs: "0" } }}
+          sx={{ flexDirection: { lg: "row" }, gap: { lg: "110px", xs: "0px" } }}
         >
-          {exerciseVideos.slice(0, 3).map((item, index) => (
+          {exerciseVideos?.slice(0, 3)?.map((item, index) => (
             <a
               key={index}
               className="exercise-video"
-              href={`https://youtube.com/watch?v=${item.video.videoId}`}
+              href={`https://www.youtube.com/watch?v=${item.video.videoId}`}
               target="_blank"
               rel="noreferrer"
             >
@@ -52,8 +53,6 @@ const ExerciseVideos = ({ exerciseVideos, name }) => {
             </a>
           ))}
         </Stack>
-      ) : (
-        <Loader />
       )}
     </Box>
   );
