@@ -1,5 +1,4 @@
 import { Button, Stack, Typography } from "@mui/material";
-import React from "react";
 import { Link } from "react-router-dom";
 
 const ExerciseCard = ({ exercise }) => {
@@ -36,11 +35,11 @@ const ExerciseCard = ({ exercise }) => {
         ml="21px"
         color="#000"
         fontWeight="bold"
+        sx={{ fontSize: { lg: "24px", xs: "20px" } }}
         mt="11px"
         pb="10px"
         textTransform="capitalize"
-        fontSize="22px"
-        textAlign='center'
+        textAlign="center"
       >
         {exercise.name}
       </Typography>
