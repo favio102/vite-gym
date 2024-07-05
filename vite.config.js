@@ -9,11 +9,4 @@ export default defineConfig({
       "@": "/src",
     },
   },
-  build: {
-    rollupOptions: {
-      output: {
-        assetFileNames: "assets/[name].[hash][extname]",
-      },
-    },
-  },
 });
