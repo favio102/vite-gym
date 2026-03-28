@@ -23,25 +23,28 @@ const ExerciseDetail = () => {
         `${exerciseDbUrl}/exercises/exercise/${id}`,
         exerciseOptions
       );
+      if (!exerciseDetailData) return;
       setExerciseDetail(exerciseDetailData);
 
-      const exerciseVideosData = await fetchData(
-        `${youtubeSearchUrl}/search?query=${exerciseDetailData.name}`,
-        youtubeOptions
-      );
-      setExerciseVideos(exerciseVideosData.contents);
+      const [exerciseVideosData, targetMuscleExercisesData, equipmentExerciseData] =
+        await Promise.all([
+          fetchData(
+            `${youtubeSearchUrl}/search?query=${exerciseDetailData.name}`,
+            youtubeOptions
+          ),
+          fetchData(
+            `${exerciseDbUrl}/exercises/target/${exerciseDetailData.target}`,
+            exerciseOptions
+          ),
+          fetchData(
+            `${exerciseDbUrl}/exercises/equipment/${exerciseDetailData.equipment}`,
+            exerciseOptions
+          ),
+        ]);
 
-      const targetMuscleExercisesData = await fetchData(
-        `${exerciseDbUrl}/exercises/target/${exerciseDetailData.target}`,
-        exerciseOptions
-      );
-      setTargetMuscleExercises(targetMuscleExercisesData);
-
-      const equipmentExerciseData = await fetchData(
-        `${exerciseDbUrl}/exercises/equipment/${exerciseDetailData.equipment}`,
-        exerciseOptions
-      );
-      setEquipmentExercise(equipmentExerciseData);
+      if (exerciseVideosData) setExerciseVideos(exerciseVideosData.contents);
+      if (targetMuscleExercisesData) setTargetMuscleExercises(targetMuscleExercisesData);
+      if (equipmentExerciseData) setEquipmentExercise(equipmentExerciseData);
     };
 
     fetchExercisesData();
