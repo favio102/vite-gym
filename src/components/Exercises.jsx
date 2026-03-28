@@ -50,10 +50,11 @@ const Exercises = ({ exercises, setExercises, bodyPart }) => {
   };
 
   return (
-    <Box id="exercises" sx={{ mt: { lg: "10px", xs: "50px" } }} p="20px">
+    <Box component="section" id="exercises" sx={{ mt: { lg: "10px", xs: "50px" } }} p="20px">
       <Typography
         variant="h3"
-        sx={{ fontSize: { log: "44px", xs: "30px" } }}
+        component="h2"
+        sx={{ fontSize: { lg: "44px", xs: "30px" } }}
         mb="46px"
       >
         Showing Results

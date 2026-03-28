@@ -28,7 +28,6 @@ const RightArrow = () => {
 
 const HorizontalScrollbar = ({
   data,
-  bodyParts,
   setBodyPart,
   bodyPart,
   isBodyParts,

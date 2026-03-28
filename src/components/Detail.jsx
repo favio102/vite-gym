@@ -37,6 +37,7 @@ const Detail = ({ exerciseDetail }) => {
           />
           <Stack sx={{ gap: { lg: "35px", xs: "20px" } }}>
             <Typography
+              component="h1"
               sx={{ fontSize: { lg: "64px", xs: "30px" } }}
               fontWeight={700}
               textTransform="capitalize"

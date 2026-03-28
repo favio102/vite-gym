@@ -4,6 +4,7 @@ import Logo from "@/assets/images/logo1.png";
 
 const Navbar = () => (
   <Stack
+    component="header"
     direction="row"
     justifyContent="space-around"
     sx={{
@@ -16,15 +17,17 @@ const Navbar = () => (
     <Link to="/">
       <img
         src={Logo}
+        alt="Steel Warriors GYM Logo"
         style={{ width: "60px", height: "60px", margin: "0 20px" }}
       />
     </Link>
     <Stack
+      component="nav"
+      aria-label="Main navigation"
       direction="row"
       gap="40px"
       fontSize="24px"
       alignItems="flex-end"
-      fontFamily="Alegreya"
     >
       <Link
         to="/"

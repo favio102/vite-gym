@@ -25,7 +25,6 @@ const BodyPart = ({ item, bodyPart, setBodyPart }) => (
     <Typography
       fontSize="24px"
       fontWeight="bold"
-      fontFamily="Alegreya"
       color="#3A1212"
       textTransform="capitalize"
     >

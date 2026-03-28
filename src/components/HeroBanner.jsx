@@ -11,6 +11,7 @@ const HeroBanner = () => (
       Fitness Club
     </Typography>
     <Typography
+      component="h1"
       fontWeight={700}
       sx={{ fontSize: { lg: "44px", xs: "40px" } }}
       mb="23px"
@@ -18,7 +19,7 @@ const HeroBanner = () => (
     >
       Sweat, Smile <br /> and Repeat
     </Typography>
-    <Typography fontSize="22px" fontFamily="Alegreya" lineHeight="35px" mb={4}>
+    <Typography fontSize="22px" lineHeight="35px" mb={4}>
       Check out the most effective exercises personalized to you
     </Typography>
     <Stack>
@@ -35,7 +36,6 @@ const HeroBanner = () => (
           textTransform: "none",
           color: "white",
           borderRadius: "4px",
-          fontFamily: "Alegreya",
         }}
       >
         Explore Exercises

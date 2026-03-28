@@ -2,8 +2,9 @@ import { Box, Stack, Typography } from "@mui/material";
 import Loader from "./Loader";
 
 const ExerciseVideos = ({ exerciseVideos, name }) => (
-  <Box sx={{ marginTop: { lg: "20px", xs: "20px" } }} p="20px">
+  <Box component="section" sx={{ marginTop: { lg: "20px", xs: "20px" } }} p="20px">
     <Typography
+      component="h2"
       sx={{ fontSize: { lg: "44px", xs: "25px" } }}
       fontWeight={700}
       color="#000"
