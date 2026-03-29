@@ -32,7 +32,7 @@ const Navbar = () => {
         <img
           src={Logo}
           alt="Titan Strength Logo"
-          style={{ width: "60px", height: "60px" }}
+          style={{ width: "70px", height: "auto" }}
         />
         <Typography
           fontWeight={700}
