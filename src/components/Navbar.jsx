@@ -1,4 +1,4 @@
-import { IconButton, Stack } from "@mui/material";
+import { IconButton, Stack, Typography } from "@mui/material";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import { Link } from "react-router-dom";
@@ -19,12 +19,33 @@ const Navbar = () => {
         px: "20px",
       }}
     >
-      <Link to="/">
+      <Link
+        to="/"
+        style={{
+          textDecoration: "none",
+          display: "flex",
+          alignItems: "center",
+          gap: "12px",
+          margin: "0 20px",
+        }}
+      >
         <img
           src={Logo}
-          alt="Steel Warriors GYM Logo"
-          style={{ width: "60px", height: "60px", margin: "0 20px" }}
+          alt="Titan Strength Logo"
+          style={{ width: "60px", height: "60px" }}
         />
+        <Typography
+          fontWeight={700}
+          sx={{
+            fontSize: { sm: "28px", xs: "20px" },
+            color: "var(--accent)",
+            lineHeight: 1.2,
+          }}
+        >
+          Titan
+          <br />
+          <span style={{ color: "var(--text-nav)" }}>Strength</span>
+        </Typography>
       </Link>
       <Stack
         component="nav"
@@ -46,6 +67,7 @@ const Navbar = () => {
         </Link>
         <a
           href="#exercises"
+          className="nav-link"
           style={{ textDecoration: "none", color: "var(--text-nav)" }}
         >
           Exercises

@@ -18,12 +18,12 @@ const Exercises = ({ exercises, setExercises, bodyPart }) => {
       if (bodyPart === "all") {
         exercisesData = await fetchData(
           "https://exercisedb.p.rapidapi.com/exercises",
-          exerciseOptions
+          exerciseOptions,
         );
       } else {
         exercisesData = await fetchData(
           `https://exercisedb.p.rapidapi.com/exercises/bodyPart/${bodyPart}`,
-          exerciseOptions
+          exerciseOptions,
         );
       }
 
@@ -41,16 +41,23 @@ const Exercises = ({ exercises, setExercises, bodyPart }) => {
   const indexOfFirstExercise = indexOfLastExercise - exercisesPage;
   const currentExercises = exercises.slice(
     indexOfFirstExercise,
-    indexOfLastExercise
+    indexOfLastExercise,
   );
 
-  const paginate = (value) => {
+  const paginate = (e, value) => {
     setCurrentPage(value);
-    window.scrollTo({ top: 1800, behavior: "smooth" });
+    document
+      .getElementById("exercises")
+      ?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
-    <Box component="section" id="exercises" sx={{ mt: { lg: "10px", xs: "50px" } }} p="20px">
+    <Box
+      component="section"
+      id="exercises"
+      sx={{ mt: { lg: "10px", xs: "50px" } }}
+      p="20px"
+    >
       <Typography
         variant="h3"
         component="h2"
@@ -60,11 +67,18 @@ const Exercises = ({ exercises, setExercises, bodyPart }) => {
         Showing Results
       </Typography>
       {error ? (
-        <Typography variant="h6" color="error">
+        <Typography variant="h6" color="error" role="alert">
           {error}
         </Typography>
       ) : !exercises.length ? (
         <Loader />
+      ) : currentExercises.length === 0 ? (
+        <Typography
+          variant="h6"
+          sx={{ color: "var(--text-secondary)", textAlign: "center", mt: 4 }}
+        >
+          No exercises found. Try a different search or body part.
+        </Typography>
       ) : (
         <>
           <Stack

@@ -13,7 +13,7 @@ const SearchExercises = ({ setExercises, bodyPart, setBodyPart }) => {
       setError(null);
       const bodyPartsData = await fetchData(
         "https://exercisedb.p.rapidapi.com/exercises/bodyPartList",
-        exerciseOptions
+        exerciseOptions,
       );
 
       if (bodyPartsData) {
@@ -32,7 +32,7 @@ const SearchExercises = ({ setExercises, bodyPart, setBodyPart }) => {
       setError(null);
       const exercisesData = await fetchData(
         "https://exercisedb.p.rapidapi.com/exercises",
-        exerciseOptions
+        exerciseOptions,
       );
 
       if (exercisesData) {
@@ -41,7 +41,7 @@ const SearchExercises = ({ setExercises, bodyPart, setBodyPart }) => {
             item.name.toLowerCase().includes(search) ||
             item.target.toLowerCase().includes(search) ||
             item.equipment.toLowerCase().includes(search) ||
-            item.bodyPart.toLowerCase().includes(search)
+            item.bodyPart.toLowerCase().includes(search),
         );
 
         setSearch("");
@@ -54,7 +54,13 @@ const SearchExercises = ({ setExercises, bodyPart, setBodyPart }) => {
   };
 
   return (
-    <Stack component="section" alignItems="center" mt="37px" justifyContent="center" p="20px">
+    <Stack
+      component="section"
+      alignItems="center"
+      mt="37px"
+      justifyContent="center"
+      p="20px"
+    >
       <Typography
         component="h2"
         fontWeight={700}
@@ -71,10 +77,14 @@ const SearchExercises = ({ setExercises, bodyPart, setBodyPart }) => {
             width: { lg: "1170px", xs: "350px" },
             backgroundColor: "var(--input-bg)",
             borderRadius: "40px",
+            "& .MuiOutlinedInput-root.Mui-focused fieldset": {
+              borderColor: "var(--accent)",
+            },
           }}
           height="76px"
           value={search}
           onChange={(e) => setSearch(e.target.value.toLowerCase())}
+          onKeyDown={(e) => e.key === "Enter" && handleSearch()}
           placeholder="Search Exercises"
           type="text"
         />

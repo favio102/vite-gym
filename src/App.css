@@ -3,9 +3,9 @@
   --bg-secondary: #fff;
   --bg-footer: #fff3f4;
   --text-primary: #000;
-  --text-secondary: #4F4C4C;
-  --text-nav: #3A1212;
-  --accent: #FF2625;
+  --text-secondary: #4f4c4c;
+  --text-nav: #3a1212;
+  --accent: #ff2625;
   --accent-light: #ffa9a9;
   --badge-yellow: #fcc757;
   --detail-icon-bg: #fff2db;
@@ -20,7 +20,7 @@
   --text-primary: #e0e0e0;
   --text-secondary: #aaaaaa;
   --text-nav: #e0e0e0;
-  --accent: #FF2625;
+  --accent: #ff2625;
   --accent-light: #cc4444;
   --badge-yellow: #b8942e;
   --detail-icon-bg: #2a2218;
@@ -32,7 +32,9 @@ body {
   font-family: "Josefin Sans", sans-serif;
   background-color: var(--bg-primary);
   color: var(--text-primary);
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
 }
 
 * {
@@ -105,8 +107,11 @@ body {
   justify-content: space-between;
   flex-direction: column;
   padding-bottom: 10px;
-  transform: scale(1, 1);
-  transition: 0.3s all ease-in-out;
+  transform: scale(1);
+  transition:
+    transform 0.2s ease-out,
+    box-shadow 0.2s ease-out;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
 .exercise-card img {
@@ -114,13 +119,18 @@ body {
 }
 
 .bodyPart-card {
-  transform: scale(1, 1);
-  transition: 0.3s all ease-in-out;
+  transform: scale(1);
+  transition: transform 0.2s ease-out;
 }
 
-.exercise-card:hover,
-.bodyPart-card:hover {
-  transform: scale(1.1, 1.1);
+.exercise-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 24px rgba(255, 38, 37, 0.15);
+}
+
+.exercise-card:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }
 
 .search-btn:hover {
@@ -135,6 +145,29 @@ body {
   width: 387px;
   height: 381px;
   text-decoration: none;
+  transition: transform 0.2s ease-out;
+}
+
+.exercise-video:hover {
+  transform: translateY(-4px);
+}
+
+.exercise-video img {
+  transition: box-shadow 0.2s ease-out;
+}
+
+.exercise-video:hover img {
+  box-shadow: 0 8px 16px rgba(255, 38, 37, 0.2);
+}
+
+.nav-link {
+  border-bottom: 3px solid transparent;
+  padding-bottom: 2px;
+  transition: border-color 0.2s ease-out;
+}
+
+.nav-link:hover {
+  border-bottom-color: var(--accent);
 }
 
 @media screen and (max-width: 1200px) {

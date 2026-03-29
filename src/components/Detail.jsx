@@ -1,23 +1,29 @@
 import { Button, Stack, Typography } from "@mui/material";
+import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
+import { useNavigate } from "react-router-dom";
 import BodyPartImage from "@/assets/icons/body-part.png";
 import TargetImage from "@/assets/icons/target.png";
 import EquipmentImage from "@/assets/icons/equipment.png";
 import Loader from "./Loader";
 
 const Detail = ({ exerciseDetail }) => {
+  const navigate = useNavigate();
   const { bodyPart, gifUrl, name, target, equipment } = exerciseDetail;
 
   const extraDetail = [
     {
       icon: BodyPartImage,
+      label: "Body Part",
       name: bodyPart,
     },
     {
       icon: TargetImage,
+      label: "Target",
       name: target,
     },
     {
       icon: EquipmentImage,
+      label: "Equipment",
       name: equipment,
     },
   ];
@@ -29,12 +35,28 @@ const Detail = ({ exerciseDetail }) => {
     >
       {gifUrl ? (
         <>
-          <img
-            src={gifUrl}
-            alt={name}
-            loading="lazy"
-            className="detail-image"
-          />
+          <Stack sx={{ width: { lg: "729px" } }}>
+            <Button
+              onClick={() => navigate(-1)}
+              startIcon={<ArrowBackIosNewIcon />}
+              sx={{
+                color: "var(--text-primary)",
+                alignSelf: "flex-start",
+                mb: "16px",
+                textTransform: "none",
+                fontSize: "16px",
+                "&:hover": { color: "var(--accent)" },
+              }}
+            >
+              Back
+            </Button>
+            <img
+              src={gifUrl}
+              alt={name}
+              loading="lazy"
+              className="detail-image"
+            />
+          </Stack>
           <Stack sx={{ gap: { lg: "35px", xs: "20px" } }}>
             <Typography
               component="h1"
@@ -45,7 +67,10 @@ const Detail = ({ exerciseDetail }) => {
               {name}
             </Typography>
             <Typography
-              sx={{ color: "var(--text-secondary)", fontSize: { lg: "24px", xs: "18px" } }}
+              sx={{
+                color: "var(--text-secondary)",
+                fontSize: { lg: "24px", xs: "18px" },
+              }}
             >
               Exercise keep you strong.{" "}
               <span style={{ textTransform: "capitalize" }}>{name}</span> {` `}{" "}
@@ -54,7 +79,7 @@ const Detail = ({ exerciseDetail }) => {
             </Typography>
             {extraDetail.map((item) => (
               <Stack
-                key={item.name}
+                key={item.label}
                 direction="row"
                 gap="24px"
                 alignItems="center"
@@ -69,7 +94,7 @@ const Detail = ({ exerciseDetail }) => {
                 >
                   <img
                     src={item.icon}
-                    alt={bodyPart}
+                    alt={`${item.label} icon`}
                     style={{ width: "50px", height: "50px" }}
                   />
                 </Button>
