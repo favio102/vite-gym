@@ -1,49 +1,61 @@
-import { Stack } from "@mui/material";
+import { IconButton, Stack } from "@mui/material";
+import DarkModeIcon from "@mui/icons-material/DarkMode";
+import LightModeIcon from "@mui/icons-material/LightMode";
 import { Link } from "react-router-dom";
 import Logo from "@/assets/images/logo1.png";
+import { useThemeMode } from "../context/ThemeContext";
 
-const Navbar = () => (
-  <Stack
-    component="header"
-    direction="row"
-    justifyContent="space-around"
-    sx={{
-      gap: { sm: "122px", xs: "40px" },
-      mt: { sm: "32px", xs: "20px" },
-      justifyContent: "none",
-      px: "20px",
-    }}
-  >
-    <Link to="/">
-      <img
-        src={Logo}
-        alt="Steel Warriors GYM Logo"
-        style={{ width: "60px", height: "60px", margin: "0 20px" }}
-      />
-    </Link>
+const Navbar = () => {
+  const { mode, toggleTheme } = useThemeMode();
+
+  return (
     <Stack
-      component="nav"
-      aria-label="Main navigation"
+      component="header"
       direction="row"
-      gap="40px"
-      fontSize="24px"
-      alignItems="flex-end"
+      alignItems="center"
+      sx={{
+        gap: { sm: "122px", xs: "40px" },
+        mt: { sm: "32px", xs: "20px" },
+        px: "20px",
+      }}
     >
-      <Link
-        to="/"
-        style={{
-          textDecoration: "none",
-          color: "#3A1212",
-          borderBottom: "3px solid #FF2625",
-        }}
-      >
-        Home
+      <Link to="/">
+        <img
+          src={Logo}
+          alt="Steel Warriors GYM Logo"
+          style={{ width: "60px", height: "60px", margin: "0 20px" }}
+        />
       </Link>
-      <a href="#exercises" style={{ textDecoration: "none", color: "#3A1212" }}>
-        Exercises
-      </a>
+      <Stack
+        component="nav"
+        aria-label="Main navigation"
+        direction="row"
+        gap="40px"
+        fontSize="24px"
+        alignItems="center"
+      >
+        <Link
+          to="/"
+          style={{
+            textDecoration: "none",
+            color: "var(--text-nav)",
+            borderBottom: "3px solid var(--accent)",
+          }}
+        >
+          Home
+        </Link>
+        <a
+          href="#exercises"
+          style={{ textDecoration: "none", color: "var(--text-nav)" }}
+        >
+          Exercises
+        </a>
+        <IconButton onClick={toggleTheme} sx={{ color: "var(--accent)" }}>
+          {mode === "light" ? <DarkModeIcon /> : <LightModeIcon />}
+        </IconButton>
+      </Stack>
     </Stack>
-  </Stack>
-);
+  );
+};
 
 export default Navbar;

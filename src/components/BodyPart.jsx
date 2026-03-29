@@ -8,8 +8,8 @@ const BodyPart = ({ item, bodyPart, setBodyPart }) => (
     justifyContent="center"
     className="bodyPart-card"
     sx={{
-      borderTop: bodyPart === item ? "4px solid #ff2625" : "",
-      backgroundColor: "#fff",
+      borderTop: bodyPart === item ? "4px solid var(--accent)" : "",
+      backgroundColor: "var(--card-bg)",
       borderBottomLeftRadius: "20px",
       width: "270px",
       height: "280px",
@@ -25,7 +25,7 @@ const BodyPart = ({ item, bodyPart, setBodyPart }) => (
     <Typography
       fontSize="24px"
       fontWeight="bold"
-      color="#3A1212"
+      sx={{ color: "var(--text-nav)" }}
       textTransform="capitalize"
     >
       {item}

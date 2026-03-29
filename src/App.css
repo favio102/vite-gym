@@ -1,6 +1,38 @@
+:root {
+  --bg-primary: #fffafb;
+  --bg-secondary: #fff;
+  --bg-footer: #fff3f4;
+  --text-primary: #000;
+  --text-secondary: #4F4C4C;
+  --text-nav: #3A1212;
+  --accent: #FF2625;
+  --accent-light: #ffa9a9;
+  --badge-yellow: #fcc757;
+  --detail-icon-bg: #fff2db;
+  --input-bg: #fff;
+  --card-bg: #fff;
+}
+
+[data-theme="dark"] {
+  --bg-primary: #121212;
+  --bg-secondary: #1e1e1e;
+  --bg-footer: #1a1a1a;
+  --text-primary: #e0e0e0;
+  --text-secondary: #aaaaaa;
+  --text-nav: #e0e0e0;
+  --accent: #FF2625;
+  --accent-light: #cc4444;
+  --badge-yellow: #b8942e;
+  --detail-icon-bg: #2a2218;
+  --input-bg: #2a2a2a;
+  --card-bg: #1e1e1e;
+}
+
 body {
   font-family: "Josefin Sans", sans-serif;
-  background-color: #fffafb;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 * {
@@ -22,7 +54,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  color: #ff2625;
+  color: var(--accent);
   font-size: 25px;
   border-radius: 4px;
   position: absolute;
@@ -65,8 +97,8 @@ body {
 .exercise-card {
   width: 400px;
   height: 445px;
-  background: #fff;
-  border-top: 4px solid #ff2625;
+  background: var(--card-bg);
+  border-top: 4px solid var(--accent);
   border-bottom-left-radius: 20px;
   text-decoration: none;
   display: flex;
@@ -92,8 +124,8 @@ body {
 }
 
 .search-btn:hover {
-  color: #ff2625 !important;
-  border: 1px solid #ff2625 !important;
+  color: var(--accent) !important;
+  border: 1px solid var(--accent) !important;
 }
 
 .exercise-video {

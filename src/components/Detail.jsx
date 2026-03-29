@@ -45,8 +45,7 @@ const Detail = ({ exerciseDetail }) => {
               {name}
             </Typography>
             <Typography
-              sx={{ fontSize: { lg: "24px", xs: "18px" } }}
-              color="#4F4C4C"
+              sx={{ color: "var(--text-secondary)", fontSize: { lg: "24px", xs: "18px" } }}
             >
               Exercise keep you strong.{" "}
               <span style={{ textTransform: "capitalize" }}>{name}</span> {` `}{" "}
@@ -62,7 +61,7 @@ const Detail = ({ exerciseDetail }) => {
               >
                 <Button
                   sx={{
-                    background: "#fff2db",
+                    background: "var(--detail-icon-bg)",
                     borderRadius: "50%",
                     width: "100px",
                     height: "100px",
