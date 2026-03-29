@@ -16,12 +16,57 @@ export const youtubeOptions = {
   },
 };
 
-const cache = new Map();
+const CACHE_DURATION = 24 * 60 * 60 * 1000; // 24 hours
+
+const getCacheKey = (url) => `cache_${url}`;
+
+const getFromCache = (url) => {
+  try {
+    const stored = localStorage.getItem(getCacheKey(url));
+    if (!stored) return null;
+
+    const { data, timestamp } = JSON.parse(stored);
+    if (Date.now() - timestamp > CACHE_DURATION) {
+      localStorage.removeItem(getCacheKey(url));
+      return null;
+    }
+    return data;
+  } catch {
+    return null;
+  }
+};
+
+const saveToCache = (url, data) => {
+  try {
+    localStorage.setItem(
+      getCacheKey(url),
+      JSON.stringify({ data, timestamp: Date.now() }),
+    );
+  } catch {
+    // localStorage full — clear old cache entries and retry
+    clearExpiredCache();
+  }
+};
+
+const clearExpiredCache = () => {
+  for (let i = localStorage.length - 1; i >= 0; i--) {
+    const key = localStorage.key(i);
+    if (key?.startsWith("cache_")) {
+      try {
+        const { timestamp } = JSON.parse(localStorage.getItem(key));
+        if (Date.now() - timestamp > CACHE_DURATION) {
+          localStorage.removeItem(key);
+        }
+      } catch {
+        localStorage.removeItem(key);
+      }
+    }
+  }
+};
 
 export const fetchData = async (url, options) => {
-  if (cache.has(url)) {
-    return cache.get(url);
-  }
+  const cached = getFromCache(url);
+  if (cached) return cached;
 
   try {
     const response = await fetch(url, options);
@@ -33,7 +78,7 @@ export const fetchData = async (url, options) => {
       }
     }
     const data = await response.json();
-    cache.set(url, data);
+    saveToCache(url, data);
     return data;
   } catch (error) {
     console.error("Fetch error:", error.message);
