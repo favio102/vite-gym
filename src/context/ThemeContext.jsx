@@ -26,7 +26,13 @@ export const ThemeProvider = ({ children }) => {
           mode,
         },
         typography: {
-          fontFamily: "'Josefin Sans', sans-serif",
+          fontFamily: "'Barlow', sans-serif",
+          h1: { fontFamily: "'Bebas Neue', sans-serif" },
+          h2: { fontFamily: "'Bebas Neue', sans-serif" },
+          h3: { fontFamily: "'Bebas Neue', sans-serif" },
+          h4: { fontFamily: "'Bebas Neue', sans-serif" },
+          h5: { fontFamily: "'Bebas Neue', sans-serif" },
+          h6: { fontFamily: "'Bebas Neue', sans-serif" },
         },
       }),
     [mode]

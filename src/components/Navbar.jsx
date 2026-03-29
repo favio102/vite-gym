@@ -37,9 +37,11 @@ const Navbar = () => {
         <Typography
           fontWeight={700}
           sx={{
+            fontFamily: "'Bebas Neue', sans-serif",
             fontSize: { sm: "28px", xs: "20px" },
             color: "var(--accent)",
             lineHeight: 1.2,
+            letterSpacing: "2px",
           }}
         >
           Titan

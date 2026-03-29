@@ -32,7 +32,9 @@ const HeroBanner = () => (
           textAlign: "center",
           background: "var(--accent)",
           padding: "14px",
+          fontFamily: "'Bebas Neue', sans-serif",
           fontSize: "22px",
+          letterSpacing: "2px",
           textTransform: "none",
           color: "white",
           borderRadius: "4px",
@@ -43,7 +45,7 @@ const HeroBanner = () => (
     </Stack>
     <Typography
       fontWeight={600}
-      sx={{ color: "var(--accent)", opacity: 0.1, display: { lg: "block", xs: "none" } }}
+      sx={{ fontFamily: "'Bebas Neue', sans-serif", color: "var(--accent)", opacity: 0.1, display: { lg: "block", xs: "none" } }}
       fontSize="200px"
     >
       Exercise

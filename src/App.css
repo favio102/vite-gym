@@ -28,8 +28,12 @@
   --card-bg: #1e1e1e;
 }
 
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Bebas Neue", sans-serif;
+}
+
 body {
-  font-family: "Josefin Sans", sans-serif;
+  font-family: "Barlow", sans-serif;
   background-color: var(--bg-primary);
   color: var(--text-primary);
   transition:
