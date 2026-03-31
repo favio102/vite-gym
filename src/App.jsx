@@ -15,9 +15,7 @@ function App() {
     <ThemeProvider>
       <Box
         component="div"
-        width="400px"
-        sx={{ width: { xl: "1448px" } }}
-        m="auto"
+        sx={{ width: { xs: "100%", xl: "1448px" }, mx: "auto" }}
       >
         <Navbar />
         <Box component="main" id="main">

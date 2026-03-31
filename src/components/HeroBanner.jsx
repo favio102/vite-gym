@@ -3,50 +3,69 @@ import HeroBannerImage from "@/assets/images/banner.jpg";
 
 const HeroBanner = () => (
   <Box
-    sx={{ mt: { lg: "212px", xs: "70px" }, ml: { sm: "50px" } }}
     position="relative"
-    p="26px"
+    sx={{
+      mt: { lg: "212px", xs: "70px" },
+      ml: { sm: "50px", xs: "0px" },
+      p: { xs: "16px", sm: "26px" },
+    }}
   >
-    <Typography sx={{ color: "var(--accent)" }} fontWeight="600" fontSize="26px">
+    <Typography
+      sx={{ color: "var(--accent)", fontSize: { xs: "20px", sm: "26px" } }}
+      fontWeight="600"
+    >
       Fitness Club
     </Typography>
     <Typography
       component="h1"
       fontWeight={700}
-      sx={{ fontSize: { lg: "44px", xs: "40px" } }}
+      sx={{ fontSize: { lg: "44px", sm: "40px", xs: "30px" } }}
       mb="23px"
       mt="30px"
     >
       Sweat, Smile <br /> and Repeat
     </Typography>
-    <Typography fontSize="22px" lineHeight="35px" mb={4}>
+    <Typography
+      sx={{
+        fontSize: { xs: "16px", sm: "22px" },
+        lineHeight: { xs: "28px", sm: "35px" },
+      }}
+      mb={4}
+    >
       Check out the most effective exercises personalized to you
     </Typography>
     <Stack>
-      <a
+      <Box
+        component="a"
         href="#exercises"
-        style={{
-          marginTop: "45px",
+        sx={{
+          mt: "45px",
           textDecoration: "none",
-          width: "200px",
+          width: { xs: "160px", sm: "200px" },
           textAlign: "center",
           background: "var(--accent)",
-          padding: "14px",
+          p: { xs: "10px", sm: "14px" },
           fontFamily: "'Bebas Neue', sans-serif",
-          fontSize: "22px",
+          fontSize: { xs: "18px", sm: "22px" },
           letterSpacing: "2px",
           textTransform: "none",
           color: "white",
           borderRadius: "4px",
+          display: "inline-block",
         }}
       >
         Explore Exercises
-      </a>
+      </Box>
     </Stack>
     <Typography
       fontWeight={600}
-      sx={{ fontFamily: "'Bebas Neue', sans-serif", color: "var(--accent)", opacity: 0.1, display: { lg: "block", xs: "none" } }}
-      fontSize="200px"
+      sx={{
+        fontFamily: "'Bebas Neue', sans-serif",
+        color: "var(--accent)",
+        opacity: 0.1,
+        display: { lg: "block", xs: "none" },
+        fontSize: "200px",
+      }}
     >
       Exercise
     </Typography>

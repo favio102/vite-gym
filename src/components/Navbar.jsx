@@ -14,7 +14,8 @@ const Navbar = () => {
       direction="row"
       alignItems="center"
       sx={{
-        gap: { sm: "122px", xs: "40px" },
+        gap: { md: "122px", sm: "60px", xs: "16px" },
+        justifyContent: "space-between",
         mt: { sm: "32px", xs: "20px" },
         px: "20px",
       }}
@@ -53,8 +54,7 @@ const Navbar = () => {
         component="nav"
         aria-label="Main navigation"
         direction="row"
-        gap="40px"
-        fontSize="24px"
+        sx={{ gap: { xs: "12px", sm: "24px", md: "40px" }, fontSize: { xs: "16px", sm: "20px", md: "24px" } }}
         alignItems="center"
       >
         <Link

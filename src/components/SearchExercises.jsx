@@ -74,7 +74,7 @@ const SearchExercises = ({ setExercises, bodyPart, setBodyPart }) => {
         <TextField
           sx={{
             input: { fontWeight: "700", border: "none", borderRadius: "4px" },
-            width: { lg: "1170px", xs: "350px" },
+            width: { lg: "1170px", md: "700px", sm: "500px", xs: "100%" },
             backgroundColor: "var(--input-bg)",
             borderRadius: "40px",
             "& .MuiOutlinedInput-root.Mui-focused fieldset": {
@@ -94,8 +94,8 @@ const SearchExercises = ({ setExercises, bodyPart, setBodyPart }) => {
             bgcolor: "var(--accent)",
             color: "#fff",
             textTransform: "none",
-            width: { lg: "175px", xs: "80px" },
-            fontSize: { lg: "20px", xs: "14px" },
+            width: { lg: "175px", md: "140px", xs: "80px" },
+            fontSize: { lg: "20px", md: "16px", xs: "14px" },
             height: "56px",
             position: "absolute",
             right: "0px",

@@ -28,7 +28,12 @@
   --card-bg: #1e1e1e;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: "Bebas Neue", sans-serif;
 }
 
@@ -67,7 +72,7 @@ body {
   bottom: -20px;
   right: 80px;
   transform: scale(1, 1);
-  transition: 0.3s all ease-in-out;
+  transition: 0.2s all ease-out;
 }
 
 .right-arrow {
@@ -86,8 +91,9 @@ body {
 }
 
 .detail-image {
-  width: 729px;
-  height: 742px;
+  width: 100%;
+  max-width: 729px;
+  height: auto;
 }
 
 .hero-banner-img {
@@ -102,7 +108,9 @@ body {
 
 .exercise-card {
   width: 400px;
-  height: 445px;
+  max-width: 100%;
+  height: auto;
+  min-height: 400px;
   background: var(--card-bg);
   border-top: 4px solid var(--accent);
   border-bottom-left-radius: 20px;
@@ -119,7 +127,10 @@ body {
 }
 
 .exercise-card img {
-  height: 326px;
+  width: 100%;
+  height: auto;
+  max-height: 326px;
+  object-fit: cover;
 }
 
 .bodyPart-card {
@@ -147,17 +158,21 @@ body {
   flex-direction: column;
   gap: 24px;
   width: 387px;
-  height: 381px;
+  max-width: 100%;
+  height: auto;
   text-decoration: none;
   transition: transform 0.2s ease-out;
 }
 
-.exercise-video:hover {
-  transform: translateY(-4px);
+.exercise-video img {
+  width: 100%;
+  height: auto;
+  border-top-left-radius: 20px;
+  transition: box-shadow 0.2s ease-out;
 }
 
-.exercise-video img {
-  transition: box-shadow 0.2s ease-out;
+.exercise-video:hover {
+  transform: translateY(-4px);
 }
 
 .exercise-video:hover img {
@@ -174,10 +189,10 @@ body {
   border-bottom-color: var(--accent);
 }
 
+/* Tablet */
 @media screen and (max-width: 1200px) {
   .detail-image {
-    width: 300px;
-    height: 300px;
+    max-width: 400px;
   }
 
   .react-horizontal-scrolling-menu--scroll-container {
@@ -199,12 +214,24 @@ body {
 
   .exercise-video {
     width: 320px;
-    height: 300px;
+  }
+}
+
+/* Small mobile */
+@media screen and (max-width: 600px) {
+  .exercise-card {
+    width: 100%;
+    max-width: 320px;
+  }
+
+  .exercise-video {
+    width: 100%;
+    max-width: 320px;
   }
 }
 
 @media screen and (max-width: 400px) {
   .exercise-card {
-    width: 280px;
+    max-width: 280px;
   }
 }

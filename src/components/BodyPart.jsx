@@ -13,8 +13,8 @@ const BodyPart = ({ item, bodyPart, setBodyPart }) => (
       backgroundColor:
         bodyPart === item ? "var(--accent-light)" : "var(--card-bg)",
       borderBottomLeftRadius: "20px",
-      width: "270px",
-      height: "280px",
+      width: { lg: "270px", xs: "200px" },
+      height: { lg: "280px", xs: "220px" },
       cursor: "pointer",
       gap: "47px",
       transition: "all 0.2s ease-out",
@@ -33,9 +33,8 @@ const BodyPart = ({ item, bodyPart, setBodyPart }) => (
   >
     <img src={Icon} alt="dumbbell" style={{ width: "40px", height: "40px" }} />
     <Typography
-      fontSize="24px"
       fontWeight="bold"
-      sx={{ color: "var(--text-nav)" }}
+      sx={{ color: "var(--text-nav)", fontSize: { lg: "24px", xs: "18px" } }}
       textTransform="capitalize"
     >
       {item}

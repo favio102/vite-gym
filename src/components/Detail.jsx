@@ -30,8 +30,7 @@ const Detail = ({ exerciseDetail }) => {
 
   return (
     <Stack
-      gap="60px"
-      sx={{ flexDirection: { lg: "row" }, p: "20px", alignItems: "center" }}
+      sx={{ flexDirection: { lg: "row" }, p: { xs: "12px", sm: "20px" }, alignItems: "center", gap: { lg: "60px", xs: "30px" } }}
     >
       {gifUrl ? (
         <>
@@ -88,8 +87,9 @@ const Detail = ({ exerciseDetail }) => {
                   sx={{
                     background: "var(--detail-icon-bg)",
                     borderRadius: "50%",
-                    width: "100px",
-                    height: "100px",
+                    width: { lg: "100px", xs: "70px" },
+                    height: { lg: "100px", xs: "70px" },
+                    minWidth: "unset",
                   }}
                 >
                   <img
