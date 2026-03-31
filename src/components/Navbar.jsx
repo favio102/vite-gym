@@ -44,6 +44,8 @@ const Navbar = () => {
             color: "var(--accent)",
             lineHeight: 1.2,
             letterSpacing: "2px",
+            textShadow:
+              "2px 2px 8px rgba(0, 0, 0, 0.9), 0 0 16px rgba(0, 0, 0, 0.5)",
           }}
         >
           Titan
@@ -59,6 +61,8 @@ const Navbar = () => {
         sx={{
           gap: { xs: "8px", sm: "20px", md: "32px" },
           fontSize: { xs: "14px", sm: "18px", md: "24px" },
+          textShadow:
+            "2px 2px 8px rgba(0, 0, 0, 0.9), 0 0 16px rgba(0, 0, 0, 0.5)",
         }}
       >
         <Link
