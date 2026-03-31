@@ -1,5 +1,8 @@
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
-import { createTheme, ThemeProvider as MuiThemeProvider } from "@mui/material/styles";
+import {
+  createTheme,
+  ThemeProvider as MuiThemeProvider,
+} from "@mui/material/styles";
 
 const ThemeContext = createContext();
 
@@ -7,7 +10,7 @@ export const useThemeMode = () => useContext(ThemeContext);
 
 export const ThemeProvider = ({ children }) => {
   const [mode, setMode] = useState(() => {
-    return localStorage.getItem("theme") || "light";
+    return localStorage.getItem("theme") || "dark";
   });
 
   const toggleTheme = () => {
@@ -35,7 +38,7 @@ export const ThemeProvider = ({ children }) => {
           h6: { fontFamily: "'Bebas Neue', sans-serif" },
         },
       }),
-    [mode]
+    [mode],
   );
 
   return (

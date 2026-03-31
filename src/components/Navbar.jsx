@@ -13,11 +13,13 @@ const Navbar = () => {
       component="header"
       direction="row"
       alignItems="center"
+      justifyContent="space-between"
       sx={{
-        gap: { md: "122px", sm: "60px", xs: "16px" },
-        justifyContent: "space-between",
-        mt: { sm: "32px", xs: "20px" },
-        px: "20px",
+        mt: { sm: "32px", xs: "12px" },
+        px: { xs: "12px", sm: "20px" },
+        flexWrap: "wrap",
+        position: "relative",
+        zIndex: 10,
       }}
     >
       <Link
@@ -26,20 +28,19 @@ const Navbar = () => {
           textDecoration: "none",
           display: "flex",
           alignItems: "center",
-          gap: "12px",
-          margin: "0 20px",
+          gap: "8px",
         }}
       >
         <img
           src={Logo}
           alt="Titan Strength Logo"
-          style={{ width: "70px", height: "auto" }}
+          style={{ width: "48px", height: "48px" }}
         />
         <Typography
           fontWeight={700}
           sx={{
             fontFamily: "'Bebas Neue', sans-serif",
-            fontSize: { sm: "28px", xs: "20px" },
+            fontSize: { sm: "24px", xs: "18px" },
             color: "var(--accent)",
             lineHeight: 1.2,
             letterSpacing: "2px",
@@ -54,8 +55,11 @@ const Navbar = () => {
         component="nav"
         aria-label="Main navigation"
         direction="row"
-        sx={{ gap: { xs: "12px", sm: "24px", md: "40px" }, fontSize: { xs: "16px", sm: "20px", md: "24px" } }}
         alignItems="center"
+        sx={{
+          gap: { xs: "8px", sm: "20px", md: "32px" },
+          fontSize: { xs: "14px", sm: "18px", md: "24px" },
+        }}
       >
         <Link
           to="/"
@@ -74,7 +78,10 @@ const Navbar = () => {
         >
           Exercises
         </a>
-        <IconButton onClick={toggleTheme} sx={{ color: "var(--accent)" }}>
+        <IconButton
+          onClick={toggleTheme}
+          sx={{ color: "var(--accent)", p: { xs: "4px", sm: "8px" } }}
+        >
           {mode === "light" ? <DarkModeIcon /> : <LightModeIcon />}
         </IconButton>
       </Stack>

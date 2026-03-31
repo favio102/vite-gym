@@ -104,6 +104,7 @@ body {
   height: 900px;
   margin-top: -320px;
   border-bottom-left-radius: 50px;
+  pointer-events: none;
 }
 
 .exercise-card {
@@ -202,10 +203,6 @@ body {
   .left-arrow,
   .right-arrow {
     position: static !important;
-  }
-
-  .hero-banner-img {
-    display: none;
   }
 
   .exercise-card {

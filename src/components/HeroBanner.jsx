@@ -69,7 +69,13 @@ const HeroBanner = () => (
     >
       Exercise
     </Typography>
-    <img src={HeroBannerImage} alt="banner" className="hero-banner-img" />
+    <Box
+      component="img"
+      src={HeroBannerImage}
+      alt="banner"
+      className="hero-banner-img"
+      sx={{ display: { xs: "none", lg: "block" } }}
+    />
   </Box>
 );
 
