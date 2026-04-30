@@ -23,7 +23,6 @@ dist-ssr
 *.sln
 *.sw?
 .env
-package-lock.json
 
 # Claude Code config (kept out of the repo)
 .claude/
