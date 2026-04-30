@@ -3,9 +3,9 @@ import DarkModeIcon from "@mui/icons-material/DarkMode";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import { Link } from "react-router-dom";
 import Logo from "@/assets/images/logo1.png";
-import { useThemeMode } from "../context/ThemeContext";
+import { useThemeMode } from "../context/themeContext";
 
-const Navbar = () => {
+export const Navbar = () => {
   const { mode, toggleTheme } = useThemeMode();
 
   return (
@@ -93,4 +93,3 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;

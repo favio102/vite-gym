@@ -1,7 +1,7 @@
 import { Box, Stack, Typography } from "@mui/material";
-import Loader from "./Loader";
+import { Loader } from "./Loader";
 
-const ExerciseVideos = ({ exerciseVideos, name }) => (
+export const ExerciseVideos = ({ exerciseVideos, name }) => (
   <Box component="section" sx={{ marginTop: { lg: "20px", xs: "20px" } }} p="20px">
     <Typography
       component="h2"
@@ -55,4 +55,3 @@ const ExerciseVideos = ({ exerciseVideos, name }) => (
   </Box>
 );
 
-export default ExerciseVideos;

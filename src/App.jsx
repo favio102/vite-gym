@@ -2,15 +2,19 @@ import "./App.css";
 import { lazy, Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
 import { Box } from "@mui/material";
-import { ThemeProvider } from "./context/ThemeContext";
-import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";
-import Loader from "./components/Loader";
+import { ThemeProvider } from "./context/ThemeProvider";
+import { Navbar } from "./components/Navbar";
+import { Footer } from "./components/Footer";
+import { Loader } from "./components/Loader";
 
-const Home = lazy(() => import("./pages/Home"));
-const ExerciseDetail = lazy(() => import("./pages/ExerciseDetail"));
+const Home = lazy(() =>
+  import("./pages/Home").then((m) => ({ default: m.Home })),
+);
+const ExerciseDetail = lazy(() =>
+  import("./pages/ExerciseDetail").then((m) => ({ default: m.ExerciseDetail })),
+);
 
-function App() {
+export function App() {
   return (
     <ThemeProvider>
       <Box
@@ -32,4 +36,3 @@ function App() {
   );
 }
 
-export default App;

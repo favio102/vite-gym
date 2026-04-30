@@ -4,9 +4,9 @@ import { useNavigate } from "react-router-dom";
 import BodyPartImage from "@/assets/icons/body-part.png";
 import TargetImage from "@/assets/icons/target.png";
 import EquipmentImage from "@/assets/icons/equipment.png";
-import Loader from "./Loader";
+import { Loader } from "./Loader";
 
-const Detail = ({ exerciseDetail }) => {
+export const Detail = ({ exerciseDetail }) => {
   const navigate = useNavigate();
   const { bodyPart, gifUrl, name, target, equipment } = exerciseDetail;
 
@@ -115,4 +115,3 @@ const Detail = ({ exerciseDetail }) => {
   );
 };
 
-export default Detail;

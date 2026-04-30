@@ -2,10 +2,10 @@ import { Box, Stack, Typography } from "@mui/material";
 import Pagination from "@mui/material/Pagination";
 import { useEffect, useState } from "react";
 import { exerciseOptions, fetchData } from "../utils/fetchData";
-import ExerciseCard from "./ExerciseCard";
-import Loader from "./Loader";
+import { ExerciseCard } from "./ExerciseCard";
+import { Loader } from "./Loader";
 
-const Exercises = ({ exercises, setExercises, bodyPart }) => {
+export const Exercises = ({ exercises, setExercises, bodyPart }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [error, setError] = useState(null);
   const exercisesPage = 8;
@@ -110,4 +110,3 @@ const Exercises = ({ exercises, setExercises, bodyPart }) => {
   );
 };
 
-export default Exercises;

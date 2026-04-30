@@ -1,8 +1,8 @@
 import { useContext } from "react";
 import { ScrollMenu, VisibilityContext } from "react-horizontal-scrolling-menu";
 import { Box, Typography } from "@mui/material";
-import BodyPart from "./BodyPart";
-import ExerciseCard from "./ExerciseCard";
+import { BodyPart } from "./BodyPart";
+import { ExerciseCard } from "./ExerciseCard";
 import RightArrowIcon from "@/assets/icons/right-arrow.png";
 import LeftArrowIcon from "@/assets/icons/left-arrow.png";
 
@@ -26,7 +26,7 @@ const RightArrow = () => {
   );
 };
 
-const HorizontalScrollbar = ({
+export const HorizontalScrollbar = ({
   data,
   setBodyPart,
   bodyPart,
@@ -50,4 +50,3 @@ const HorizontalScrollbar = ({
   </ScrollMenu>
 );
 
-export default HorizontalScrollbar;

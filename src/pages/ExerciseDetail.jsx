@@ -2,11 +2,11 @@ import { Box } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { exerciseOptions, fetchData, youtubeOptions } from "../utils/fetchData";
-import Detail from "../components/Detail";
-import ExerciseVideos from "../components/ExerciseVideos";
-import SimilarExercises from "../components/SimilarExercises";
+import { Detail } from "../components/Detail";
+import { ExerciseVideos } from "../components/ExerciseVideos";
+import { SimilarExercises } from "../components/SimilarExercises";
 
-const ExerciseDetail = () => {
+export const ExerciseDetail = () => {
   const [exerciseDetail, setExerciseDetail] = useState({});
   const [exerciseVideos, setExerciseVideos] = useState([]);
   const [targetMuscleExercises, setTargetMuscleExercises] = useState([]);
@@ -65,4 +65,3 @@ const ExerciseDetail = () => {
   );
 };
 
-export default ExerciseDetail;

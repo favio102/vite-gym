@@ -1,7 +1,7 @@
 import { Box, Stack, Typography } from "@mui/material";
 import HeroBannerImage from "@/assets/images/banner.jpg";
 
-const HeroBanner = () => (
+export const HeroBanner = () => (
   <Box
     position="relative"
     sx={{
@@ -79,4 +79,3 @@ const HeroBanner = () => (
   </Box>
 );
 
-export default HeroBanner;

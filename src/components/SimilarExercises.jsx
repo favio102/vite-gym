@@ -1,8 +1,8 @@
 import { Box, Stack, Typography } from "@mui/material";
-import HorizontalScrollbar from "./HorizontalScrollbar";
-import Loader from "./Loader";
+import { HorizontalScrollbar } from "./HorizontalScrollbar";
+import { Loader } from "./Loader";
 
-const SimilarExercises = ({ targetMuscleExercises, equipmentExercise }) => (
+export const SimilarExercises = ({ targetMuscleExercises, equipmentExercise }) => (
   <Box component="section" sx={{ mt: { lg: "10px", xs: "0px" } }}>
     <Typography
       component="h2"
@@ -54,4 +54,3 @@ const SimilarExercises = ({ targetMuscleExercises, equipmentExercise }) => (
   </Box>
 );
 
-export default SimilarExercises;

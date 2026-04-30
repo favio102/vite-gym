@@ -5,7 +5,7 @@ import TwitterIcon from "@mui/icons-material/Twitter";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import Logo from "@/assets/images/logo1.png";
 
-const Footer = () => (
+export const Footer = () => (
   <Box component="footer" mt="80px" sx={{ bgcolor: "var(--bg-footer)" }}>
     <Stack alignItems="center" sx={{ px: { xs: "16px", sm: "24px", md: "40px" } }} pt="40px" pb="24px">
       {/* Logo + Brand */}
@@ -88,4 +88,3 @@ const Footer = () => (
   </Box>
 );
 
-export default Footer;

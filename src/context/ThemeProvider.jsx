@@ -1,12 +1,9 @@
-import { createContext, useContext, useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   createTheme,
   ThemeProvider as MuiThemeProvider,
 } from "@mui/material/styles";
-
-const ThemeContext = createContext();
-
-export const useThemeMode = () => useContext(ThemeContext);
+import { ThemeContext } from "./themeContext";
 
 export const ThemeProvider = ({ children }) => {
   const [mode, setMode] = useState(() => {
