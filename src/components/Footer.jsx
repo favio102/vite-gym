@@ -49,10 +49,14 @@ export const Footer = () => (
         }}
       />
 
-      {/* Social Links */}
+      {/* Social Links — TODO: replace href="#" with actual profile URLs */}
       <Stack direction="row" gap="8px" mb="20px">
         <IconButton
+          component="a"
+          href="#"
           aria-label="GitHub"
+          target="_blank"
+          rel="noopener noreferrer"
           sx={{
             color: "var(--text-secondary)",
             "&:hover": { color: "var(--accent)" },
@@ -61,7 +65,11 @@ export const Footer = () => (
           <GitHubIcon />
         </IconButton>
         <IconButton
+          component="a"
+          href="#"
           aria-label="Twitter"
+          target="_blank"
+          rel="noopener noreferrer"
           sx={{
             color: "var(--text-secondary)",
             "&:hover": { color: "var(--accent)" },
@@ -70,7 +78,11 @@ export const Footer = () => (
           <TwitterIcon />
         </IconButton>
         <IconButton
+          component="a"
+          href="#"
           aria-label="Instagram"
+          target="_blank"
+          rel="noopener noreferrer"
           sx={{
             color: "var(--text-secondary)",
             "&:hover": { color: "var(--accent)" },

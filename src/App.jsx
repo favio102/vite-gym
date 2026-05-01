@@ -21,6 +21,9 @@ export function App() {
         component="div"
         sx={{ width: { xs: "100%", xl: "1448px" }, mx: "auto" }}
       >
+        <a href="#main" className="skip-link">
+          Skip to main content
+        </a>
         <Navbar />
         <Box component="main" id="main">
           <Suspense fallback={<Loader />}>

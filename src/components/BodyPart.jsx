@@ -3,11 +3,18 @@ import Icon from "@/assets/icons/gym.png";
 
 export const BodyPart = ({ item, bodyPart, setBodyPart }) => (
   <Stack
+    component="button"
     type="button"
     alignItems="center"
     justifyContent="center"
     className="bodyPart-card"
+    aria-pressed={bodyPart === item}
     sx={{
+      // reset native <button> defaults
+      border: 0,
+      padding: 0,
+      font: "inherit",
+      color: "inherit",
       borderTop:
         bodyPart === item ? "4px solid var(--accent)" : "4px solid transparent",
       backgroundColor:
@@ -23,6 +30,10 @@ export const BodyPart = ({ item, bodyPart, setBodyPart }) => (
           bodyPart === item ? "var(--accent-light)" : "var(--bg-secondary)",
         transform: "translateY(-4px)",
       },
+      "&:focus-visible": {
+        outline: "2px solid var(--accent)",
+        outlineOffset: "2px",
+      },
     }}
     onClick={() => {
       setBodyPart(item);
@@ -33,6 +44,7 @@ export const BodyPart = ({ item, bodyPart, setBodyPart }) => (
   >
     <img src={Icon} alt="" style={{ width: "40px", height: "40px" }} />
     <Typography
+      component="span"
       fontWeight="bold"
       sx={{ color: "var(--text-nav)", fontSize: { lg: "24px", xs: "18px" } }}
       textTransform="capitalize"

@@ -87,6 +87,7 @@ export const SearchExercises = ({ setExercises, bodyPart, setBodyPart }) => {
           onKeyDown={(e) => e.key === "Enter" && handleSearch()}
           placeholder="Search Exercises"
           type="text"
+          inputProps={{ "aria-label": "Search exercises" }}
         />
         <Button
           className="search-btn"

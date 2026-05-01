@@ -84,6 +84,9 @@ export const Navbar = () => {
         </a>
         <IconButton
           onClick={toggleTheme}
+          aria-label={
+            mode === "light" ? "Switch to dark mode" : "Switch to light mode"
+          }
           sx={{ color: "var(--accent)", p: { xs: "4px", sm: "8px" } }}
         >
           {mode === "light" ? <DarkModeIcon /> : <LightModeIcon />}
