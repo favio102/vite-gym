@@ -1,20 +1,8 @@
-const apiKey = import.meta.env.VITE_APP_RAPID_API_KEY;
+export const EXERCISE_DB = "/api/exercisedb";
+export const YOUTUBE_SEARCH = "/api/youtube";
 
-export const exerciseOptions = {
-  method: "GET",
-  headers: {
-    "X-RapidAPI-Host": "exercisedb.p.rapidapi.com",
-    "X-RapidAPI-Key": apiKey,
-  },
-};
-
-export const youtubeOptions = {
-  method: "GET",
-  headers: {
-    "X-RapidAPI-Host": "youtube-search-and-download.p.rapidapi.com",
-    "X-RapidAPI-Key": apiKey,
-  },
-};
+export const exerciseOptions = { method: "GET" };
+export const youtubeOptions = { method: "GET" };
 
 const CACHE_DURATION = 24 * 60 * 60 * 1000; // 24 hours
 
@@ -43,7 +31,6 @@ const saveToCache = (url, data) => {
       JSON.stringify({ data, timestamp: Date.now() }),
     );
   } catch {
-    // localStorage full — clear old cache entries and retry
     clearExpiredCache();
   }
 };

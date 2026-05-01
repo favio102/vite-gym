@@ -19,4 +19,11 @@ module.exports = {
       { allowConstantExport: true },
     ],
   },
+  overrides: [
+    {
+      // server-side files: build config + Vercel edge functions
+      files: ['vite.config.js', 'api/**/*.{js,ts,jsx,tsx}'],
+      env: { node: true, browser: false },
+    },
+  ],
 }

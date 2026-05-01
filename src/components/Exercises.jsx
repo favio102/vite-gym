@@ -1,7 +1,7 @@
 import { Box, Stack, Typography } from "@mui/material";
 import Pagination from "@mui/material/Pagination";
 import { useEffect, useState } from "react";
-import { exerciseOptions, fetchData } from "../utils/fetchData";
+import { exerciseOptions, fetchData, EXERCISE_DB } from "../utils/fetchData";
 import { ExerciseCard } from "./ExerciseCard";
 import { Loader } from "./Loader";
 
@@ -17,12 +17,12 @@ export const Exercises = ({ exercises, setExercises, bodyPart }) => {
 
       if (bodyPart === "all") {
         exercisesData = await fetchData(
-          "https://exercisedb.p.rapidapi.com/exercises",
+          `${EXERCISE_DB}/exercises`,
           exerciseOptions,
         );
       } else {
         exercisesData = await fetchData(
-          `https://exercisedb.p.rapidapi.com/exercises/bodyPart/${bodyPart}`,
+          `${EXERCISE_DB}/exercises/bodyPart/${bodyPart}`,
           exerciseOptions,
         );
       }

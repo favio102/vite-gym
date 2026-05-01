@@ -1,7 +1,13 @@
 import { Box } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { exerciseOptions, fetchData, youtubeOptions } from "../utils/fetchData";
+import {
+  EXERCISE_DB,
+  YOUTUBE_SEARCH,
+  exerciseOptions,
+  fetchData,
+  youtubeOptions,
+} from "../utils/fetchData";
 import { Detail } from "../components/Detail";
 import { ExerciseVideos } from "../components/ExerciseVideos";
 import { SimilarExercises } from "../components/SimilarExercises";
@@ -15,12 +21,8 @@ export const ExerciseDetail = () => {
 
   useEffect(() => {
     const fetchExercisesData = async () => {
-      const exerciseDbUrl = "https://exercisedb.p.rapidapi.com";
-      const youtubeSearchUrl =
-        "https://youtube-search-and-download.p.rapidapi.com";
-
       const exerciseDetailData = await fetchData(
-        `${exerciseDbUrl}/exercises/exercise/${id}`,
+        `${EXERCISE_DB}/exercises/exercise/${id}`,
         exerciseOptions
       );
       if (!exerciseDetailData) return;
@@ -29,15 +31,15 @@ export const ExerciseDetail = () => {
       const [exerciseVideosData, targetMuscleExercisesData, equipmentExerciseData] =
         await Promise.all([
           fetchData(
-            `${youtubeSearchUrl}/search?query=${exerciseDetailData.name}`,
+            `${YOUTUBE_SEARCH}/search?query=${exerciseDetailData.name}`,
             youtubeOptions
           ),
           fetchData(
-            `${exerciseDbUrl}/exercises/target/${exerciseDetailData.target}`,
+            `${EXERCISE_DB}/exercises/target/${exerciseDetailData.target}`,
             exerciseOptions
           ),
           fetchData(
-            `${exerciseDbUrl}/exercises/equipment/${exerciseDetailData.equipment}`,
+            `${EXERCISE_DB}/exercises/equipment/${exerciseDetailData.equipment}`,
             exerciseOptions
           ),
         ]);
