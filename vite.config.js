@@ -14,7 +14,7 @@ export default defineConfig(({ mode }) => {
         "@": "/src",
       },
     },
-    base: "./",
+    base: "/",
     server: {
       proxy: {
         "/api/exercisedb": {
