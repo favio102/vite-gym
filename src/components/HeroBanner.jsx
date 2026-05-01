@@ -12,6 +12,22 @@ export const HeroBanner = () => (
       p: { xs: "16px", sm: "26px" },
     }}
   >
+    {/* Mobile hero — full-width banner shown only below the lg breakpoint */}
+    <Box
+      component="img"
+      src={HeroBannerImage}
+      alt=""
+      width={900}
+      height={1350}
+      sx={{
+        display: { xs: "block", lg: "none" },
+        width: "100%",
+        height: { xs: "200px", sm: "280px" },
+        objectFit: "cover",
+        borderRadius: "12px",
+        mb: 3,
+      }}
+    />
     <Typography
       sx={{ color: "var(--accent)", fontSize: { xs: "20px", sm: "26px" } }}
       fontWeight="600"

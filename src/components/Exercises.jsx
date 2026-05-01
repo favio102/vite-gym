@@ -1,10 +1,11 @@
-import { Box, Skeleton, Stack, Typography } from "@mui/material";
+import { Box, Button, Skeleton, Stack, Typography } from "@mui/material";
 import Pagination from "@mui/material/Pagination";
+import SearchOffIcon from "@mui/icons-material/SearchOff";
 import { useEffect, useState } from "react";
 import { exerciseOptions, fetchData, EXERCISE_DB } from "../utils/fetchData";
 import { ExerciseCard } from "./ExerciseCard";
 
-export const Exercises = ({ exercises, setExercises, bodyPart }) => {
+export const Exercises = ({ exercises, setExercises, bodyPart, setBodyPart }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [error, setError] = useState(null);
   const exercisesPage = 8;
@@ -102,12 +103,45 @@ export const Exercises = ({ exercises, setExercises, bodyPart }) => {
           ))}
         </Stack>
       ) : currentExercises.length === 0 ? (
-        <Typography
-          variant="h6"
-          sx={{ color: "var(--text-secondary)", textAlign: "center", mt: 4 }}
-        >
-          No exercises found. Try a different search or body part.
-        </Typography>
+        <Stack alignItems="center" sx={{ gap: 2, py: 8 }}>
+          <SearchOffIcon
+            sx={{ fontSize: 96, color: "var(--text-secondary)", opacity: 0.4 }}
+          />
+          <Typography
+            variant="h5"
+            component="p"
+            sx={{ color: "var(--text-primary)", textAlign: "center" }}
+          >
+            No exercises found
+          </Typography>
+          <Typography
+            sx={{
+              color: "var(--text-secondary)",
+              textAlign: "center",
+              maxWidth: 400,
+            }}
+          >
+            Try a different search term or pick another body part.
+          </Typography>
+          {setBodyPart && bodyPart !== "all" && (
+            <Button
+              variant="outlined"
+              onClick={() => setBodyPart("all")}
+              sx={{
+                mt: 1,
+                borderColor: "var(--accent)",
+                color: "var(--accent)",
+                textTransform: "none",
+                "&:hover": {
+                  borderColor: "var(--accent)",
+                  bgcolor: "rgba(255, 38, 37, 0.08)",
+                },
+              }}
+            >
+              Browse all exercises
+            </Button>
+          )}
+        </Stack>
       ) : (
         <>
           <Stack

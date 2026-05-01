@@ -37,31 +37,38 @@ export const SearchExercises = ({ setExercises, bodyPart, setBodyPart }) => {
     fetchBodyPartsData();
   }, []);
 
-  const handleSearch = async () => {
-    if (search) {
-      setError(null);
-      const exercisesData = await fetchData(
-        `${EXERCISE_DB}/exercises`,
-        exerciseOptions,
+  const runSearch = async (term) => {
+    if (!term) return;
+    setError(null);
+    const exercisesData = await fetchData(
+      `${EXERCISE_DB}/exercises`,
+      exerciseOptions,
+    );
+
+    if (exercisesData) {
+      const searchedExercises = exercisesData.filter(
+        (item) =>
+          item.name.toLowerCase().includes(term) ||
+          item.target.toLowerCase().includes(term) ||
+          item.equipment.toLowerCase().includes(term) ||
+          item.bodyPart.toLowerCase().includes(term),
       );
-
-      if (exercisesData) {
-        const searchedExercises = exercisesData.filter(
-          (item) =>
-            item.name.toLowerCase().includes(search) ||
-            item.target.toLowerCase().includes(search) ||
-            item.equipment.toLowerCase().includes(search) ||
-            item.bodyPart.toLowerCase().includes(search),
-        );
-
-        setSearch("");
-        setExercises(searchedExercises);
-      } else {
-        setError("No results. Please try again later.");
-        setExercises([]);
-      }
+      setExercises(searchedExercises);
+    } else {
+      setError("No results. Please try again later.");
+      setExercises([]);
     }
   };
+
+  const handleSearch = () => runSearch(search);
+
+  // debounced live search — 400ms after the user stops typing
+  useEffect(() => {
+    if (!search) return;
+    const timer = setTimeout(() => runSearch(search), 400);
+    return () => clearTimeout(timer);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [search]);
 
   return (
     <Stack
