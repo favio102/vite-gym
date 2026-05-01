@@ -61,7 +61,8 @@ export const HeroBanner = () => (
           px: 4,
           py: 1.5,
           textDecoration: "none",
-          width: { xs: "160px", sm: "200px" },
+          width: { xs: "100%", sm: "240px" },
+          maxWidth: { xs: "320px", sm: "240px" },
           textAlign: "center",
           background: "var(--accent)",
           fontFamily: "'Bebas Neue', sans-serif",
@@ -76,6 +77,10 @@ export const HeroBanner = () => (
             background: "var(--accent-dark)",
             transform: "translateY(-2px)",
             boxShadow: "0 8px 16px rgba(255, 38, 37, 0.25)",
+          },
+          "&:active": {
+            transform: "translateY(0)",
+            transitionDuration: "0.1s",
           },
         }}
       >

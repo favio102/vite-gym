@@ -87,7 +87,12 @@ export const Navbar = () => {
           aria-label={
             mode === "light" ? "Switch to dark mode" : "Switch to light mode"
           }
-          sx={{ color: "var(--accent)", p: { xs: "4px", sm: "8px" } }}
+          sx={{
+            color: "var(--accent)",
+            p: { xs: "4px", sm: "8px" },
+            transition: "transform 0.4s ease-out",
+            "&:hover": { transform: "rotate(180deg)" },
+          }}
         >
           {mode === "light" ? <DarkModeIcon /> : <LightModeIcon />}
         </IconButton>

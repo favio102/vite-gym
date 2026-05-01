@@ -20,15 +20,19 @@ export const BodyPart = ({ item, bodyPart, setBodyPart }) => (
       backgroundColor:
         bodyPart === item ? "var(--accent-light)" : "var(--card-bg)",
       borderBottomLeftRadius: "20px",
-      width: { lg: "270px", xs: "200px" },
-      height: { lg: "280px", xs: "220px" },
+      width: { lg: "270px", sm: "200px", xs: "140px" },
+      height: { lg: "280px", sm: "220px", xs: "150px" },
       cursor: "pointer",
-      gap: "47px",
+      gap: { lg: "47px", sm: "32px", xs: "16px" },
       transition: "all 0.2s ease-out",
       "&:hover": {
         backgroundColor:
           bodyPart === item ? "var(--accent-light)" : "var(--bg-secondary)",
         transform: "translateY(-4px)",
+      },
+      "&:active": {
+        transform: "translateY(-1px)",
+        transitionDuration: "0.1s",
       },
       "&:focus-visible": {
         outline: "2px solid var(--accent)",

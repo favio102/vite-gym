@@ -61,10 +61,28 @@ export const Exercises = ({ exercises, setExercises, bodyPart, setBodyPart }) =>
       <Typography
         variant="h3"
         component="h2"
-        sx={{ fontSize: { lg: "44px", xs: "30px" } }}
+        sx={{
+          fontSize: { lg: "44px", xs: "30px" },
+          textTransform: bodyPart === "all" ? "none" : "capitalize",
+        }}
         mb="46px"
       >
-        Showing Results
+        {bodyPart === "all" ? "All exercises" : `${bodyPart} exercises`}
+        {exercises.length > 0 && (
+          <Typography
+            component="span"
+            sx={{
+              color: "var(--text-secondary)",
+              ml: 2,
+              fontSize: "0.5em",
+              fontWeight: 400,
+              textTransform: "none",
+              verticalAlign: "middle",
+            }}
+          >
+            ({exercises.length})
+          </Typography>
+        )}
       </Typography>
       {error ? (
         <Typography variant="h6" color="error" role="alert">
