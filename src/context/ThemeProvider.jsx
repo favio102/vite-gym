@@ -27,12 +27,11 @@ export const ThemeProvider = ({ children }) => {
         },
         typography: {
           fontFamily: "'Barlow', sans-serif",
+          // Bebas Neue is a tall condensed display font — looks great at h1/h2
+          // size but disproportionate at smaller heading sizes. Limit to true
+          // page titles; let h3-h6 use Barlow with weight variation for hierarchy.
           h1: { fontFamily: "'Bebas Neue', sans-serif" },
           h2: { fontFamily: "'Bebas Neue', sans-serif" },
-          h3: { fontFamily: "'Bebas Neue', sans-serif" },
-          h4: { fontFamily: "'Bebas Neue', sans-serif" },
-          h5: { fontFamily: "'Bebas Neue', sans-serif" },
-          h6: { fontFamily: "'Bebas Neue', sans-serif" },
         },
       }),
     [mode],

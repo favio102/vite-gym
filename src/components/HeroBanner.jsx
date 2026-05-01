@@ -57,36 +57,31 @@ export const HeroBanner = () => (
         component="a"
         href="#exercises"
         sx={{
-          mt: "45px",
+          mt: "32px",
+          px: 4,
+          py: 1.5,
           textDecoration: "none",
           width: { xs: "160px", sm: "200px" },
           textAlign: "center",
           background: "var(--accent)",
-          p: { xs: "10px", sm: "14px" },
           fontFamily: "'Bebas Neue', sans-serif",
           fontSize: { xs: "18px", sm: "22px" },
-          letterSpacing: "2px",
-          textTransform: "none",
+          letterSpacing: "1.5px",
           color: "white",
-          borderRadius: "4px",
+          borderRadius: "8px",
           display: "inline-block",
+          transition:
+            "background 0.2s ease-out, transform 0.2s ease-out, box-shadow 0.2s ease-out",
+          "&:hover": {
+            background: "var(--accent-dark)",
+            transform: "translateY(-2px)",
+            boxShadow: "0 8px 16px rgba(255, 38, 37, 0.25)",
+          },
         }}
       >
         Explore Exercises
       </Box>
     </Stack>
-    <Typography
-      fontWeight={600}
-      sx={{
-        fontFamily: "'Bebas Neue', sans-serif",
-        color: "var(--accent)",
-        opacity: 0.1,
-        display: { lg: "block", xs: "none" },
-        fontSize: "200px",
-      }}
-    >
-      Exercise
-    </Typography>
     <Box
       component="img"
       src={HeroBannerImage}

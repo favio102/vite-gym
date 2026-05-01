@@ -16,17 +16,19 @@ const ExerciseCardImpl = ({ exercise }) => (
         label={exercise.bodyPart}
         sx={{
           color: "#fff",
-          bgcolor: "var(--accent-light)",
+          bgcolor: "var(--accent)",
           fontSize: "14px",
+          fontWeight: 600,
           textTransform: "capitalize",
         }}
       />
       <Chip
         label={exercise.target}
         sx={{
-          color: "#fff",
-          bgcolor: "var(--badge-yellow)",
+          color: "var(--chip-secondary-text)",
+          bgcolor: "var(--chip-secondary-bg)",
           fontSize: "14px",
+          fontWeight: 600,
           textTransform: "capitalize",
         }}
       />
