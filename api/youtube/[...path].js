@@ -3,7 +3,10 @@ export const config = { runtime: "edge" };
 export default async function handler(req) {
   const url = new URL(req.url);
   const subpath = url.pathname.replace(/^\/api\/youtube\/?/, "");
-  const target = `https://youtube-search-and-download.p.rapidapi.com/${subpath}${url.search}`;
+  const params = new URLSearchParams(url.search);
+  params.delete("...path");
+  const search = params.toString();
+  const target = `https://youtube-search-and-download.p.rapidapi.com/${subpath}${search ? `?${search}` : ""}`;
 
   const upstream = await fetch(target, {
     headers: {

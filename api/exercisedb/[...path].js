@@ -3,7 +3,10 @@ export const config = { runtime: "edge" };
 export default async function handler(req) {
   const url = new URL(req.url);
   const subpath = url.pathname.replace(/^\/api\/exercisedb\/?/, "");
-  const target = `https://exercisedb.p.rapidapi.com/${subpath}${url.search}`;
+  const params = new URLSearchParams(url.search);
+  params.delete("...path"); // Vercel adds the catch-all segments as a query param; upstream rejects unknown keys
+  const search = params.toString();
+  const target = `https://exercisedb.p.rapidapi.com/${subpath}${search ? `?${search}` : ""}`;
 
   const upstream = await fetch(target, {
     headers: {
