@@ -1,9 +1,8 @@
-import { Box, Stack, Typography } from "@mui/material";
+import { Box, Skeleton, Stack, Typography } from "@mui/material";
 import Pagination from "@mui/material/Pagination";
 import { useEffect, useState } from "react";
 import { exerciseOptions, fetchData, EXERCISE_DB } from "../utils/fetchData";
 import { ExerciseCard } from "./ExerciseCard";
-import { Loader } from "./Loader";
 
 export const Exercises = ({ exercises, setExercises, bodyPart }) => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -71,7 +70,37 @@ export const Exercises = ({ exercises, setExercises, bodyPart }) => {
           {error}
         </Typography>
       ) : !exercises.length ? (
-        <Loader />
+        <Stack
+          direction="row"
+          sx={{ gap: { lg: "80px", md: "40px", sm: "24px", xs: "16px" } }}
+          flexWrap="wrap"
+          justifyContent="center"
+        >
+          {Array.from({ length: 8 }).map((_, i) => (
+            <Box
+              key={`skeleton-${i}`}
+              sx={{
+                width: 400,
+                maxWidth: "100%",
+                borderTop: "4px solid var(--accent)",
+                borderBottomLeftRadius: "20px",
+                background: "var(--card-bg)",
+                pb: "10px",
+              }}
+            >
+              <Skeleton variant="rectangular" width="100%" height={326} />
+              <Stack direction="row" gap="8px" sx={{ ml: "21px", mt: "12px" }}>
+                <Skeleton variant="rounded" width={80} height={32} />
+                <Skeleton variant="rounded" width={80} height={32} />
+              </Stack>
+              <Skeleton
+                variant="text"
+                width="60%"
+                sx={{ ml: "21px", mt: "11px", fontSize: { lg: "24px", xs: "20px" } }}
+              />
+            </Box>
+          ))}
+        </Stack>
       ) : currentExercises.length === 0 ? (
         <Typography
           variant="h6"

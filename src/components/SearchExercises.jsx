@@ -1,4 +1,14 @@
-import { Box, Button, Stack, TextField, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  IconButton,
+  InputAdornment,
+  Stack,
+  TextField,
+  Typography,
+} from "@mui/material";
+import SearchIcon from "@mui/icons-material/Search";
+import ClearIcon from "@mui/icons-material/Clear";
 import { useEffect, useState } from "react";
 import { fetchData, exerciseOptions, EXERCISE_DB } from "../utils/fetchData";
 import { HorizontalScrollbar } from "./HorizontalScrollbar";
@@ -88,6 +98,27 @@ export const SearchExercises = ({ setExercises, bodyPart, setBodyPart }) => {
           placeholder="Search Exercises"
           type="text"
           inputProps={{ "aria-label": "Search exercises" }}
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <SearchIcon sx={{ color: "var(--text-secondary)", ml: 1 }} />
+              </InputAdornment>
+            ),
+            endAdornment: search ? (
+              <InputAdornment
+                position="end"
+                sx={{ mr: { lg: "180px", md: "145px", xs: "85px" } }}
+              >
+                <IconButton
+                  onClick={() => setSearch("")}
+                  aria-label="Clear search"
+                  size="small"
+                >
+                  <ClearIcon />
+                </IconButton>
+              </InputAdornment>
+            ) : null,
+          }}
         />
         <Button
           className="search-btn"

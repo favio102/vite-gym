@@ -1,5 +1,5 @@
 import { memo } from "react";
-import { Button, Stack, Typography } from "@mui/material";
+import { Chip, Stack, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 
 const ExerciseCardImpl = ({ exercise }) => (
@@ -11,31 +11,25 @@ const ExerciseCardImpl = ({ exercise }) => (
       height={360}
       loading="lazy"
     />
-    <Stack direction="row">
-      <Button
+    <Stack direction="row" gap="8px" sx={{ ml: "21px", mt: "12px" }}>
+      <Chip
+        label={exercise.bodyPart}
         sx={{
-          ml: "21px",
           color: "#fff",
-          background: "var(--accent-light)",
+          bgcolor: "var(--accent-light)",
           fontSize: "14px",
-          borderRadius: "20px",
           textTransform: "capitalize",
         }}
-      >
-        {exercise.bodyPart}
-      </Button>
-      <Button
+      />
+      <Chip
+        label={exercise.target}
         sx={{
-          ml: "21px",
           color: "#fff",
-          background: "var(--badge-yellow)",
+          bgcolor: "var(--badge-yellow)",
           fontSize: "14px",
-          borderRadius: "20px",
           textTransform: "capitalize",
         }}
-      >
-        {exercise.target}
-      </Button>
+      />
     </Stack>
     <Typography
       ml="21px"
