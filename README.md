@@ -1,4 +1,4 @@
-# Steel Warriors GYM
+# Titan Strength
 
 > **Your ultimate fitness companion for discovering and mastering exercises**
 
@@ -6,7 +6,7 @@ A modern, responsive fitness web application that helps users explore, search, a
 
 ## 🎯 Project Description
 
-Steel Warriors GYM is a comprehensive exercise discovery platform that combines the strength of warriors and steel. Built with React and Vite, this application provides users with access to a vast database of exercises, allowing them to search by name, target muscle, equipment, or body part. Each exercise comes with detailed information, animated GIFs, related YouTube tutorial videos, and similar exercise recommendations.
+Titan Strength is a comprehensive exercise discovery platform built with React and Vite. It gives users access to a vast database of exercises, with search by name, target muscle, equipment, or body part. Each exercise comes with detailed information, animated GIFs, related YouTube tutorial videos, and similar-exercise recommendations.
 
 ### ✨ Key Features
 
@@ -23,7 +23,7 @@ Steel Warriors GYM is a comprehensive exercise discovery platform that combines 
 
 ### Core Technologies
 - **React** `^18.2.0` - JavaScript library for building user interfaces
-- **Vite** `^5.2.0` - Next-generation frontend build tool
+- **Vite** `^8.0.10` - Next-generation frontend build tool
 - **React Router DOM** `^6.3.0` - Declarative routing for React applications
 
 ### UI Framework & Styling
@@ -32,7 +32,6 @@ Steel Warriors GYM is a comprehensive exercise discovery platform that combines 
   - `@mui/icons-material` - Material Design icons
   - `@emotion/react` `^11.9.0` - CSS-in-JS styling
   - `@emotion/styled` `^11.8.1` - Styled components
-- **Tailwind CSS** `^3.4.4` - Utility-first CSS framework
 - **PostCSS** `^8.4.39` - CSS transformation tool
 - **Autoprefixer** `^10.4.19` - CSS vendor prefixing
 
@@ -81,7 +80,6 @@ vite-gym/
 │   └── main.jsx           # Application entry point
 ├── index.html             # HTML template
 ├── vite.config.js         # Vite configuration
-├── tailwind.config.js     # Tailwind CSS configuration
 ├── postcss.config.js      # PostCSS configuration
 ├── .eslintrc.cjs          # ESLint configuration
 ├── package.json           # Project dependencies and scripts
@@ -224,10 +222,6 @@ The project uses Vite for fast development and optimized builds. Key configurati
 - **Path Alias:** `@` points to `/src` for cleaner imports
 - **Base Path:** `./` for relative asset paths
 
-### Tailwind CSS
-
-Tailwind is configured to scan all JSX/TSX files in the `src/` directory and `index.html`.
-
 ### ESLint
 
 ESLint is configured with React-specific rules:
@@ -248,7 +242,7 @@ Error handling includes:
 
 ## 🤝 Contributing
 
-We welcome contributions from the community! Here's how you can help improve Steel Warriors GYM:
+We welcome contributions from the community! Here's how you can help improve Titan Strength:
 
 1. **Open an Issue or Feature Request**
    - Before making changes, open an issue to discuss your proposed changes
@@ -292,8 +286,7 @@ This project is open source and available for educational and personal use.
 - Video content sourced via [YouTube Search API](https://rapidapi.com/h0p3rwe/api/youtube-search-and-download)
 - Built with [React](https://react.dev/) and [Vite](https://vitejs.dev/)
 - UI components from [Material-UI](https://mui.com/)
-- Styling with [Tailwind CSS](https://tailwindcss.com/)
 
 ---
 
-**Powered by Steel Warriors GYM** - *Combines strength of warriors and steel*
+**Powered by Titan Strength** - *Unleash your inner titan*
