@@ -1,7 +1,8 @@
+import { memo } from "react";
 import { Button, Stack, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 
-export const ExerciseCard = ({ exercise }) => (
+const ExerciseCardImpl = ({ exercise }) => (
   <Link className="exercise-card" to={`/exercise/${exercise.id}`}>
     <img
       src={exercise.gifUrl}
@@ -49,4 +50,6 @@ export const ExerciseCard = ({ exercise }) => (
     </Typography>
   </Link>
 );
+
+export const ExerciseCard = memo(ExerciseCardImpl);
 

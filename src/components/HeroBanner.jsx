@@ -1,5 +1,7 @@
 import { Box, Stack, Typography } from "@mui/material";
-import HeroBannerImage from "@/assets/images/banner.webp";
+
+// served from /public/ so we can preload it via index.html for faster LCP
+const HeroBannerImage = "/banner.webp";
 
 export const HeroBanner = () => (
   <Box

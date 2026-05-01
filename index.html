@@ -37,6 +37,9 @@
       content="Discover 1000+ exercises with video tutorials. Search by muscle group, equipment, or exercise name."
     />
 
+    <!-- LCP optimization: preload the hero banner so it starts loading before the JS bundle parses -->
+    <link rel="preload" as="image" href="/banner.webp" type="image/webp" />
+
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

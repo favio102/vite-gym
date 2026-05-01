@@ -1,10 +1,10 @@
 import { useContext } from "react";
 import { ScrollMenu, VisibilityContext } from "react-horizontal-scrolling-menu";
 import { Box } from "@mui/material";
+import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
+import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import { BodyPart } from "./BodyPart";
 import { ExerciseCard } from "./ExerciseCard";
-import RightArrowIcon from "@/assets/icons/right-arrow.png";
-import LeftArrowIcon from "@/assets/icons/left-arrow.png";
 
 const LeftArrow = () => {
   const { scrollPrev } = useContext(VisibilityContext);
@@ -16,7 +16,7 @@ const LeftArrow = () => {
       className="right-arrow"
       aria-label="Scroll left"
     >
-      <img src={LeftArrowIcon} alt="" />
+      <KeyboardArrowLeftIcon fontSize="large" />
     </button>
   );
 };
@@ -31,7 +31,7 @@ const RightArrow = () => {
       className="left-arrow"
       aria-label="Scroll right"
     >
-      <img src={RightArrowIcon} alt="" />
+      <KeyboardArrowRightIcon fontSize="large" />
     </button>
   );
 };

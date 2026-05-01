@@ -24,9 +24,9 @@ export const ExerciseVideos = ({ exerciseVideos, name }) => (
         alignItems="center"
         sx={{ flexDirection: { lg: "row" }, gap: { lg: "80px", md: "40px", sm: "24px", xs: "24px" } }}
       >
-        {exerciseVideos?.slice(0, 3)?.map((item, index) => (
+        {exerciseVideos?.slice(0, 3)?.map((item) => (
           <a
-            key={index}
+            key={item.video.videoId}
             className="exercise-video"
             href={`https://www.youtube.com/watch?v=${item.video.videoId}`}
             target="_blank"
