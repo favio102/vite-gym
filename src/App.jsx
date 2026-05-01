@@ -19,7 +19,7 @@ export function App() {
     <ThemeProvider>
       <Box
         component="div"
-        sx={{ width: { xs: "100%", xl: "1448px" }, mx: "auto" }}
+        sx={{ maxWidth: "1284px", width: "100%", mx: "auto" }}
       >
         <a href="#main" className="skip-link">
           Skip to main content
