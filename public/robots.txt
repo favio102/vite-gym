@@ -2,4 +2,5 @@ User-agent: *
 Allow: /
 Disallow: /api/
 
-Sitemap: https://titanstrength.com/sitemap.xml
+# Current deployment URL. Update if this site moves to a custom domain.
+Sitemap: https://steel-warriors-gym.vercel.app/sitemap.xml
