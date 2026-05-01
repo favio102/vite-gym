@@ -15,6 +15,11 @@ export default defineConfig(({ mode }) => {
       },
     },
     base: "/",
+    define: {
+      // some npm packages (e.g. react-horizontal-scrolling-menu) reference Node's `global`,
+      // which doesn't exist in the browser; alias to the standard browser/Node equivalent
+      global: "globalThis",
+    },
     server: {
       proxy: {
         "/api/exercisedb": {
