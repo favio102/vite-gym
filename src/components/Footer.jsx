@@ -20,7 +20,8 @@ export const Footer = () => (
             letterSpacing: "2px",
           }}
         >
-          Titan <span style={{ color: "var(--text-nav)" }}>Strength</span>
+          Titan{" "}
+          <span style={{ color: "var(--text-primary)" }}>Strength</span>
         </Typography>
       </Stack>
 

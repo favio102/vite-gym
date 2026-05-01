@@ -4,7 +4,6 @@
   --bg-footer: #f5f5f5;
   --text-primary: #18181b;
   --text-secondary: #6b7280;
-  --text-nav: #ffffff;
   --accent: #ff2625;
   --accent-light: #ffd5d5;
   --accent-dark: #c41a18;
@@ -24,7 +23,6 @@
   --bg-footer: #18181b;
   --text-primary: #f4f4f5;
   --text-secondary: #a1a1aa;
-  --text-nav: #f4f4f5;
   --accent: #ff2625;
   --accent-light: #4a1414;
   --accent-dark: #ff5050;
@@ -199,8 +197,7 @@ body {
 }
 
 .search-btn:hover {
-  color: var(--accent) !important;
-  border: 1px solid var(--accent) !important;
+  background-color: var(--accent-dark) !important;
 }
 
 .exercise-video {

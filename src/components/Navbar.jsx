@@ -44,13 +44,15 @@ export const Navbar = () => {
             color: "var(--accent)",
             lineHeight: 1.2,
             letterSpacing: "2px",
+            // halo in page-bg color — invisible on clean bg, creates readable
+            // outline when navbar overlaps the hero image (desktop)
             textShadow:
-              "2px 2px 8px rgba(0, 0, 0, 0.9), 0 0 16px rgba(0, 0, 0, 0.5)",
+              "0 0 8px var(--bg-primary), 0 0 4px var(--bg-primary)",
           }}
         >
           Titan
           <br />
-          <span style={{ color: "var(--text-nav)" }}>Strength</span>
+          <span style={{ color: "var(--text-primary)" }}>Strength</span>
         </Typography>
       </Link>
       <Stack
@@ -62,14 +64,14 @@ export const Navbar = () => {
           gap: { xs: "8px", sm: "20px", md: "32px" },
           fontSize: { xs: "14px", sm: "18px", md: "24px" },
           textShadow:
-            "2px 2px 8px rgba(0, 0, 0, 0.9), 0 0 16px rgba(0, 0, 0, 0.5)",
+            "0 0 8px var(--bg-primary), 0 0 4px var(--bg-primary)",
         }}
       >
         <Link
           to="/"
           style={{
             textDecoration: "none",
-            color: "var(--text-nav)",
+            color: "var(--text-primary)",
             borderBottom: "3px solid var(--accent)",
           }}
         >
@@ -78,7 +80,7 @@ export const Navbar = () => {
         <a
           href="#exercises"
           className="nav-link"
-          style={{ textDecoration: "none", color: "var(--text-nav)" }}
+          style={{ textDecoration: "none", color: "var(--text-primary)" }}
         >
           Exercises
         </a>

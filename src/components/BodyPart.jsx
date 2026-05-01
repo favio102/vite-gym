@@ -50,7 +50,7 @@ export const BodyPart = ({ item, bodyPart, setBodyPart }) => (
     <Typography
       component="span"
       fontWeight="bold"
-      sx={{ color: "var(--text-nav)", fontSize: { lg: "24px", xs: "18px" } }}
+      sx={{ color: "var(--text-primary)", fontSize: { lg: "24px", xs: "18px" } }}
       textTransform="capitalize"
     >
       {item}
