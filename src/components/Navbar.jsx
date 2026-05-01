@@ -2,7 +2,7 @@ import { IconButton, Stack, Typography } from "@mui/material";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import { Link } from "react-router-dom";
-import Logo from "@/assets/images/logo1.png";
+import Logo from "@/assets/images/logo1.webp";
 import { useThemeMode } from "../context/themeContext";
 
 export const Navbar = () => {

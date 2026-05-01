@@ -3,7 +3,7 @@ import FitnessCenterIcon from "@mui/icons-material/FitnessCenter";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import InstagramIcon from "@mui/icons-material/Instagram";
-import Logo from "@/assets/images/logo1.png";
+import Logo from "@/assets/images/logo1.webp";
 
 export const Footer = () => (
   <Box component="footer" mt="80px" sx={{ bgcolor: "var(--bg-footer)" }}>
