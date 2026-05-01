@@ -20,6 +20,16 @@ export const ExerciseDetail = () => {
   const { id } = useParams();
 
   useEffect(() => {
+    // Reset to top of page and clear stale data so the user sees the new
+    // exercise from the start (with skeletons) instead of landing mid-page
+    // on the previous exercise's content. `behavior: "instant"` overrides
+    // the global `html { scroll-behavior: smooth }` for this jump.
+    window.scrollTo({ top: 0, behavior: "instant" });
+    setExerciseDetail({});
+    setExerciseVideos([]);
+    setTargetMuscleExercises([]);
+    setEquipmentExercise([]);
+
     const fetchExercisesData = async () => {
       const exerciseDetailData = await fetchData(
         `${EXERCISE_DB}/exercises/exercise/${id}`,
