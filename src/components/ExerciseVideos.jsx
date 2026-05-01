@@ -35,6 +35,9 @@ export const ExerciseVideos = ({ exerciseVideos, name }) => (
             <img
               src={item.video.thumbnails[0].url}
               alt={item.video.title}
+              width={item.video.thumbnails[0].width || 480}
+              height={item.video.thumbnails[0].height || 360}
+              loading="lazy"
               style={{ borderTopLeftRadius: "20px" }}
             />
             <Box>

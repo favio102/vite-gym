@@ -11,7 +11,7 @@ const LeftArrow = () => {
 
   return (
     <Typography onClick={() => scrollPrev()} className="right-arrow">
-      <img src={LeftArrowIcon} alt="right-arrow" />
+      <img src={LeftArrowIcon} alt="Scroll left" />
     </Typography>
   );
 };
@@ -21,7 +21,7 @@ const RightArrow = () => {
 
   return (
     <Typography onClick={() => scrollNext()} className="left-arrow">
-      <img src={RightArrowIcon} alt="right-arrow" />
+      <img src={RightArrowIcon} alt="Scroll right" />
     </Typography>
   );
 };

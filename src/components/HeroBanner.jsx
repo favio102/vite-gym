@@ -72,7 +72,9 @@ export const HeroBanner = () => (
     <Box
       component="img"
       src={HeroBannerImage}
-      alt="banner"
+      alt="Fitness training"
+      width={900}
+      height={1350}
       className="hero-banner-img"
       sx={{ display: { xs: "none", lg: "block" } }}
     />

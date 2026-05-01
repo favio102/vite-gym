@@ -52,6 +52,8 @@ export const Detail = ({ exerciseDetail }) => {
             <img
               src={gifUrl}
               alt={name}
+              width={360}
+              height={360}
               loading="lazy"
               className="detail-image"
             />

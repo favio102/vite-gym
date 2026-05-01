@@ -31,7 +31,7 @@ export const BodyPart = ({ item, bodyPart, setBodyPart }) => (
         ?.scrollIntoView({ behavior: "smooth" });
     }}
   >
-    <img src={Icon} alt="dumbbell" style={{ width: "40px", height: "40px" }} />
+    <img src={Icon} alt="" style={{ width: "40px", height: "40px" }} />
     <Typography
       fontWeight="bold"
       sx={{ color: "var(--text-nav)", fontSize: { lg: "24px", xs: "18px" } }}
