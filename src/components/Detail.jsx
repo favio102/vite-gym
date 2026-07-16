@@ -1,12 +1,25 @@
-import { Box, Button, Chip, Skeleton, Stack, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Chip,
+  IconButton,
+  Skeleton,
+  Stack,
+  Typography,
+} from "@mui/material";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import { useNavigate } from "react-router-dom";
 import BodyPartImage from "@/assets/icons/body-part.png";
 import TargetImage from "@/assets/icons/target.png";
 import EquipmentImage from "@/assets/icons/equipment.png";
+import { useFavorites } from "../context/favoritesContext";
 
 export const Detail = ({ exerciseDetail }) => {
   const navigate = useNavigate();
+  const { isFavorite, toggleFavorite } = useFavorites();
+  const favorite = isFavorite(exerciseDetail.id);
   const {
     bodyPart,
     gifUrl,
@@ -56,24 +69,59 @@ export const Detail = ({ exerciseDetail }) => {
                 Back
               </Button>
               {/* 850x567 = the 3:2 intrinsic size of the free-exercise-db
-                  photos — reserves the right space before the image loads */}
-              <img
-                src={gifUrl}
-                alt={name}
-                width={850}
-                height={567}
-                className="detail-image"
-              />
+                  photos — reserves the right space before the image loads.
+                  Both movement photos stacked; CSS crossfades to the end
+                  position (see .detail-image-stack in App.css). */}
+              <Box className="detail-image-stack">
+                <img
+                  src={exerciseDetail.imageUrls?.[0] ?? gifUrl}
+                  alt={name}
+                  width={850}
+                  height={567}
+                  className="detail-image"
+                />
+                {exerciseDetail.imageUrls?.[1] && (
+                  <img
+                    src={exerciseDetail.imageUrls[1]}
+                    alt=""
+                    aria-hidden="true"
+                    width={850}
+                    height={567}
+                    className="detail-image detail-image-end"
+                  />
+                )}
+              </Box>
             </Stack>
             <Stack sx={{ gap: { lg: "35px", xs: "20px" } }}>
-              <Typography
-                component="h1"
-                sx={{ fontSize: { lg: "64px", xs: "30px" } }}
-                fontWeight={700}
-                textTransform="capitalize"
-              >
-                {name}
-              </Typography>
+              <Stack direction="row" alignItems="center" gap="12px">
+                <Typography
+                  component="h1"
+                  sx={{ fontSize: { lg: "64px", xs: "30px" } }}
+                  fontWeight={700}
+                  textTransform="capitalize"
+                >
+                  {name}
+                </Typography>
+                <IconButton
+                  onClick={() => toggleFavorite(exerciseDetail.id)}
+                  aria-label={
+                    favorite ? "Remove from favorites" : "Add to favorites"
+                  }
+                  aria-pressed={favorite}
+                  sx={{
+                    p: "10px", // 44px touch target
+                    color: favorite ? "var(--accent)" : "var(--text-secondary)",
+                    flexShrink: 0,
+                    "&:hover": { color: "var(--accent)" },
+                  }}
+                >
+                  {favorite ? (
+                    <FavoriteIcon fontSize="large" />
+                  ) : (
+                    <FavoriteBorderIcon fontSize="large" />
+                  )}
+                </IconButton>
+              </Stack>
               <Typography
                 sx={{
                   color: "var(--text-secondary)",

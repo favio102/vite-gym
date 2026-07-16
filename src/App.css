@@ -153,7 +153,44 @@ body {
   width: 100%;
   max-width: 729px;
   height: auto;
+  /* same fixed 3:2 frame as the cards — keeps the skeleton swap and the
+     two stacked movement photos perfectly aligned */
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
   border-radius: 16px;
+}
+
+/* Movement animation — the two dataset photos (start/end position) stacked;
+   the end frame crossfades in and out on a pure-CSS loop (no JS timers).
+   With prefers-reduced-motion the global override runs it once in ~0ms,
+   leaving the static start frame. */
+.detail-image-stack {
+  position: relative;
+  width: 100%;
+  max-width: 729px;
+}
+
+.detail-image-end {
+  position: absolute;
+  inset: 0;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  animation: movement-swap 2.6s ease-in-out infinite;
+}
+
+@keyframes movement-swap {
+  0%,
+  35% {
+    opacity: 0;
+  }
+  50%,
+  85% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
 }
 
 .hero-banner-img {
@@ -195,7 +232,9 @@ body {
 .exercise-card img {
   width: 100%;
   height: auto;
-  max-height: 326px;
+  /* most dataset photos are 3:2 but not all — fix the frame and crop the
+     outliers so every card's image area is the same height */
+  aspect-ratio: 3 / 2;
   object-fit: cover;
   transition: transform 0.25s ease-out;
 }
@@ -246,6 +285,10 @@ body {
 .exercise-video img {
   width: 100%;
   height: auto;
+  /* YouTube thumbnails come in mixed ratios (4:3 letterboxed, 16:9) —
+     a fixed 16:9 frame crops the letterbox bars and equalizes heights */
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
   border-radius: 16px;
   transition: box-shadow 0.2s ease-out;
 }
@@ -277,7 +320,8 @@ body {
 
 /* Tablet */
 @media screen and (max-width: 1200px) {
-  .detail-image {
+  .detail-image,
+  .detail-image-stack {
     max-width: 400px;
   }
 

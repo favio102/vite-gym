@@ -1,7 +1,16 @@
-import { Box, Button, Stack, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  Stack,
+  Typography,
+} from "@mui/material";
 import Pagination from "@mui/material/Pagination";
 import SearchOffIcon from "@mui/icons-material/SearchOff";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { getExercises, getExercisesByBodyPart } from "../utils/exerciseDb";
 import { ExerciseCard } from "./ExerciseCard";
 import { ExerciseCardSkeleton } from "./ExerciseCardSkeleton";
@@ -16,6 +25,8 @@ export const Exercises = ({
 }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [error, setError] = useState(null);
+  const [equipmentFilter, setEquipmentFilter] = useState("all");
+  const [sortOrder, setSortOrder] = useState("default");
   const exercisesPage = 8;
 
   useEffect(() => {
@@ -39,14 +50,38 @@ export const Exercises = ({
     fetchExercisesData();
   }, [bodyPart, setExercises, setSearchTerm]);
 
-  // A new search can shrink the result set below the current page
+  // A new search or filter change can shrink the result set below the
+  // current page; a new list can also invalidate the equipment selection
   useEffect(() => {
     setCurrentPage(1);
-  }, [searchTerm]);
+    setEquipmentFilter("all");
+  }, [searchTerm, bodyPart]);
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [equipmentFilter, sortOrder]);
+
+  const equipmentOptions = useMemo(
+    () => [...new Set(exercises.map((exercise) => exercise.equipment))].sort(),
+    [exercises],
+  );
+
+  // Derived, never stored: filter + sort applied on top of the fetched list
+  const displayedExercises = useMemo(() => {
+    const filtered =
+      equipmentFilter === "all"
+        ? exercises
+        : exercises.filter((exercise) => exercise.equipment === equipmentFilter);
+    if (sortOrder === "az")
+      return [...filtered].sort((a, b) => a.name.localeCompare(b.name));
+    if (sortOrder === "za")
+      return [...filtered].sort((a, b) => b.name.localeCompare(a.name));
+    return filtered;
+  }, [exercises, equipmentFilter, sortOrder]);
 
   const indexOfLastExercise = currentPage * exercisesPage;
   const indexOfFirstExercise = indexOfLastExercise - exercisesPage;
-  const currentExercises = exercises.slice(
+  const currentExercises = displayedExercises.slice(
     indexOfFirstExercise,
     indexOfLastExercise,
   );
@@ -80,7 +115,7 @@ export const Exercises = ({
           : bodyPart === "all"
             ? "All exercises"
             : `${bodyPart} exercises`}
-        {exercises.length > 0 && (
+        {displayedExercises.length > 0 && (
           <Typography
             component="span"
             sx={{
@@ -92,10 +127,57 @@ export const Exercises = ({
               verticalAlign: "middle",
             }}
           >
-            ({exercises.length})
+            ({displayedExercises.length})
           </Typography>
         )}
       </Typography>
+      {!error && exercises.length > 0 && (
+        <Stack
+          direction="row"
+          flexWrap="wrap"
+          sx={{ gap: 2, mb: "32px", justifyContent: "flex-end" }}
+        >
+          <FormControl size="small" sx={{ minWidth: 190 }}>
+            <InputLabel id="equipment-filter-label">Equipment</InputLabel>
+            <Select
+              labelId="equipment-filter-label"
+              label="Equipment"
+              value={equipmentFilter}
+              onChange={(e) => setEquipmentFilter(e.target.value)}
+              sx={{
+                minHeight: "44px",
+                fontSize: "16px",
+                textTransform: equipmentFilter === "all" ? "none" : "capitalize",
+              }}
+            >
+              <MenuItem value="all">All equipment</MenuItem>
+              {equipmentOptions.map((equipment) => (
+                <MenuItem
+                  key={equipment}
+                  value={equipment}
+                  sx={{ textTransform: "capitalize" }}
+                >
+                  {equipment}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+          <FormControl size="small" sx={{ minWidth: 150 }}>
+            <InputLabel id="sort-order-label">Sort</InputLabel>
+            <Select
+              labelId="sort-order-label"
+              label="Sort"
+              value={sortOrder}
+              onChange={(e) => setSortOrder(e.target.value)}
+              sx={{ minHeight: "44px", fontSize: "16px" }}
+            >
+              <MenuItem value="default">Default</MenuItem>
+              <MenuItem value="az">Name A–Z</MenuItem>
+              <MenuItem value="za">Name Z–A</MenuItem>
+            </Select>
+          </FormControl>
+        </Stack>
+      )}
       {error ? (
         <Typography variant="h6" color="error" role="alert">
           {error}
@@ -134,10 +216,10 @@ export const Exercises = ({
           >
             Try a different search term or pick another body part.
           </Typography>
-          {setBodyPart && bodyPart !== "all" && (
+          {equipmentFilter !== "all" ? (
             <Button
               variant="outlined"
-              onClick={() => setBodyPart("all")}
+              onClick={() => setEquipmentFilter("all")}
               sx={{
                 mt: 1,
                 borderColor: "var(--accent)",
@@ -149,8 +231,28 @@ export const Exercises = ({
                 },
               }}
             >
-              Browse all exercises
+              Clear equipment filter
             </Button>
+          ) : (
+            setBodyPart &&
+            bodyPart !== "all" && (
+              <Button
+                variant="outlined"
+                onClick={() => setBodyPart("all")}
+                sx={{
+                  mt: 1,
+                  borderColor: "var(--accent)",
+                  color: "var(--accent)",
+                  textTransform: "none",
+                  "&:hover": {
+                    borderColor: "var(--accent)",
+                    bgcolor: "rgba(255, 38, 37, 0.08)",
+                  },
+                }}
+              >
+                Browse all exercises
+              </Button>
+            )
           )}
         </Stack>
       ) : (
@@ -166,11 +268,11 @@ export const Exercises = ({
             ))}
           </Stack>
           <Stack sx={{ mt: { lg: "114px", xs: "70px" } }} alignItems="center">
-            {exercises.length > 8 && (
+            {displayedExercises.length > 8 && (
               <Pagination
                 color="standard"
                 shape="rounded"
-                count={Math.ceil(exercises.length / exercisesPage)}
+                count={Math.ceil(displayedExercises.length / exercisesPage)}
                 page={currentPage}
                 onChange={paginate}
                 size="large"

@@ -42,6 +42,8 @@ const toAppShape = (exercise) => {
     target,
     equipment: exercise.equipment ?? "body only",
     gifUrl: `${IMAGE_BASE}${exercise.images[0]}`,
+    // every exercise ships two photos: start + end position of the movement
+    imageUrls: exercise.images.map((image) => `${IMAGE_BASE}${image}`),
     instructions: exercise.instructions,
     secondaryMuscles: exercise.secondaryMuscles,
   };

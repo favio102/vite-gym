@@ -3,6 +3,7 @@ import { lazy, Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
 import { Box } from "@mui/material";
 import { ThemeProvider } from "./context/ThemeProvider";
+import { FavoritesProvider } from "./context/FavoritesProvider";
 import { Navbar } from "./components/Navbar";
 import { Footer } from "./components/Footer";
 import { Loader } from "./components/Loader";
@@ -17,24 +18,29 @@ const ExerciseDetail = lazy(() =>
 export function App() {
   return (
     <ThemeProvider>
-      <Box
-        component="div"
-        sx={{ maxWidth: "1284px", width: "100%", mx: "auto" }}
-      >
-        <a href="#main" className="skip-link">
-          Skip to main content
-        </a>
-        <Navbar />
-        <Box component="main" id="main">
-          <Suspense fallback={<Loader />}>
-            <Routes>
-              <Route path="/" element={<Home />}></Route>
-              <Route path="/exercise/:id" element={<ExerciseDetail />}></Route>
-            </Routes>
-          </Suspense>
+      <FavoritesProvider>
+        <Box
+          component="div"
+          sx={{ maxWidth: "1284px", width: "100%", mx: "auto" }}
+        >
+          <a href="#main" className="skip-link">
+            Skip to main content
+          </a>
+          <Navbar />
+          <Box component="main" id="main">
+            <Suspense fallback={<Loader />}>
+              <Routes>
+                <Route path="/" element={<Home />}></Route>
+                <Route
+                  path="/exercise/:id"
+                  element={<ExerciseDetail />}
+                ></Route>
+              </Routes>
+            </Suspense>
+          </Box>
+          <Footer />
         </Box>
-        <Footer />
-      </Box>
+      </FavoritesProvider>
     </ThemeProvider>
   );
 }

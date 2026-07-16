@@ -8,6 +8,7 @@ import {
   getExercisesByEquipment,
   getExercisesByTarget,
 } from "../utils/exerciseDb";
+import { addRecentlyViewed } from "../utils/recentlyViewed";
 import { Detail } from "../components/Detail";
 import { ExerciseVideos } from "../components/ExerciseVideos";
 import { SimilarExercises } from "../components/SimilarExercises";
@@ -46,6 +47,7 @@ export const ExerciseDetail = () => {
         return;
       }
       setExerciseDetail(exerciseDetailData);
+      addRecentlyViewed(exerciseDetailData.id);
 
       const [exerciseVideosData, targetMuscleExercisesData, equipmentExerciseData] =
         await Promise.all([

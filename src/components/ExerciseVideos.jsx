@@ -51,7 +51,7 @@ export const ExerciseVideos = ({ exerciseVideos, name }) => {
               <Skeleton
                 variant="rectangular"
                 width="100%"
-                sx={{ aspectRatio: "4 / 3", height: "auto", borderRadius: "16px" }}
+                sx={{ aspectRatio: "16 / 9", height: "auto", borderRadius: "16px" }}
               />
               <Box>
                 <Skeleton
@@ -127,11 +127,19 @@ export const ExerciseVideos = ({ exerciseVideos, name }) => {
                 loading="lazy"
               />
               <Box>
+                {/* fixed 2-line title area so video cards line up evenly */}
                 <Typography
                   fontWeight={600}
+                  title={item.video.title}
                   sx={{
                     color: "var(--text-primary)",
                     fontSize: { lg: "28px", xs: "18px" },
+                    lineHeight: 1.3,
+                    minHeight: "2.6em",
+                    display: "-webkit-box",
+                    WebkitLineClamp: 2,
+                    WebkitBoxOrient: "vertical",
+                    overflow: "hidden",
                   }}
                 >
                   {item.video.title}
