@@ -10,7 +10,7 @@ import {
 import SearchIcon from "@mui/icons-material/Search";
 import ClearIcon from "@mui/icons-material/Clear";
 import { useEffect, useState } from "react";
-import { fetchData, exerciseOptions, EXERCISE_DB } from "../utils/fetchData";
+import { getBodyPartList, getExercises } from "../utils/exerciseDb";
 import { HorizontalScrollbar } from "./HorizontalScrollbar";
 
 export const SearchExercises = ({ setExercises, bodyPart, setBodyPart }) => {
@@ -21,10 +21,7 @@ export const SearchExercises = ({ setExercises, bodyPart, setBodyPart }) => {
   useEffect(() => {
     const fetchBodyPartsData = async () => {
       setError(null);
-      const bodyPartsData = await fetchData(
-        `${EXERCISE_DB}/exercises/bodyPartList`,
-        exerciseOptions,
-      );
+      const bodyPartsData = await getBodyPartList().catch(() => null);
 
       if (bodyPartsData) {
         setBodyParts(["all", ...bodyPartsData]);
@@ -40,10 +37,7 @@ export const SearchExercises = ({ setExercises, bodyPart, setBodyPart }) => {
   const runSearch = async (term) => {
     if (!term) return;
     setError(null);
-    const exercisesData = await fetchData(
-      `${EXERCISE_DB}/exercises`,
-      exerciseOptions,
-    );
+    const exercisesData = await getExercises().catch(() => null);
 
     if (exercisesData) {
       const searchedExercises = exercisesData.filter(

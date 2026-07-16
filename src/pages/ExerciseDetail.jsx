@@ -1,13 +1,12 @@
 import { Box } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { YOUTUBE_SEARCH, fetchData, youtubeOptions } from "../utils/fetchData";
 import {
-  EXERCISE_DB,
-  YOUTUBE_SEARCH,
-  exerciseOptions,
-  fetchData,
-  youtubeOptions,
-} from "../utils/fetchData";
+  getExerciseById,
+  getExercisesByEquipment,
+  getExercisesByTarget,
+} from "../utils/exerciseDb";
 import { Detail } from "../components/Detail";
 import { ExerciseVideos } from "../components/ExerciseVideos";
 import { SimilarExercises } from "../components/SimilarExercises";
@@ -35,10 +34,7 @@ export const ExerciseDetail = () => {
     let cancelled = false;
 
     const fetchExercisesData = async () => {
-      const exerciseDetailData = await fetchData(
-        `${EXERCISE_DB}/exercises/exercise/${id}`,
-        exerciseOptions
-      );
+      const exerciseDetailData = await getExerciseById(id).catch(() => null);
       if (cancelled || !exerciseDetailData) return;
       setExerciseDetail(exerciseDetailData);
 
@@ -48,13 +44,9 @@ export const ExerciseDetail = () => {
             `${YOUTUBE_SEARCH}/search?query=${exerciseDetailData.name}`,
             youtubeOptions
           ),
-          fetchData(
-            `${EXERCISE_DB}/exercises/target/${exerciseDetailData.target}`,
-            exerciseOptions
-          ),
-          fetchData(
-            `${EXERCISE_DB}/exercises/equipment/${exerciseDetailData.equipment}`,
-            exerciseOptions
+          getExercisesByTarget(exerciseDetailData.target).catch(() => null),
+          getExercisesByEquipment(exerciseDetailData.equipment).catch(
+            () => null
           ),
         ]);
       if (cancelled) return;

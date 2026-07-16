@@ -1,7 +1,6 @@
 export const config = { runtime: "edge" };
 
 const HOSTS = {
-  exercisedb: "exercisedb.p.rapidapi.com",
   youtube: "youtube-search-and-download.p.rapidapi.com",
 };
 

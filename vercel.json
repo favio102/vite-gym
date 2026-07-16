@@ -1,10 +1,6 @@
 {
   "rewrites": [
     {
-      "source": "/api/exercisedb/:path*",
-      "destination": "/api/proxy?provider=exercisedb&path=:path*"
-    },
-    {
       "source": "/api/youtube/:path*",
       "destination": "/api/proxy?provider=youtube&path=:path*"
     },

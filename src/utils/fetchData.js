@@ -1,7 +1,5 @@
-export const EXERCISE_DB = "/api/exercisedb";
 export const YOUTUBE_SEARCH = "/api/youtube";
 
-export const exerciseOptions = { method: "GET" };
 export const youtubeOptions = { method: "GET" };
 
 const CACHE_DURATION = 24 * 60 * 60 * 1000; // 24 hours

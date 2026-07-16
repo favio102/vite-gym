@@ -2,7 +2,7 @@ import { Box, Button, Skeleton, Stack, Typography } from "@mui/material";
 import Pagination from "@mui/material/Pagination";
 import SearchOffIcon from "@mui/icons-material/SearchOff";
 import { useEffect, useState } from "react";
-import { exerciseOptions, fetchData, EXERCISE_DB } from "../utils/fetchData";
+import { getExercises, getExercisesByBodyPart } from "../utils/exerciseDb";
 import { ExerciseCard } from "./ExerciseCard";
 
 export const Exercises = ({ exercises, setExercises, bodyPart, setBodyPart }) => {
@@ -15,19 +15,10 @@ export const Exercises = ({ exercises, setExercises, bodyPart, setBodyPart }) =>
 
     const fetchExercisesData = async () => {
       setError(null); // Reset error state
-      let exercisesData = [];
-
-      if (bodyPart === "all") {
-        exercisesData = await fetchData(
-          `${EXERCISE_DB}/exercises`,
-          exerciseOptions,
-        );
-      } else {
-        exercisesData = await fetchData(
-          `${EXERCISE_DB}/exercises/bodyPart/${bodyPart}`,
-          exerciseOptions,
-        );
-      }
+      const exercisesData =
+        bodyPart === "all"
+          ? await getExercises().catch(() => null)
+          : await getExercisesByBodyPart(bodyPart).catch(() => null);
 
       if (exercisesData) {
         setExercises(exercisesData);
