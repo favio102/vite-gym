@@ -11,6 +11,8 @@ export const Exercises = ({ exercises, setExercises, bodyPart, setBodyPart }) =>
   const exercisesPage = 8;
 
   useEffect(() => {
+    setCurrentPage(1); // Reset pagination when the body part changes
+
     const fetchExercisesData = async () => {
       setError(null); // Reset error state
       let exercisesData = [];

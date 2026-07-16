@@ -30,12 +30,16 @@ export const ExerciseDetail = () => {
     setTargetMuscleExercises([]);
     setEquipmentExercise([]);
 
+    // Cancelled flag so a slow response for a previous exercise can't
+    // overwrite the data of the one currently displayed
+    let cancelled = false;
+
     const fetchExercisesData = async () => {
       const exerciseDetailData = await fetchData(
         `${EXERCISE_DB}/exercises/exercise/${id}`,
         exerciseOptions
       );
-      if (!exerciseDetailData) return;
+      if (cancelled || !exerciseDetailData) return;
       setExerciseDetail(exerciseDetailData);
 
       const [exerciseVideosData, targetMuscleExercisesData, equipmentExerciseData] =
@@ -53,13 +57,17 @@ export const ExerciseDetail = () => {
             exerciseOptions
           ),
         ]);
+      if (cancelled) return;
 
-      if (exerciseVideosData) setExerciseVideos(exerciseVideosData.contents);
+      setExerciseVideos(exerciseVideosData?.contents ?? []);
       if (targetMuscleExercisesData) setTargetMuscleExercises(targetMuscleExercisesData);
       if (equipmentExerciseData) setEquipmentExercise(equipmentExerciseData);
     };
 
     fetchExercisesData();
+    return () => {
+      cancelled = true;
+    };
   }, [id]);
 
   return (
