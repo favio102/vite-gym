@@ -51,7 +51,7 @@ export const ExerciseVideos = ({ exerciseVideos, name }) => {
               <Skeleton
                 variant="rectangular"
                 width="100%"
-                sx={{ aspectRatio: "4 / 3", height: "auto", borderRadius: "12px" }}
+                sx={{ aspectRatio: "4 / 3", height: "auto", borderRadius: "16px" }}
               />
               <Box>
                 <Skeleton
@@ -125,7 +125,6 @@ export const ExerciseVideos = ({ exerciseVideos, name }) => {
                 width={item.video.thumbnails[0].width || 480}
                 height={item.video.thumbnails[0].height || 360}
                 loading="lazy"
-                style={{ borderTopLeftRadius: "20px" }}
               />
               <Box>
                 <Typography

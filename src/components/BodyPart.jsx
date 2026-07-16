@@ -15,11 +15,12 @@ export const BodyPart = ({ item, bodyPart, setBodyPart }) => (
       padding: 0,
       font: "inherit",
       color: "inherit",
-      borderTop:
-        bodyPart === item ? "4px solid var(--accent)" : "4px solid transparent",
+      // selected = accent ring + tint (shape + color, not color alone)
+      boxShadow:
+        bodyPart === item ? "0 0 0 2px var(--accent)" : "var(--shadow-sm)",
       backgroundColor:
         bodyPart === item ? "var(--accent-light)" : "var(--card-bg)",
-      borderBottomLeftRadius: "20px",
+      borderRadius: "16px",
       width: { lg: "270px", sm: "200px", xs: "140px" },
       height: { lg: "280px", sm: "220px", xs: "150px" },
       cursor: "pointer",

@@ -1,18 +1,20 @@
 import { memo } from "react";
-import { Chip, Stack, Typography } from "@mui/material";
+import { Box, Chip, Stack, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 
 const ExerciseCardImpl = ({ exercise }) => (
   <Link className="exercise-card" to={`/exercise/${exercise.id}`}>
     {/* 850x567 = the 3:2 intrinsic size of the free-exercise-db photos, so
         the browser reserves the right space before the image loads */}
-    <img
-      src={exercise.gifUrl}
-      alt={exercise.name}
-      width={850}
-      height={567}
-      loading="lazy"
-    />
+    <Box className="card-img-wrap">
+      <img
+        src={exercise.gifUrl}
+        alt={exercise.name}
+        width={850}
+        height={567}
+        loading="lazy"
+      />
+    </Box>
     <Stack direction="row" gap="8px" sx={{ ml: "21px", mt: "12px" }}>
       <Chip
         label={exercise.bodyPart}

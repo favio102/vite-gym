@@ -11,8 +11,8 @@ export const ExerciseCardSkeleton = () => (
       maxWidth: { xs: "320px", sm: "100%" },
       minHeight: 400,
       border: "1px solid var(--card-border)",
-      borderTop: "4px solid var(--accent)",
-      borderBottomLeftRadius: "20px",
+      borderRadius: "16px",
+      overflow: "hidden",
       background: "var(--card-bg)",
       pb: "12px",
     }}

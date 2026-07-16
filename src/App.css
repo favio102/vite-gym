@@ -4,11 +4,14 @@
   --bg-footer: #f5f5f5;
   --text-primary: #18181b;
   --text-secondary: #6b7280;
-  --accent: #ff2625;
+  /* deeper red than the dark-mode accent — #ff2625 lacks contrast on white */
+  --accent: #e11d1c;
   --accent-light: #ffd5d5;
   --accent-dark: #c41a18;
-  --chip-secondary-bg: #f3f4f6;
-  --chip-secondary-text: #374151;
+  /* gold secondary — chips and small highlights (red + gold brand pairing) */
+  --gold: #b8860b;
+  --chip-secondary-bg: #f7edd2;
+  --chip-secondary-text: #8a6508;
   --detail-icon-bg: #fef2f2;
   --input-bg: #ffffff;
   --card-bg: #ffffff;
@@ -26,12 +29,13 @@
   --accent: #ff2625;
   --accent-light: #4a1414;
   --accent-dark: #ff5050;
-  --chip-secondary-bg: #27272a;
-  --chip-secondary-text: #d4d4d8;
+  --gold: #f5b82e;
+  --chip-secondary-bg: #2c2412;
+  --chip-secondary-text: #f5c95a;
   --detail-icon-bg: #2a1f1f;
   --input-bg: #27272a;
   --card-bg: #18181b;
-  --card-border: #27272a;
+  --card-border: #2b2b30;
   --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.4);
   --shadow-md: 0 12px 24px rgba(0, 0, 0, 0.5);
 }
@@ -149,7 +153,7 @@ body {
   width: 100%;
   max-width: 729px;
   height: auto;
-  border-radius: 12px;
+  border-radius: 16px;
 }
 
 .hero-banner-img {
@@ -170,8 +174,8 @@ body {
   min-height: 400px;
   background: var(--card-bg);
   border: 1px solid var(--card-border);
-  border-top: 4px solid var(--accent);
-  border-bottom-left-radius: 20px;
+  border-radius: 16px;
+  overflow: hidden;
   text-decoration: none;
   display: flex;
   justify-content: space-between;
@@ -183,22 +187,35 @@ body {
   box-shadow: var(--shadow-sm);
 }
 
+/* clips the hover zoom so the image never bleeds over the card content */
+.exercise-card .card-img-wrap {
+  overflow: hidden;
+}
+
 .exercise-card img {
   width: 100%;
   height: auto;
   max-height: 326px;
   object-fit: cover;
+  transition: transform 0.25s ease-out;
 }
 
 .bodyPart-card {
   transition:
     transform 0.2s ease-out,
-    background-color 0.2s ease-out;
+    background-color 0.2s ease-out,
+    box-shadow 0.2s ease-out;
 }
 
 .exercise-card:hover {
   transform: translateY(-4px);
-  box-shadow: var(--shadow-md);
+  box-shadow:
+    var(--shadow-md),
+    0 0 0 2px var(--accent);
+}
+
+.exercise-card:hover img {
+  transform: scale(1.05);
 }
 
 .exercise-card:active {
@@ -229,7 +246,7 @@ body {
 .exercise-video img {
   width: 100%;
   height: auto;
-  border-radius: 12px;
+  border-radius: 16px;
   transition: box-shadow 0.2s ease-out;
 }
 
@@ -243,7 +260,9 @@ body {
 }
 
 .exercise-video:hover img {
-  box-shadow: var(--shadow-md);
+  box-shadow:
+    var(--shadow-md),
+    0 0 0 2px var(--accent);
 }
 
 .nav-link {

@@ -152,7 +152,7 @@ export const Detail = ({ exerciseDetail }) => {
                   height: "auto",
                   aspectRatio: "3 / 2",
                   maxWidth: { xs: 400, lg: 729 },
-                  borderRadius: "12px",
+                  borderRadius: "16px",
                 }}
               />
             </Stack>
