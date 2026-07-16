@@ -194,17 +194,19 @@ body {
 }
 
 .exercise-card {
-  width: 400px;
+  /* 390px + 24px gaps = 3 cards per row inside the 1284px container */
+  width: 390px;
   max-width: 100%;
+  /* height is content-driven: fixed 3:2 image + chip row + 2-line name
+     area make every card equal without a min-height floor (which left
+     stretched gaps on small screens) */
   height: auto;
-  min-height: 400px;
   background: var(--card-bg);
   border: 1px solid var(--card-border);
   border-radius: 16px;
   overflow: hidden;
   text-decoration: none;
   display: flex;
-  justify-content: space-between;
   flex-direction: column;
   padding-bottom: 12px;
   transition:
@@ -257,7 +259,8 @@ body {
   display: flex;
   flex-direction: column;
   gap: 24px;
-  width: 387px;
+  /* 380px + 24px gaps = 3 videos per row inside the container */
+  width: 380px;
   max-width: 100%;
   height: auto;
   text-decoration: none;

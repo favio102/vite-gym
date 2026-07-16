@@ -27,7 +27,7 @@ export const Exercises = ({
   const [error, setError] = useState(null);
   const [equipmentFilter, setEquipmentFilter] = useState("all");
   const [sortOrder, setSortOrder] = useState("default");
-  const exercisesPage = 8;
+  const exercisesPage = 9; // 3 rows of 3 on desktop
 
   useEffect(() => {
     setCurrentPage(1); // Reset pagination when the body part changes
@@ -187,11 +187,11 @@ export const Exercises = ({
         // has exercises in the local dataset)
         <Stack
           direction="row"
-          sx={{ gap: { lg: "80px", md: "40px", sm: "24px", xs: "16px" } }}
+          sx={{ gap: { sm: "24px", xs: "16px" } }}
           flexWrap="wrap"
           justifyContent="center"
         >
-          {Array.from({ length: 8 }).map((_, i) => (
+          {Array.from({ length: 9 }).map((_, i) => (
             <ExerciseCardSkeleton key={`skeleton-${i}`} />
           ))}
         </Stack>
@@ -259,7 +259,7 @@ export const Exercises = ({
         <>
           <Stack
             direction="row"
-            sx={{ gap: { lg: "80px", md: "40px", sm: "24px", xs: "16px" } }}
+            sx={{ gap: { sm: "24px", xs: "16px" } }}
             flexWrap="wrap"
             justifyContent="center"
           >
@@ -268,7 +268,7 @@ export const Exercises = ({
             ))}
           </Stack>
           <Stack sx={{ mt: { lg: "114px", xs: "70px" } }} alignItems="center">
-            {displayedExercises.length > 8 && (
+            {displayedExercises.length > exercisesPage && (
               <Pagination
                 color="standard"
                 shape="rounded"

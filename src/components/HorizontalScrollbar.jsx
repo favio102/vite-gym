@@ -82,7 +82,14 @@ export const HorizontalScrollbar = ({ data }) => (
       <Box
         key={item.id}
         itemID={item.id}
-        sx={{ m: { xs: "0 10px", sm: "0 20px", lg: "0 40px" } }}
+        // explicit width: inside the scroller the card's `width: 100%` has
+        // no containing size to resolve against, so unsized items would
+        // shrink-to-fit their own content and vary card-to-card
+        sx={{
+          m: { xs: "0 8px", sm: "0 12px" },
+          width: { xs: "280px", sm: "320px", lg: "390px" },
+          flexShrink: 0,
+        }}
       >
         <ExerciseCard exercise={item} />
       </Box>

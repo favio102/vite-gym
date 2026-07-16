@@ -8,7 +8,7 @@ const SimilarList = ({ exercises }) => {
     return (
       <Stack
         direction="row"
-        sx={{ gap: { xs: "20px", sm: "40px", lg: "80px" }, overflow: "hidden" }}
+        sx={{ gap: { xs: "16px", sm: "24px" }, overflow: "hidden" }}
       >
         {Array.from({ length: 3 }).map((_, i) => (
           <Box
@@ -16,7 +16,7 @@ const SimilarList = ({ exercises }) => {
             sx={{
               flexShrink: 0,
               // same widths the real cards get inside the scroll row
-              width: { xs: "280px", sm: "320px", lg: "400px" },
+              width: { xs: "280px", sm: "320px", lg: "390px" },
             }}
           >
             <ExerciseCardSkeleton />

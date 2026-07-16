@@ -43,7 +43,7 @@ export const ExerciseVideos = ({ exerciseVideos, name }) => {
           alignItems="center"
           sx={{
             flexDirection: { lg: "row" },
-            gap: { lg: "80px", md: "40px", sm: "24px", xs: "24px" },
+            gap: "24px",
           }}
         >
           {Array.from({ length: 3 }).map((_, i) => (
@@ -98,7 +98,7 @@ export const ExerciseVideos = ({ exerciseVideos, name }) => {
           alignItems="center"
           sx={{
             flexDirection: { lg: "row" },
-            gap: { lg: "80px", md: "40px", sm: "24px", xs: "24px" },
+            gap: "24px",
           }}
         >
           {exerciseVideos?.slice(0, 3)?.map((item) => (
