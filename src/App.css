@@ -65,26 +65,47 @@ body {
   width: 0px;
 }
 
-.right-arrow,
-.left-arrow {
+/* Carousel arrows — circular buttons overlaid at the row's edges,
+   vertically centered; disabled (faded) at the ends of the row */
+.scroll-arrow {
   cursor: pointer;
-  background: transparent;
-  border: none;
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  box-shadow: var(--shadow-sm);
   color: var(--accent);
-  font-size: 25px;
-  border-radius: 4px;
   position: absolute;
-  bottom: -20px;
-  right: 80px;
-  transform: scale(1, 1);
-  transition: 0.2s all ease-out;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  transition:
+    opacity 0.2s ease-out,
+    box-shadow 0.2s ease-out;
 }
 
-.right-arrow:focus-visible,
-.left-arrow:focus-visible {
+.scroll-arrow--left {
+  left: 4px;
+}
+
+.scroll-arrow--right {
+  right: 4px;
+}
+
+.scroll-arrow:hover:not(:disabled) {
+  box-shadow: var(--shadow-md);
+}
+
+.scroll-arrow:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+.scroll-arrow:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
 }
@@ -118,19 +139,10 @@ body {
   }
 }
 
-.right-arrow {
-  right: 140px;
-}
-
-.right-arrow:hover,
-.left-arrow:hover {
-  transform: scale(1.2, 1.2);
-}
-
 .react-horizontal-scrolling-menu--wrapper {
   width: 100%;
   display: flex;
-  flex-wrap: wrap;
+  position: relative; /* anchor for the overlaid .scroll-arrow buttons */
 }
 
 .detail-image {
@@ -248,15 +260,6 @@ body {
 @media screen and (max-width: 1200px) {
   .detail-image {
     max-width: 400px;
-  }
-
-  .react-horizontal-scrolling-menu--scroll-container {
-    width: 500px;
-  }
-
-  .left-arrow,
-  .right-arrow {
-    position: static !important;
   }
 
   .exercise-card {

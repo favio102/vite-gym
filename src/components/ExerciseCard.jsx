@@ -36,7 +36,7 @@ const ExerciseCardImpl = ({ exercise }) => (
       />
     </Stack>
     <Typography
-      ml="21px"
+      px="12px"
       sx={{ color: "var(--text-primary)", fontSize: { lg: "24px", xs: "20px" } }}
       fontWeight="bold"
       mt="11px"

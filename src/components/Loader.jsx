@@ -1,14 +1,13 @@
-import { Stack } from "@mui/material";
-import { InfinitySpin } from "react-loader-spinner";
+import { CircularProgress, Stack } from "@mui/material";
 
+// Route-level Suspense fallback (data sections use skeletons instead)
 export const Loader = () => (
   <Stack
-    direction="row"
     justifyContent="center"
     alignItems="center"
     width="100%"
+    sx={{ py: "80px" }}
   >
-    <InfinitySpin color="gray" />
+    <CircularProgress sx={{ color: "var(--accent)" }} aria-label="Loading" />
   </Stack>
 );
-

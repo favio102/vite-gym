@@ -7,13 +7,14 @@ import { BodyPart } from "./BodyPart";
 import { ExerciseCard } from "./ExerciseCard";
 
 const LeftArrow = () => {
-  const { scrollPrev } = useContext(VisibilityContext);
+  const { scrollPrev, isFirstItemVisible } = useContext(VisibilityContext);
 
   return (
     <button
       type="button"
       onClick={() => scrollPrev()}
-      className="right-arrow"
+      disabled={isFirstItemVisible}
+      className="scroll-arrow scroll-arrow--left"
       aria-label="Scroll left"
     >
       <KeyboardArrowLeftIcon fontSize="large" />
@@ -22,13 +23,14 @@ const LeftArrow = () => {
 };
 
 const RightArrow = () => {
-  const { scrollNext } = useContext(VisibilityContext);
+  const { scrollNext, isLastItemVisible } = useContext(VisibilityContext);
 
   return (
     <button
       type="button"
       onClick={() => scrollNext()}
-      className="left-arrow"
+      disabled={isLastItemVisible}
+      className="scroll-arrow scroll-arrow--right"
       aria-label="Scroll right"
     >
       <KeyboardArrowRightIcon fontSize="large" />
@@ -47,7 +49,6 @@ export const HorizontalScrollbar = ({
       <Box
         key={item.id || item}
         itemID={item.id || item}
-        title={item.id || item}
         sx={{ m: { xs: "0 10px", sm: "0 20px", lg: "0 40px" } }}
       >
         {isBodyParts ? (

@@ -170,7 +170,6 @@ export const Exercises = ({
               <Pagination
                 color="standard"
                 shape="rounded"
-                defaultValue={1}
                 count={Math.ceil(exercises.length / exercisesPage)}
                 page={currentPage}
                 onChange={paginate}

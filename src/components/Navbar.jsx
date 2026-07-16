@@ -96,7 +96,8 @@ export const Navbar = () => {
           }
           sx={{
             color: "var(--accent)",
-            p: { xs: "4px", sm: "8px" },
+            // 24px icon + 2x10px padding = 44px minimum touch target
+            p: { xs: "10px", sm: "8px" },
             transition: "transform 0.4s ease-out",
             "&:hover": { transform: "rotate(180deg)" },
           }}

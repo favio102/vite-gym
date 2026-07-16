@@ -18,7 +18,7 @@ export const Detail = ({ exerciseDetail }) => {
   } = exerciseDetail;
 
   const extraDetail = [
-    { icon: BodyPartImage, label: "Body Part", name: bodyPart },
+    { icon: BodyPartImage, label: "Body part", name: bodyPart },
     { icon: TargetImage, label: "Target", name: target },
     { icon: EquipmentImage, label: "Equipment", name: equipment },
   ];
@@ -80,10 +80,13 @@ export const Detail = ({ exerciseDetail }) => {
                   fontSize: { lg: "24px", xs: "18px" },
                 }}
               >
-                Exercises keep you strong.{" "}
                 <span style={{ textTransform: "capitalize" }}>{name}</span> is
-                one of the best exercises to target your {target}. It will help
-                you improve your mood and gain energy.
+                a {bodyPart} exercise that targets your {target}.
+                {/* equipment values ("kettlebells", "e-z curl bar", …) don't
+                    inflect cleanly into a sentence — the labeled Equipment row
+                    below carries that; only the no-equipment case is a perk
+                    worth calling out */}
+                {equipment === "body only" && " No equipment needed."}
               </Typography>
               {extraDetail.map((item) => (
                 <Stack
@@ -110,12 +113,23 @@ export const Detail = ({ exerciseDetail }) => {
                       style={{ width: "50px", height: "50px" }}
                     />
                   </Box>
-                  <Typography
-                    textTransform="capitalize"
-                    sx={{ fontSize: { lg: "30px", xs: "20px" } }}
-                  >
-                    {item.name}
-                  </Typography>
+                  <Stack>
+                    <Typography
+                      sx={{
+                        color: "var(--text-secondary)",
+                        fontSize: { lg: "16px", xs: "14px" },
+                        letterSpacing: "0.5px",
+                      }}
+                    >
+                      {item.label}
+                    </Typography>
+                    <Typography
+                      textTransform="capitalize"
+                      sx={{ fontSize: { lg: "30px", xs: "20px" } }}
+                    >
+                      {item.name}
+                    </Typography>
+                  </Stack>
                 </Stack>
               ))}
             </Stack>

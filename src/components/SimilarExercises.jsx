@@ -50,11 +50,8 @@ export const SimilarExercises = ({ targetMuscleExercises, equipmentExercise }) =
       fontWeight={700}
       mb="33px"
     >
-      Exercises that{" "}
-      <span style={{ color: "var(--accent)", textTransform: "capitalize" }}>
-        target similar muscle
-      </span>{" "}
-      group.
+      Exercises that target the{" "}
+      <span style={{ color: "var(--accent)" }}>same muscle</span>
     </Typography>
     <Stack direction="row" sx={{ p: 2, position: "relative" }}>
       <SimilarList exercises={targetMuscleExercises} />
@@ -70,10 +67,8 @@ export const SimilarExercises = ({ targetMuscleExercises, equipmentExercise }) =
       fontWeight={700}
       mb="33px"
     >
-      Exercises that{" "}
-      <span style={{ color: "var(--accent)", textTransform: "capitalize" }}>
-        use similar equipment.
-      </span>
+      Exercises that use the{" "}
+      <span style={{ color: "var(--accent)" }}>same equipment</span>
     </Typography>
     <Stack direction="row" sx={{ p: 2, position: "relative" }}>
       <SimilarList exercises={equipmentExercise} />

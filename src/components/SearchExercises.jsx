@@ -138,11 +138,10 @@ export const SearchExercises = ({
               borderColor: "var(--accent)",
             },
           }}
-          height="76px"
           value={search}
           onChange={(e) => setSearch(e.target.value.toLowerCase())}
           onKeyDown={(e) => e.key === "Enter" && handleSearch()}
-          placeholder="Search Exercises"
+          placeholder="Find an exercise, muscle, or equipment"
           type="text"
           inputProps={{ "aria-label": "Search exercises" }}
           InputProps={{
