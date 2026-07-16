@@ -110,7 +110,10 @@ body {
   *,
   *::before,
   *::after {
+    /* iteration-count 1 is required: a 0.01ms *infinite* animation
+       (e.g. skeleton pulse/wave) would otherwise strobe every frame */
     animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
 }

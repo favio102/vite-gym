@@ -55,12 +55,13 @@ export const Detail = ({ exerciseDetail }) => {
               >
                 Back
               </Button>
+              {/* 850x567 = the 3:2 intrinsic size of the free-exercise-db
+                  photos — reserves the right space before the image loads */}
               <img
                 src={gifUrl}
                 alt={name}
-                width={360}
-                height={360}
-                loading="lazy"
+                width={850}
+                height={567}
                 className="detail-image"
               />
             </Stack>
@@ -128,11 +129,17 @@ export const Detail = ({ exerciseDetail }) => {
                 height={48}
                 sx={{ mb: "16px" }}
               />
+              {/* Same 3:2 ratio and max-widths as .detail-image so the layout
+                  doesn't jump when the real image replaces the skeleton */}
               <Skeleton
                 variant="rectangular"
                 width="100%"
-                height={360}
-                sx={{ maxWidth: 729, borderRadius: "12px" }}
+                sx={{
+                  height: "auto",
+                  aspectRatio: "3 / 2",
+                  maxWidth: { xs: 400, lg: 729 },
+                  borderRadius: "12px",
+                }}
               />
             </Stack>
             <Stack

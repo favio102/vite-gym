@@ -1,17 +1,26 @@
-import { Box, Button, Skeleton, Stack, Typography } from "@mui/material";
+import { Box, Button, Stack, Typography } from "@mui/material";
 import Pagination from "@mui/material/Pagination";
 import SearchOffIcon from "@mui/icons-material/SearchOff";
 import { useEffect, useState } from "react";
 import { getExercises, getExercisesByBodyPart } from "../utils/exerciseDb";
 import { ExerciseCard } from "./ExerciseCard";
+import { ExerciseCardSkeleton } from "./ExerciseCardSkeleton";
 
-export const Exercises = ({ exercises, setExercises, bodyPart, setBodyPart }) => {
+export const Exercises = ({
+  exercises,
+  setExercises,
+  bodyPart,
+  setBodyPart,
+  searchTerm,
+  setSearchTerm,
+}) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [error, setError] = useState(null);
   const exercisesPage = 8;
 
   useEffect(() => {
     setCurrentPage(1); // Reset pagination when the body part changes
+    setSearchTerm(""); // Picking a body part exits search mode
 
     const fetchExercisesData = async () => {
       setError(null); // Reset error state
@@ -28,7 +37,12 @@ export const Exercises = ({ exercises, setExercises, bodyPart, setBodyPart }) =>
     };
 
     fetchExercisesData();
-  }, [bodyPart, setExercises]);
+  }, [bodyPart, setExercises, setSearchTerm]);
+
+  // A new search can shrink the result set below the current page
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchTerm]);
 
   const indexOfLastExercise = currentPage * exercisesPage;
   const indexOfFirstExercise = indexOfLastExercise - exercisesPage;
@@ -56,11 +70,16 @@ export const Exercises = ({ exercises, setExercises, bodyPart, setBodyPart }) =>
         component="h2"
         sx={{
           fontSize: { lg: "44px", xs: "30px" },
-          textTransform: bodyPart === "all" ? "none" : "capitalize",
+          textTransform:
+            searchTerm || bodyPart === "all" ? "none" : "capitalize",
         }}
         mb="46px"
       >
-        {bodyPart === "all" ? "All exercises" : `${bodyPart} exercises`}
+        {searchTerm
+          ? `Results for “${searchTerm}”`
+          : bodyPart === "all"
+            ? "All exercises"
+            : `${bodyPart} exercises`}
         {exercises.length > 0 && (
           <Typography
             component="span"
@@ -81,7 +100,9 @@ export const Exercises = ({ exercises, setExercises, bodyPart, setBodyPart }) =>
         <Typography variant="h6" color="error" role="alert">
           {error}
         </Typography>
-      ) : !exercises.length ? (
+      ) : !exercises.length && !searchTerm ? (
+        // Empty without an applied search = still loading (every body part
+        // has exercises in the local dataset)
         <Stack
           direction="row"
           sx={{ gap: { lg: "80px", md: "40px", sm: "24px", xs: "16px" } }}
@@ -89,28 +110,7 @@ export const Exercises = ({ exercises, setExercises, bodyPart, setBodyPart }) =>
           justifyContent="center"
         >
           {Array.from({ length: 8 }).map((_, i) => (
-            <Box
-              key={`skeleton-${i}`}
-              sx={{
-                width: 400,
-                maxWidth: "100%",
-                borderTop: "4px solid var(--accent)",
-                borderBottomLeftRadius: "20px",
-                background: "var(--card-bg)",
-                pb: "10px",
-              }}
-            >
-              <Skeleton variant="rectangular" width="100%" height={326} />
-              <Stack direction="row" gap="8px" sx={{ ml: "21px", mt: "12px" }}>
-                <Skeleton variant="rounded" width={80} height={32} />
-                <Skeleton variant="rounded" width={80} height={32} />
-              </Stack>
-              <Skeleton
-                variant="text"
-                width="60%"
-                sx={{ ml: "21px", mt: "11px", fontSize: { lg: "24px", xs: "20px" } }}
-              />
-            </Box>
+            <ExerciseCardSkeleton key={`skeleton-${i}`} />
           ))}
         </Stack>
       ) : currentExercises.length === 0 ? (

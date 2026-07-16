@@ -50,11 +50,11 @@ export const Footer = () => (
         }}
       />
 
-      {/* Social Links — TODO: replace href="#" with actual profile URLs */}
+      {/* Social Links — TODO: replace remaining href="#" with actual profile URLs */}
       <Stack direction="row" gap="8px" mb="20px">
         <IconButton
           component="a"
-          href="#"
+          href="https://github.com/favio102/vite-gym"
           aria-label="GitHub"
           target="_blank"
           rel="noopener noreferrer"

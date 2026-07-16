@@ -25,6 +25,13 @@ export const ThemeProvider = ({ children }) => {
         palette: {
           mode,
         },
+        components: {
+          // "wave" sweeps a highlight across the skeleton instead of pulsing
+          // the whole box's opacity — reads as shimmer, not blinking
+          MuiSkeleton: {
+            defaultProps: { animation: "wave" },
+          },
+        },
         typography: {
           fontFamily: "'Barlow', sans-serif",
           // Bebas Neue is a tall condensed display font — looks great at h1/h2

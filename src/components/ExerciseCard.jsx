@@ -4,11 +4,13 @@ import { Link } from "react-router-dom";
 
 const ExerciseCardImpl = ({ exercise }) => (
   <Link className="exercise-card" to={`/exercise/${exercise.id}`}>
+    {/* 850x567 = the 3:2 intrinsic size of the free-exercise-db photos, so
+        the browser reserves the right space before the image loads */}
     <img
       src={exercise.gifUrl}
       alt={exercise.name}
-      width={360}
-      height={360}
+      width={850}
+      height={567}
       loading="lazy"
     />
     <Stack direction="row" gap="8px" sx={{ ml: "21px", mt: "12px" }}>

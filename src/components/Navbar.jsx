@@ -1,12 +1,14 @@
 import { IconButton, Stack, Typography } from "@mui/material";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import LightModeIcon from "@mui/icons-material/LightMode";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import Logo from "@/assets/images/logo1.webp";
 import { useThemeMode } from "../context/themeContext";
 
 export const Navbar = () => {
   const { mode, toggleTheme } = useThemeMode();
+  const { pathname } = useLocation();
+  const isHome = pathname === "/";
 
   return (
     <Stack
@@ -69,21 +71,24 @@ export const Navbar = () => {
       >
         <Link
           to="/"
+          className="nav-link"
+          aria-current={isHome ? "page" : undefined}
           style={{
             textDecoration: "none",
             color: "var(--text-primary)",
-            borderBottom: "3px solid var(--accent)",
+            // active-route indicator, not a permanent underline
+            ...(isHome && { borderBottomColor: "var(--accent)" }),
           }}
         >
           Home
         </Link>
-        <a
-          href="#exercises"
+        <Link
+          to="/#exercises"
           className="nav-link"
           style={{ textDecoration: "none", color: "var(--text-primary)" }}
         >
           Exercises
-        </a>
+        </Link>
         <IconButton
           onClick={toggleTheme}
           aria-label={

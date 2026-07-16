@@ -10,10 +10,20 @@ import {
 import SearchIcon from "@mui/icons-material/Search";
 import ClearIcon from "@mui/icons-material/Clear";
 import { useEffect, useState } from "react";
-import { getBodyPartList, getExercises } from "../utils/exerciseDb";
+import {
+  getBodyPartList,
+  getExercises,
+  getExercisesByBodyPart,
+} from "../utils/exerciseDb";
 import { HorizontalScrollbar } from "./HorizontalScrollbar";
 
-export const SearchExercises = ({ setExercises, bodyPart, setBodyPart }) => {
+export const SearchExercises = ({
+  setExercises,
+  bodyPart,
+  setBodyPart,
+  searchTerm,
+  setSearchTerm,
+}) => {
   const [search, setSearch] = useState("");
   const [bodyParts, setBodyParts] = useState([]);
   const [error, setError] = useState(null);
@@ -48,21 +58,57 @@ export const SearchExercises = ({ setExercises, bodyPart, setBodyPart }) => {
           item.bodyPart.toLowerCase().includes(term),
       );
       setExercises(searchedExercises);
+      setSearchTerm(term);
     } else {
       setError("No results. Please try again later.");
       setExercises([]);
     }
   };
 
-  const handleSearch = () => runSearch(search);
+  // Restore the unfiltered list for the current body part after a search
+  // is cleared, so stale results don't stick around
+  const restoreList = async () => {
+    setError(null);
+    const exercisesData =
+      bodyPart === "all"
+        ? await getExercises().catch(() => null)
+        : await getExercisesByBodyPart(bodyPart).catch(() => null);
+
+    if (exercisesData) {
+      setExercises(exercisesData);
+    } else {
+      setError("No results. Please try again later.");
+    }
+    setSearchTerm("");
+  };
+
+  // Explicit submit (Enter / Search button) also scrolls to the results;
+  // the debounced live search must not, or the input would scroll out of
+  // view while the user is still typing
+  const handleSearch = async () => {
+    if (!search) return;
+    await runSearch(search);
+    document
+      .getElementById("exercises")
+      ?.scrollIntoView({ behavior: "smooth" });
+  };
 
   // debounced live search — 400ms after the user stops typing
   useEffect(() => {
-    if (!search) return;
+    if (!search) {
+      if (searchTerm) restoreList();
+      return;
+    }
     const timer = setTimeout(() => runSearch(search), 400);
     return () => clearTimeout(timer);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [search]);
+
+  // Picking a body part exits search mode (Exercises refetches the list and
+  // clears searchTerm); clear the input text so it matches what's shown
+  useEffect(() => {
+    setSearch("");
+  }, [bodyPart]);
 
   return (
     <Stack

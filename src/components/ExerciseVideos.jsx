@@ -4,11 +4,12 @@ import {
   Dialog,
   DialogContent,
   IconButton,
+  Skeleton,
   Stack,
   Typography,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-import { Loader } from "./Loader";
+import YouTubeIcon from "@mui/icons-material/YouTube";
 
 export const ExerciseVideos = ({ exerciseVideos, name }) => {
   const [activeVideo, setActiveVideo] = useState(null);
@@ -34,8 +35,62 @@ export const ExerciseVideos = ({ exerciseVideos, name }) => {
         </span>
         exercise videos
       </Typography>
-      {!exerciseVideos ? (
-        <Loader />
+      {exerciseVideos === null ? (
+        // Loading — skeletons matching the .exercise-video card layout
+        <Stack
+          justifyContent="flex-start"
+          flexWrap="wrap"
+          alignItems="center"
+          sx={{
+            flexDirection: { lg: "row" },
+            gap: { lg: "80px", md: "40px", sm: "24px", xs: "24px" },
+          }}
+        >
+          {Array.from({ length: 3 }).map((_, i) => (
+            <Box key={`video-skeleton-${i}`} className="exercise-video">
+              <Skeleton
+                variant="rectangular"
+                width="100%"
+                sx={{ aspectRatio: "4 / 3", height: "auto", borderRadius: "12px" }}
+              />
+              <Box>
+                <Skeleton
+                  variant="text"
+                  width="90%"
+                  sx={{ fontSize: { lg: "28px", xs: "18px" } }}
+                />
+                <Skeleton variant="text" width="40%" sx={{ fontSize: "14px" }} />
+              </Box>
+            </Box>
+          ))}
+        </Stack>
+      ) : exerciseVideos.length === 0 ? (
+        // Failed or no results — don't dead-end, offer YouTube directly
+        <Stack alignItems="flex-start" sx={{ gap: 1 }}>
+          <Typography sx={{ color: "var(--text-secondary)" }}>
+            No videos found right now.
+          </Typography>
+          <Box
+            component="a"
+            href={`https://www.youtube.com/results?search_query=${encodeURIComponent(
+              `${name ?? ""} exercise`,
+            )}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            sx={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "8px",
+              color: "var(--accent)",
+              fontWeight: 600,
+              textDecoration: "none",
+              "&:hover": { textDecoration: "underline" },
+            }}
+          >
+            <YouTubeIcon />
+            Search “{name}” on YouTube
+          </Box>
+        </Stack>
       ) : (
         <Stack
           justifyContent="flex-start"

@@ -1,6 +1,7 @@
-import { Box } from "@mui/material";
+import { Box, Button, Stack, Typography } from "@mui/material";
+import SearchOffIcon from "@mui/icons-material/SearchOff";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { YOUTUBE_SEARCH, fetchData, youtubeOptions } from "../utils/fetchData";
 import {
   getExerciseById,
@@ -12,10 +13,13 @@ import { ExerciseVideos } from "../components/ExerciseVideos";
 import { SimilarExercises } from "../components/SimilarExercises";
 
 export const ExerciseDetail = () => {
+  // null = loading, [] = failed or none — components render skeletons for
+  // null and an empty state for []
   const [exerciseDetail, setExerciseDetail] = useState({});
-  const [exerciseVideos, setExerciseVideos] = useState([]);
-  const [targetMuscleExercises, setTargetMuscleExercises] = useState([]);
-  const [equipmentExercise, setEquipmentExercise] = useState([]);
+  const [notFound, setNotFound] = useState(false);
+  const [exerciseVideos, setExerciseVideos] = useState(null);
+  const [targetMuscleExercises, setTargetMuscleExercises] = useState(null);
+  const [equipmentExercise, setEquipmentExercise] = useState(null);
   const { id } = useParams();
 
   useEffect(() => {
@@ -25,9 +29,10 @@ export const ExerciseDetail = () => {
     // the global `html { scroll-behavior: smooth }` for this jump.
     window.scrollTo({ top: 0, behavior: "instant" });
     setExerciseDetail({});
-    setExerciseVideos([]);
-    setTargetMuscleExercises([]);
-    setEquipmentExercise([]);
+    setNotFound(false);
+    setExerciseVideos(null);
+    setTargetMuscleExercises(null);
+    setEquipmentExercise(null);
 
     // Cancelled flag so a slow response for a previous exercise can't
     // overwrite the data of the one currently displayed
@@ -35,7 +40,11 @@ export const ExerciseDetail = () => {
 
     const fetchExercisesData = async () => {
       const exerciseDetailData = await getExerciseById(id).catch(() => null);
-      if (cancelled || !exerciseDetailData) return;
+      if (cancelled) return;
+      if (!exerciseDetailData) {
+        setNotFound(true);
+        return;
+      }
       setExerciseDetail(exerciseDetailData);
 
       const [exerciseVideosData, targetMuscleExercisesData, equipmentExerciseData] =
@@ -51,9 +60,12 @@ export const ExerciseDetail = () => {
         ]);
       if (cancelled) return;
 
+      // "Similar" lists shouldn't include the exercise being viewed
+      const withoutCurrent = (list) =>
+        (list ?? []).filter((exercise) => exercise.id !== id);
       setExerciseVideos(exerciseVideosData?.contents ?? []);
-      if (targetMuscleExercisesData) setTargetMuscleExercises(targetMuscleExercisesData);
-      if (equipmentExerciseData) setEquipmentExercise(equipmentExerciseData);
+      setTargetMuscleExercises(withoutCurrent(targetMuscleExercisesData));
+      setEquipmentExercise(withoutCurrent(equipmentExerciseData));
     };
 
     fetchExercisesData();
@@ -61,6 +73,52 @@ export const ExerciseDetail = () => {
       cancelled = true;
     };
   }, [id]);
+
+  if (notFound) {
+    return (
+      <Stack
+        alignItems="center"
+        sx={{ gap: 2, py: { lg: "160px", xs: "100px" }, px: "20px" }}
+      >
+        <SearchOffIcon
+          sx={{ fontSize: 96, color: "var(--text-secondary)", opacity: 0.4 }}
+        />
+        <Typography
+          component="h1"
+          sx={{ fontSize: { lg: "44px", xs: "30px" }, textAlign: "center" }}
+          fontWeight={700}
+        >
+          Exercise not found
+        </Typography>
+        <Typography
+          sx={{
+            color: "var(--text-secondary)",
+            textAlign: "center",
+            maxWidth: 400,
+          }}
+        >
+          This exercise doesn&apos;t exist or may have been removed.
+        </Typography>
+        <Button
+          component={Link}
+          to="/"
+          variant="outlined"
+          sx={{
+            mt: 1,
+            borderColor: "var(--accent)",
+            color: "var(--accent)",
+            textTransform: "none",
+            "&:hover": {
+              borderColor: "var(--accent)",
+              bgcolor: "rgba(255, 38, 37, 0.08)",
+            },
+          }}
+        >
+          Browse all exercises
+        </Button>
+      </Stack>
+    );
+  }
 
   return (
     <Box sx={{ mt: { lg: "96px", xs: "60px" } }}>
