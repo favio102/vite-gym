@@ -239,13 +239,6 @@ body {
   transition: transform 0.25s ease-out;
 }
 
-.bodyPart-card {
-  transition:
-    transform 0.2s ease-out,
-    background-color 0.2s ease-out,
-    box-shadow 0.2s ease-out;
-}
-
 .exercise-card:hover {
   transform: translateY(-4px);
   box-shadow:

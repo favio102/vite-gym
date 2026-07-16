@@ -1,61 +1,58 @@
-import { Stack, Typography } from "@mui/material";
-import Icon from "@/assets/icons/gym.png";
+import { Typography } from "@mui/material";
 
-export const BodyPart = ({ item, bodyPart, setBodyPart }) => (
-  <Stack
-    component="button"
-    type="button"
-    alignItems="center"
-    justifyContent="center"
-    className="bodyPart-card"
-    aria-pressed={bodyPart === item}
-    sx={{
-      // reset native <button> defaults
-      border: 0,
-      padding: 0,
-      font: "inherit",
-      color: "inherit",
-      // selected = accent ring + tint (shape + color, not color alone)
-      boxShadow:
-        bodyPart === item ? "0 0 0 2px var(--accent)" : "var(--shadow-sm)",
-      backgroundColor:
-        bodyPart === item ? "var(--accent-light)" : "var(--card-bg)",
-      borderRadius: "16px",
-      width: { lg: "270px", sm: "200px", xs: "140px" },
-      height: { lg: "280px", sm: "220px", xs: "150px" },
-      cursor: "pointer",
-      gap: { lg: "47px", sm: "32px", xs: "16px" },
-      transition: "all 0.2s ease-out",
-      "&:hover": {
-        backgroundColor:
-          bodyPart === item ? "var(--accent-light)" : "var(--bg-secondary)",
-        transform: "translateY(-4px)",
-      },
-      "&:active": {
-        transform: "translateY(-1px)",
-        transitionDuration: "0.1s",
-      },
-      "&:focus-visible": {
-        outline: "2px solid var(--accent)",
-        outlineOffset: "2px",
-      },
-    }}
-    onClick={() => {
-      setBodyPart(item);
-      document
-        .getElementById("exercises")
-        ?.scrollIntoView({ behavior: "smooth" });
-    }}
-  >
-    <img src={Icon} alt="" style={{ width: "40px", height: "40px" }} />
+// Compact filter pill (YouTube-style category chip). The old card showed the
+// same generic gym icon on every item, so the icon carried no information
+// and was dropped with the card layout.
+export const BodyPart = ({ item, bodyPart, setBodyPart }) => {
+  const selected = bodyPart === item;
+
+  return (
     <Typography
-      component="span"
-      fontWeight="bold"
-      sx={{ color: "var(--text-primary)", fontSize: { lg: "24px", xs: "18px" } }}
-      textTransform="capitalize"
+      component="button"
+      type="button"
+      className="bodyPart-pill"
+      aria-pressed={selected}
+      sx={{
+        display: "flex",
+        alignItems: "center",
+        height: "48px",
+        px: "22px",
+        border: "1px solid var(--card-border)",
+        borderRadius: "999px",
+        font: "inherit",
+        fontSize: { lg: "18px", xs: "16px" },
+        fontWeight: 600,
+        textTransform: "capitalize",
+        whiteSpace: "nowrap",
+        cursor: "pointer",
+        color: selected ? "#fff" : "var(--text-primary)",
+        backgroundColor: selected ? "var(--accent)" : "var(--card-bg)",
+        borderColor: selected ? "var(--accent)" : "var(--card-border)",
+        boxShadow: "var(--shadow-sm)",
+        transition:
+          "background-color 0.2s ease-out, color 0.2s ease-out, border-color 0.2s ease-out, transform 0.2s ease-out",
+        "&:hover": {
+          backgroundColor: selected ? "var(--accent)" : "var(--accent-light)",
+          borderColor: "var(--accent)",
+          transform: "translateY(-2px)",
+        },
+        "&:active": {
+          transform: "translateY(0)",
+          transitionDuration: "0.1s",
+        },
+        "&:focus-visible": {
+          outline: "2px solid var(--accent)",
+          outlineOffset: "2px",
+        },
+      }}
+      onClick={() => {
+        setBodyPart(item);
+        document
+          .getElementById("exercises")
+          ?.scrollIntoView({ behavior: "smooth" });
+      }}
     >
       {item}
     </Typography>
-  </Stack>
-);
-
+  );
+};
