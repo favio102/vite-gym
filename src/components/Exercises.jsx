@@ -97,7 +97,7 @@ export const Exercises = ({
     <Box
       component="section"
       id="exercises"
-      sx={{ mt: { lg: "10px", xs: "50px" } }}
+      sx={{ mt: { lg: "40px", xs: "32px" } }}
       p="20px"
     >
       <Typography

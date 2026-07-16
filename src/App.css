@@ -193,17 +193,6 @@ body {
   }
 }
 
-.hero-banner-img {
-  position: absolute;
-  right: 40px;
-  top: 0px;
-  width: 700px;
-  height: 900px;
-  margin-top: -320px;
-  border-bottom-left-radius: 50px;
-  pointer-events: none;
-}
-
 .exercise-card {
   width: 400px;
   max-width: 100%;

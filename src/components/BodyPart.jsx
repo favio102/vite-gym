@@ -15,8 +15,8 @@ export const BodyPart = ({ item, bodyPart, setBodyPart }) => {
       sx={{
         display: "flex",
         alignItems: "center",
-        height: "48px",
-        px: "22px",
+        height: { xs: "44px", sm: "48px" },
+        px: { xs: "16px", sm: "22px" },
         border: "1px solid var(--card-border)",
         borderRadius: "999px",
         font: "inherit",

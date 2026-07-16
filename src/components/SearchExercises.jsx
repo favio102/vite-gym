@@ -10,39 +10,17 @@ import {
 import SearchIcon from "@mui/icons-material/Search";
 import ClearIcon from "@mui/icons-material/Clear";
 import { useEffect, useState } from "react";
-import {
-  getBodyPartList,
-  getExercises,
-  getExercisesByBodyPart,
-} from "../utils/exerciseDb";
-import { HorizontalScrollbar } from "./HorizontalScrollbar";
+import { getExercises, getExercisesByBodyPart } from "../utils/exerciseDb";
 
+// The hero search bar — rendered inside HeroBanner, floats on the photo.
 export const SearchExercises = ({
   setExercises,
   bodyPart,
-  setBodyPart,
   searchTerm,
   setSearchTerm,
 }) => {
   const [search, setSearch] = useState("");
-  const [bodyParts, setBodyParts] = useState([]);
   const [error, setError] = useState(null);
-
-  useEffect(() => {
-    const fetchBodyPartsData = async () => {
-      setError(null);
-      const bodyPartsData = await getBodyPartList().catch(() => null);
-
-      if (bodyPartsData) {
-        setBodyParts(["all", ...bodyPartsData]);
-      } else {
-        setError("No results. Please try again later.");
-        setBodyParts(["all"]);
-      }
-    };
-
-    fetchBodyPartsData();
-  }, []);
 
   const runSearch = async (term) => {
     if (!term) return;
@@ -111,29 +89,16 @@ export const SearchExercises = ({
   }, [bodyPart]);
 
   return (
-    <Stack
-      component="section"
-      alignItems="center"
-      mt="37px"
-      justifyContent="center"
-      p="20px"
-    >
-      <Typography
-        component="h2"
-        fontWeight={700}
-        sx={{ fontSize: { lg: "44px", xs: "30px" } }}
-        mb="50px"
-        textAlign="center"
-      >
-        Awesome Exercises You <br /> Should Know
-      </Typography>
-      <Box position="relative" mb="72px">
+    <Stack sx={{ width: "100%", maxWidth: "680px", gap: 1 }}>
+      <Box position="relative" sx={{ width: "100%" }}>
         <TextField
           sx={{
-            input: { fontWeight: "700", border: "none", borderRadius: "4px" },
-            width: { lg: "1170px", md: "700px", sm: "500px", xs: "100%" },
+            width: "100%",
+            input: { fontWeight: "700" },
             backgroundColor: "var(--input-bg)",
-            borderRadius: "40px",
+            borderRadius: "12px",
+            boxShadow: "var(--shadow-md)",
+            "& .MuiOutlinedInput-root": { borderRadius: "12px" },
             "& .MuiOutlinedInput-root.Mui-focused fieldset": {
               borderColor: "var(--accent)",
             },
@@ -153,7 +118,7 @@ export const SearchExercises = ({
             endAdornment: search ? (
               <InputAdornment
                 position="end"
-                sx={{ mr: { lg: "180px", md: "145px", xs: "85px" } }}
+                sx={{ mr: { xs: "88px", sm: "116px" } }}
               >
                 <IconButton
                   onClick={() => setSearch("")}
@@ -172,11 +137,13 @@ export const SearchExercises = ({
             bgcolor: "var(--accent)",
             color: "#fff",
             textTransform: "none",
-            width: { lg: "175px", md: "140px", xs: "80px" },
-            fontSize: { lg: "20px", md: "16px", xs: "14px" },
+            fontWeight: 600,
+            width: { xs: "84px", sm: "112px" },
+            fontSize: { xs: "14px", sm: "16px" },
             height: "56px",
             position: "absolute",
             right: "0px",
+            borderRadius: "0 12px 12px 0",
           }}
           onClick={handleSearch}
         >
@@ -184,19 +151,20 @@ export const SearchExercises = ({
         </Button>
       </Box>
       {error && (
-        <Typography variant="h6" color="error">
+        <Typography
+          role="alert"
+          sx={{
+            color: "#fff",
+            bgcolor: "rgba(0, 0, 0, 0.55)",
+            borderRadius: "8px",
+            px: "12px",
+            py: "6px",
+            alignSelf: "flex-start",
+          }}
+        >
           {error}
         </Typography>
       )}
-      <Box sx={{ position: "relative", width: "100%", p: "20px" }}>
-        <HorizontalScrollbar
-          data={bodyParts}
-          bodyPart={bodyPart}
-          setBodyPart={setBodyPart}
-          isBodyParts
-        />
-      </Box>
     </Stack>
   );
 };
-

@@ -3,6 +3,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { HeroBanner } from "../components/HeroBanner";
 import { SearchExercises } from "../components/SearchExercises";
+import { BodyPartsBar } from "../components/BodyPartsBar";
 import { Exercises } from "../components/Exercises";
 import { ExerciseRow } from "../components/ExerciseRow";
 import { useFavorites } from "../context/favoritesContext";
@@ -56,14 +57,15 @@ export const Home = () => {
 
   return (
     <Box>
-      <HeroBanner />
-      <SearchExercises
-        setExercises={setExercises}
-        bodyPart={bodyPart}
-        setBodyPart={setBodyPart}
-        searchTerm={searchTerm}
-        setSearchTerm={setSearchTerm}
-      />
+      <HeroBanner>
+        <SearchExercises
+          setExercises={setExercises}
+          bodyPart={bodyPart}
+          searchTerm={searchTerm}
+          setSearchTerm={setSearchTerm}
+        />
+      </HeroBanner>
+      <BodyPartsBar bodyPart={bodyPart} setBodyPart={setBodyPart} />
       <ExerciseRow title="Favorites" exercises={favoriteExercises} />
       <ExerciseRow title="Recently viewed" exercises={recentExercises} />
       <Exercises

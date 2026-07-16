@@ -3,7 +3,6 @@ import { ScrollMenu, VisibilityContext } from "react-horizontal-scrolling-menu";
 import { Box } from "@mui/material";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
-import { BodyPart } from "./BodyPart";
 import { ExerciseCard } from "./ExerciseCard";
 
 // Arrow state/scrolling based on real scroll geometry. The library's own
@@ -76,27 +75,16 @@ const RightArrow = () => {
   );
 };
 
-export const HorizontalScrollbar = ({
-  data,
-  setBodyPart,
-  bodyPart,
-  isBodyParts,
-}) => (
+// Scrollable exercise-card row (similar exercises, favorites, recents).
+export const HorizontalScrollbar = ({ data }) => (
   <ScrollMenu LeftArrow={LeftArrow} RightArrow={RightArrow}>
     {data.map((item) => (
       <Box
-        key={item.id || item}
-        itemID={item.id || item}
-        // pills sit in a tight row; exercise-card rows keep wide gaps
-        sx={{
-          m: isBodyParts ? "6px" : { xs: "0 10px", sm: "0 20px", lg: "0 40px" },
-        }}
+        key={item.id}
+        itemID={item.id}
+        sx={{ m: { xs: "0 10px", sm: "0 20px", lg: "0 40px" } }}
       >
-        {isBodyParts ? (
-          <BodyPart item={item} bodyPart={bodyPart} setBodyPart={setBodyPart} />
-        ) : (
-          <ExerciseCard exercise={item} />
-        )}
+        <ExerciseCard exercise={item} />
       </Box>
     ))}
   </ScrollMenu>

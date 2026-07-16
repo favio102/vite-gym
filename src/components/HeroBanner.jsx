@@ -3,16 +3,20 @@ import { Box, Stack, Typography } from "@mui/material";
 // served from /public/ so we can preload it via index.html for faster LCP
 const HeroBannerImage = "/banner.webp";
 
-export const HeroBanner = () => (
+// Full-width hero: photo background + gradient overlay, headline and the
+// search bar (passed as children) on top. Text is fixed white — it sits on
+// the photo, independent of the app theme.
+export const HeroBanner = ({ children }) => (
   <Box
-    position="relative"
+    component="section"
     sx={{
-      mt: { lg: "212px", xs: "70px" },
-      ml: { sm: "50px", xs: "0px" },
-      p: { xs: "16px", sm: "26px" },
+      position: "relative",
+      overflow: "hidden",
+      borderRadius: "24px",
+      mx: { xs: "12px", sm: "20px" },
+      mt: { xs: "16px", sm: "24px" },
     }}
   >
-    {/* Mobile hero — full-width banner shown only below the lg breakpoint */}
     <Box
       component="img"
       src={HeroBannerImage}
@@ -20,82 +24,68 @@ export const HeroBanner = () => (
       width={900}
       height={1350}
       sx={{
-        display: { xs: "block", lg: "none" },
+        position: "absolute",
+        inset: 0,
         width: "100%",
-        height: { xs: "200px", sm: "280px" },
+        height: "100%",
         objectFit: "cover",
-        borderRadius: "12px",
-        mb: 3,
+        objectPosition: "center 30%",
       }}
     />
-    <Typography
-      sx={{ color: "var(--accent)", fontSize: { xs: "20px", sm: "26px" } }}
-      fontWeight="600"
-    >
-      Fitness Club
-    </Typography>
-    <Typography
-      component="h1"
-      fontWeight={700}
-      sx={{ fontSize: { lg: "44px", sm: "40px", xs: "30px" } }}
-      mb="23px"
-      mt="30px"
-    >
-      Sweat, Smile <br /> and Repeat
-    </Typography>
-    <Typography
+    {/* darkens the photo so the white text passes contrast */}
+    <Box
       sx={{
-        fontSize: { xs: "16px", sm: "22px" },
-        lineHeight: { xs: "28px", sm: "35px" },
+        position: "absolute",
+        inset: 0,
+        background:
+          "linear-gradient(180deg, rgba(10, 10, 10, 0.35) 0%, rgba(10, 10, 10, 0.65) 100%)",
       }}
-      mb={4}
+    />
+    <Stack
+      sx={{
+        position: "relative",
+        zIndex: 1,
+        alignItems: { xs: "flex-start", md: "center" },
+        textAlign: { xs: "left", md: "center" },
+        gap: { xs: "12px", sm: "16px" },
+        px: { xs: "20px", sm: "40px" },
+        py: { xs: "48px", sm: "72px", lg: "96px" },
+      }}
     >
-      Check out the most effective exercises personalized to you
-    </Typography>
-    <Stack>
-      <Box
-        component="a"
-        href="#exercises"
+      <Typography
         sx={{
-          mt: "32px",
-          px: 4,
-          py: 1.5,
-          textDecoration: "none",
-          width: { xs: "100%", sm: "240px" },
-          maxWidth: { xs: "320px", sm: "240px" },
-          textAlign: "center",
-          background: "var(--accent)",
-          fontFamily: "'Bebas Neue', sans-serif",
+          color: "var(--accent)",
           fontSize: { xs: "18px", sm: "22px" },
-          letterSpacing: "1.5px",
-          color: "white",
-          borderRadius: "8px",
-          display: "inline-block",
-          transition:
-            "background 0.2s ease-out, transform 0.2s ease-out, box-shadow 0.2s ease-out",
-          "&:hover": {
-            background: "var(--accent-dark)",
-            transform: "translateY(-2px)",
-            boxShadow: "0 8px 16px rgba(255, 38, 37, 0.25)",
-          },
-          "&:active": {
-            transform: "translateY(0)",
-            transitionDuration: "0.1s",
-          },
+          fontWeight: 600,
+          letterSpacing: "1px",
+          textShadow: "0 1px 8px rgba(0, 0, 0, 0.6)",
         }}
       >
-        Explore Exercises
-      </Box>
+        Fitness Club
+      </Typography>
+      <Typography
+        component="h1"
+        fontWeight={700}
+        sx={{
+          color: "#fff",
+          fontSize: { lg: "56px", sm: "44px", xs: "32px" },
+          textShadow: "0 2px 12px rgba(0, 0, 0, 0.5)",
+          textWrap: "balance",
+        }}
+      >
+        Sweat, Smile and Repeat
+      </Typography>
+      <Typography
+        sx={{
+          color: "rgba(255, 255, 255, 0.92)",
+          fontSize: { xs: "16px", sm: "20px" },
+          textShadow: "0 1px 8px rgba(0, 0, 0, 0.6)",
+          mb: { xs: "8px", sm: "12px" },
+        }}
+      >
+        Search 800+ exercises with step-by-step instructions and videos
+      </Typography>
+      {children}
     </Stack>
-    <Box
-      component="img"
-      src={HeroBannerImage}
-      alt="Fitness training"
-      width={900}
-      height={1350}
-      className="hero-banner-img"
-      sx={{ display: { xs: "none", lg: "block" } }}
-    />
   </Box>
 );
-
