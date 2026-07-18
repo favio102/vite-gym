@@ -1,9 +1,11 @@
 import { Box, Stack, Typography } from "@mui/material";
 import { HorizontalScrollbar } from "./HorizontalScrollbar";
 import { ExerciseCardSkeleton } from "./ExerciseCardSkeleton";
+import { useLanguage } from "../context/languageContext";
 
 // exercises: null = loading (skeletons), [] = none found, else scrollable row
 const SimilarList = ({ exercises }) => {
+  const { t } = useLanguage();
   if (exercises === null) {
     return (
       <Stack
@@ -29,7 +31,7 @@ const SimilarList = ({ exercises }) => {
   if (exercises.length === 0) {
     return (
       <Typography sx={{ color: "var(--text-secondary)" }}>
-        No similar exercises found.
+        {t("similar.empty")}
       </Typography>
     );
   }
@@ -37,7 +39,10 @@ const SimilarList = ({ exercises }) => {
   return <HorizontalScrollbar data={exercises} />;
 };
 
-export const SimilarExercises = ({ targetMuscleExercises, equipmentExercise }) => (
+export const SimilarExercises = ({ targetMuscleExercises, equipmentExercise }) => {
+  const { t } = useLanguage();
+
+  return (
   <Box component="section" sx={{ mt: { lg: "10px", xs: "0px" } }}>
     <Typography
       component="h2"
@@ -50,8 +55,8 @@ export const SimilarExercises = ({ targetMuscleExercises, equipmentExercise }) =
       fontWeight={700}
       mb="33px"
     >
-      Exercises that target the{" "}
-      <span style={{ color: "var(--accent)" }}>same muscle</span>
+      {t("similar.muscleLead")}{" "}
+      <span style={{ color: "var(--accent)" }}>{t("similar.muscle")}</span>
     </Typography>
     <Stack direction="row" sx={{ p: 2, position: "relative" }}>
       <SimilarList exercises={targetMuscleExercises} />
@@ -67,11 +72,12 @@ export const SimilarExercises = ({ targetMuscleExercises, equipmentExercise }) =
       fontWeight={700}
       mb="33px"
     >
-      Exercises that use the{" "}
-      <span style={{ color: "var(--accent)" }}>same equipment</span>
+      {t("similar.equipmentLead")}{" "}
+      <span style={{ color: "var(--accent)" }}>{t("similar.equipment")}</span>
     </Typography>
     <Stack direction="row" sx={{ p: 2, position: "relative" }}>
       <SimilarList exercises={equipmentExercise} />
     </Stack>
   </Box>
-);
+  );
+};

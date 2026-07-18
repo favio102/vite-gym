@@ -1,12 +1,14 @@
-import { IconButton, Stack, Typography } from "@mui/material";
+import { Button, IconButton, Stack, Typography } from "@mui/material";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import { Link, useLocation } from "react-router-dom";
 import Logo from "@/assets/images/logo1.webp";
 import { useThemeMode } from "../context/themeContext";
+import { useLanguage } from "../context/languageContext";
 
 export const Navbar = () => {
   const { mode, toggleTheme } = useThemeMode();
+  const { language, toggleLanguage, t } = useLanguage();
   const { pathname } = useLocation();
   const isHome = pathname === "/";
 
@@ -80,20 +82,36 @@ export const Navbar = () => {
             ...(isHome && { borderBottomColor: "var(--accent)" }),
           }}
         >
-          Home
+          {t("nav.home")}
         </Link>
         <Link
           to="/#exercises"
           className="nav-link"
           style={{ textDecoration: "none", color: "var(--text-primary)" }}
         >
-          Exercises
+          {t("nav.exercises")}
         </Link>
+        <Button
+          onClick={toggleLanguage}
+          aria-label={t("nav.language")}
+          sx={{
+            minWidth: "44px",
+            p: { xs: "8px", sm: "6px 10px" },
+            color: "var(--text-primary)",
+            fontWeight: 700,
+            border: "1px solid var(--card-border)",
+            borderRadius: "8px",
+            "&:hover": {
+              borderColor: "var(--accent)",
+              color: "var(--accent)",
+            },
+          }}
+        >
+          {language === "en" ? "ES" : "EN"}
+        </Button>
         <IconButton
           onClick={toggleTheme}
-          aria-label={
-            mode === "light" ? "Switch to dark mode" : "Switch to light mode"
-          }
+          aria-label={mode === "light" ? t("nav.toDark") : t("nav.toLight")}
           sx={{
             color: "var(--accent)",
             // 24px icon + 2x10px padding = 44px minimum touch target

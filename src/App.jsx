@@ -4,6 +4,7 @@ import { Route, Routes } from "react-router-dom";
 import { Box } from "@mui/material";
 import { ThemeProvider } from "./context/ThemeProvider";
 import { FavoritesProvider } from "./context/FavoritesProvider";
+import { LanguageProvider } from "./context/LanguageProvider";
 import { Navbar } from "./components/Navbar";
 import { Footer } from "./components/Footer";
 import { Loader } from "./components/Loader";
@@ -18,6 +19,7 @@ const ExerciseDetail = lazy(() =>
 export function App() {
   return (
     <ThemeProvider>
+      <LanguageProvider>
       <FavoritesProvider>
         <Box
           component="div"
@@ -41,6 +43,7 @@ export function App() {
           <Footer />
         </Box>
       </FavoritesProvider>
+      </LanguageProvider>
     </ThemeProvider>
   );
 }

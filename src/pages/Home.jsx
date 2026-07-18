@@ -7,6 +7,7 @@ import { BodyPartsBar } from "../components/BodyPartsBar";
 import { Exercises } from "../components/Exercises";
 import { ExerciseRow } from "../components/ExerciseRow";
 import { useFavorites } from "../context/favoritesContext";
+import { useLanguage } from "../context/languageContext";
 import { getExercises } from "../utils/exerciseDb";
 import { getRecentlyViewed } from "../utils/recentlyViewed";
 
@@ -18,12 +19,13 @@ export const Home = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [allExercises, setAllExercises] = useState([]);
   const { favoriteIds } = useFavorites();
+  const { language } = useLanguage();
   const location = useLocation();
 
   // Full dataset (cached promise) to resolve favorite/recent ids into cards
   useEffect(() => {
     let cancelled = false;
-    getExercises()
+    getExercises(language)
       .then((data) => {
         if (!cancelled) setAllExercises(data);
       })
@@ -31,7 +33,7 @@ export const Home = () => {
     return () => {
       cancelled = true;
     };
-  }, []);
+  }, [language]);
 
   const favoriteExercises = useMemo(
     () => allExercises.filter((exercise) => favoriteIds.has(exercise.id)),
@@ -66,8 +68,8 @@ export const Home = () => {
         />
       </HeroBanner>
       <BodyPartsBar bodyPart={bodyPart} setBodyPart={setBodyPart} />
-      <ExerciseRow title="Favorites" exercises={favoriteExercises} />
-      <ExerciseRow title="Recently viewed" exercises={recentExercises} />
+      <ExerciseRow titleKey="home.favorites" exercises={favoriteExercises} />
+      <ExerciseRow titleKey="home.recent" exercises={recentExercises} />
       <Exercises
         exercises={exercises}
         setExercises={setExercises}

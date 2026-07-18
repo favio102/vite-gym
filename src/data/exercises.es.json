@@ -1,0 +1,58 @@
+{
+  "Plank": {
+    "name": "Plancha",
+    "instructions": [
+      "Colócate en posición prona sobre el suelo, apoyando el peso en las puntas de los pies y los antebrazos. Los brazos están flexionados y directamente debajo de los hombros.",
+      "Mantén el cuerpo recto en todo momento y sostén esta posición el mayor tiempo posible. Para aumentar la dificultad, puedes levantar un brazo o una pierna."
+    ]
+  },
+  "Pushups": {
+    "name": "Flexiones",
+    "instructions": [
+      "Acuéstate boca abajo en el suelo y coloca las manos separadas unos 90 cm mientras sostienes el torso arriba con los brazos estirados.",
+      "A continuación, baja el cuerpo hasta que el pecho casi toque el suelo mientras inhalas.",
+      "Ahora exhala y empuja la parte superior del cuerpo de vuelta a la posición inicial mientras contraes el pecho.",
+      "Tras una breve pausa en la posición contraída, comienza a bajar de nuevo tantas repeticiones como necesites."
+    ]
+  },
+  "Dumbbell_Bicep_Curl": {
+    "name": "Curl de bíceps con mancuerna",
+    "instructions": [
+      "Ponte de pie con una mancuerna en cada mano y los brazos estirados. Mantén los codos pegados al torso y gira las palmas hasta que miren hacia adelante. Esta será tu posición inicial.",
+      "Ahora, manteniendo los brazos superiores quietos, exhala y flexiona levantando las mancuernas mientras contraes los bíceps. Sigue subiendo hasta que los bíceps estén totalmente contraídos y las mancuernas a la altura de los hombros. Mantén la posición contraída una breve pausa mientras aprietas los bíceps.",
+      "Luego, inhala y baja lentamente las mancuernas a la posición inicial.",
+      "Repite el número de repeticiones recomendado."
+    ]
+  },
+  "Barbell_Squat": {
+    "name": "Sentadilla con barra",
+    "instructions": [
+      "Comienza colocando la barra sobre la parte alta de la espalda, con las manos sujetándola con firmeza.",
+      "Da un paso atrás y separa los pies al ancho de los hombros, con las puntas ligeramente hacia afuera. Mantén la cabeza erguida y la espalda recta. Esta será tu posición inicial.",
+      "Comienza el descenso doblando las rodillas y llevando las caderas hacia atrás, como si te sentaras.",
+      "Continúa bajando hasta que los muslos queden paralelos al suelo, manteniendo el peso sobre los talones.",
+      "Sube empujando con los talones y estirando las piernas para volver a la posición inicial.",
+      "Repite el número de repeticiones recomendado."
+    ]
+  },
+  "Barbell_Deadlift": {
+    "name": "Peso muerto con barra",
+    "instructions": [
+      "Acércate a la barra de modo que quede sobre el medio de los pies, separados al ancho de las caderas. Agáchate y agarra la barra con un agarre al ancho de los hombros.",
+      "Baja las caderas y mira al frente. Mantén el pecho arriba y la espalda recta. Esta será tu posición inicial.",
+      "Empuja con los talones y extiende caderas y rodillas para levantar la barra, manteniéndola pegada al cuerpo.",
+      "Al llegar arriba, tira los hombros hacia atrás si están redondeados.",
+      "Baja la barra de forma controlada volviendo a la posición inicial. Repite las repeticiones recomendadas."
+    ]
+  },
+  "Barbell_Bench_Press_-_Medium_Grip": {
+    "name": "Press de banca con barra (agarre medio)",
+    "instructions": [
+      "Acuéstate en un banco plano y agarra la barra con un agarre medio, un poco más ancho que los hombros.",
+      "Saca la barra del soporte y sostenla arriba con los brazos estirados. Esta será tu posición inicial.",
+      "Baja la barra lentamente hasta que toque la parte media del pecho mientras inhalas.",
+      "Tras una breve pausa, empuja la barra de vuelta arriba mientras exhalas, apretando el pecho.",
+      "Bloquea los brazos en la posición contraída, haz una pausa y baja de nuevo. Repite las repeticiones recomendadas."
+    ]
+  }
+}

@@ -1,9 +1,11 @@
 import { Box, Typography } from "@mui/material";
 import { HorizontalScrollbar } from "./HorizontalScrollbar";
+import { useLanguage } from "../context/languageContext";
 
 // Titled horizontal row of exercise cards (Favorites / Recently viewed on
 // Home). Renders nothing when the list is empty.
-export const ExerciseRow = ({ title, exercises }) => {
+export const ExerciseRow = ({ titleKey, exercises }) => {
+  const { t } = useLanguage();
   if (!exercises.length) return null;
 
   return (
@@ -14,7 +16,7 @@ export const ExerciseRow = ({ title, exercises }) => {
         sx={{ fontSize: { lg: "44px", xs: "25px" } }}
         mb="24px"
       >
-        {title}
+        {t(titleKey)}
       </Typography>
       <Box sx={{ position: "relative" }}>
         <HorizontalScrollbar data={exercises} />

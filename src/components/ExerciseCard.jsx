@@ -4,9 +4,11 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import { Link } from "react-router-dom";
 import { useFavorites } from "../context/favoritesContext";
+import { useLanguage } from "../context/languageContext";
 
 const ExerciseCardImpl = ({ exercise }) => {
   const { isFavorite, toggleFavorite } = useFavorites();
+  const { t, term } = useLanguage();
   // Hovering shows the movement's end position (second dataset photo);
   // it's only fetched on first hover, so the grid costs nothing extra
   const [showEndPosition, setShowEndPosition] = useState(false);
@@ -42,8 +44,8 @@ const ExerciseCardImpl = ({ exercise }) => {
           onClick={handleToggleFavorite}
           aria-label={
             favorite
-              ? `Remove ${exercise.name} from favorites`
-              : `Add ${exercise.name} to favorites`
+              ? t("card.removeFav", { name: exercise.name })
+              : t("card.addFav", { name: exercise.name })
           }
           aria-pressed={favorite}
           sx={{
@@ -61,7 +63,7 @@ const ExerciseCardImpl = ({ exercise }) => {
       </Box>
       <Stack direction="row" gap="8px" sx={{ ml: "21px", mt: "12px" }}>
         <Chip
-          label={exercise.bodyPart}
+          label={term(exercise.bodyPart)}
           sx={{
             color: "#fff",
             bgcolor: "var(--accent)",
@@ -71,7 +73,7 @@ const ExerciseCardImpl = ({ exercise }) => {
           }}
         />
         <Chip
-          label={exercise.target}
+          label={term(exercise.target)}
           sx={{
             color: "var(--chip-secondary-text)",
             bgcolor: "var(--chip-secondary-bg)",

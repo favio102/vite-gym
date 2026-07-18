@@ -15,10 +15,12 @@ import BodyPartImage from "@/assets/icons/body-part.png";
 import TargetImage from "@/assets/icons/target.png";
 import EquipmentImage from "@/assets/icons/equipment.png";
 import { useFavorites } from "../context/favoritesContext";
+import { useLanguage } from "../context/languageContext";
 
 export const Detail = ({ exerciseDetail }) => {
   const navigate = useNavigate();
   const { isFavorite, toggleFavorite } = useFavorites();
+  const { t, term } = useLanguage();
   const favorite = isFavorite(exerciseDetail.id);
   const {
     bodyPart,
@@ -31,9 +33,13 @@ export const Detail = ({ exerciseDetail }) => {
   } = exerciseDetail;
 
   const extraDetail = [
-    { icon: BodyPartImage, label: "Body part", name: bodyPart },
-    { icon: TargetImage, label: "Target", name: target },
-    { icon: EquipmentImage, label: "Equipment", name: equipment },
+    { icon: BodyPartImage, label: t("detail.bodyPart"), name: term(bodyPart) },
+    { icon: TargetImage, label: t("detail.target"), name: term(target) },
+    {
+      icon: EquipmentImage,
+      label: t("detail.equipmentLabel"),
+      name: term(equipment),
+    },
   ];
 
   return (
@@ -66,7 +72,7 @@ export const Detail = ({ exerciseDetail }) => {
                   "&:hover": { color: "var(--accent)" },
                 }}
               >
-                Back
+                {t("detail.back")}
               </Button>
               {/* 850x567 = the 3:2 intrinsic size of the free-exercise-db
                   photos — reserves the right space before the image loads.
@@ -105,7 +111,7 @@ export const Detail = ({ exerciseDetail }) => {
                 <IconButton
                   onClick={() => toggleFavorite(exerciseDetail.id)}
                   aria-label={
-                    favorite ? "Remove from favorites" : "Add to favorites"
+                    favorite ? t("detail.removeFav") : t("detail.addFav")
                   }
                   aria-pressed={favorite}
                   sx={{
@@ -128,13 +134,16 @@ export const Detail = ({ exerciseDetail }) => {
                   fontSize: { lg: "24px", xs: "18px" },
                 }}
               >
-                <span style={{ textTransform: "capitalize" }}>{name}</span> is
-                a {bodyPart} exercise that targets your {target}.
+                {t("detail.lede", {
+                  name,
+                  bodyPart: term(bodyPart),
+                  target: term(target),
+                })}
                 {/* equipment values ("kettlebells", "e-z curl bar", …) don't
                     inflect cleanly into a sentence — the labeled Equipment row
                     below carries that; only the no-equipment case is a perk
                     worth calling out */}
-                {equipment === "body only" && " No equipment needed."}
+                {equipment === "body only" && ` ${t("detail.noEquipment")}`}
               </Typography>
               {extraDetail.map((item) => (
                 <Stack
@@ -252,7 +261,7 @@ export const Detail = ({ exerciseDetail }) => {
               mb: 3,
             }}
           >
-            How to do it
+            {t("detail.howTo")}
           </Typography>
           <Stack
             component="ol"
@@ -294,13 +303,13 @@ export const Detail = ({ exerciseDetail }) => {
               mb: 2,
             }}
           >
-            Also works
+            {t("detail.alsoWorks")}
           </Typography>
           <Stack direction="row" gap={1} flexWrap="wrap">
             {secondaryMuscles.map((muscle) => (
               <Chip
                 key={muscle}
-                label={muscle}
+                label={term(muscle)}
                 sx={{
                   bgcolor: "var(--chip-secondary-bg)",
                   color: "var(--chip-secondary-text)",

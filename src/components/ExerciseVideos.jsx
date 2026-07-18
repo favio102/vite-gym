@@ -10,8 +10,10 @@ import {
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import YouTubeIcon from "@mui/icons-material/YouTube";
+import { useLanguage } from "../context/languageContext";
 
 export const ExerciseVideos = ({ exerciseVideos, name }) => {
+  const { t } = useLanguage();
   const [activeVideo, setActiveVideo] = useState(null);
 
   return (
@@ -29,11 +31,26 @@ export const ExerciseVideos = ({ exerciseVideos, name }) => {
         }}
         mb="33px"
       >
-        Watch{" "}
-        <span style={{ color: "var(--accent)", textTransform: "capitalize" }}>
-          {name}{" "}
-        </span>
-        exercise videos
+        {/* keep the exercise name accented wherever {name} sits in the
+            translated title (word order differs between languages) */}
+        {t("videos.title")
+          .split("{name}")
+          .flatMap((part, i) =>
+            i === 0
+              ? [part]
+              : [
+                  <span
+                    key="name"
+                    style={{
+                      color: "var(--accent)",
+                      textTransform: "capitalize",
+                    }}
+                  >
+                    {name}
+                  </span>,
+                  part,
+                ],
+          )}
       </Typography>
       {exerciseVideos === null ? (
         // Loading — skeletons matching the .exercise-video card layout
@@ -68,7 +85,7 @@ export const ExerciseVideos = ({ exerciseVideos, name }) => {
         // Failed or no results — don't dead-end, offer YouTube directly
         <Stack alignItems="flex-start" sx={{ gap: 1 }}>
           <Typography sx={{ color: "var(--text-secondary)" }}>
-            No videos found right now.
+            {t("videos.empty")}
           </Typography>
           <Box
             component="a"
@@ -88,7 +105,7 @@ export const ExerciseVideos = ({ exerciseVideos, name }) => {
             }}
           >
             <YouTubeIcon />
-            Search “{name}” on YouTube
+            {t("videos.youtube", { name })}
           </Box>
         </Stack>
       ) : (

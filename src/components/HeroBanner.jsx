@@ -1,4 +1,5 @@
 import { Box, Stack, Typography } from "@mui/material";
+import { useLanguage } from "../context/languageContext";
 
 // served from /public/ so we can preload it via index.html for faster LCP
 const HeroBannerImage = "/banner.webp";
@@ -6,7 +7,10 @@ const HeroBannerImage = "/banner.webp";
 // Full-width hero: photo background + gradient overlay, headline and the
 // search bar (passed as children) on top. Text is fixed white — it sits on
 // the photo, independent of the app theme.
-export const HeroBanner = ({ children }) => (
+export const HeroBanner = ({ children }) => {
+  const { t } = useLanguage();
+
+  return (
   <Box
     component="section"
     sx={{
@@ -61,7 +65,7 @@ export const HeroBanner = ({ children }) => (
           textShadow: "0 1px 8px rgba(0, 0, 0, 0.6)",
         }}
       >
-        Fitness Club
+        {t("hero.eyebrow")}
       </Typography>
       <Typography
         component="h1"
@@ -73,7 +77,7 @@ export const HeroBanner = ({ children }) => (
           textWrap: "balance",
         }}
       >
-        Sweat, Smile and Repeat
+        {t("hero.title")}
       </Typography>
       <Typography
         sx={{
@@ -83,9 +87,10 @@ export const HeroBanner = ({ children }) => (
           mb: { xs: "8px", sm: "12px" },
         }}
       >
-        Search 800+ exercises with step-by-step instructions and videos
+        {t("hero.subtitle")}
       </Typography>
       {children}
     </Stack>
-  </Box>
-);
+    </Box>
+  );
+};

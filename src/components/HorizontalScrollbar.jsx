@@ -4,6 +4,7 @@ import { Box } from "@mui/material";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import { ExerciseCard } from "./ExerciseCard";
+import { useLanguage } from "../context/languageContext";
 
 // Arrow state/scrolling based on real scroll geometry. The library's own
 // scrollPrev/scrollNext rely on item-visibility (IntersectionObserver),
@@ -45,6 +46,7 @@ const useArrowScroll = () => {
 
 const LeftArrow = () => {
   const { canScroll, scrollByPage } = useArrowScroll();
+  const { t } = useLanguage();
 
   return (
     <button
@@ -52,7 +54,7 @@ const LeftArrow = () => {
       onClick={() => scrollByPage(-1)}
       disabled={!canScroll.prev}
       className="scroll-arrow scroll-arrow--left"
-      aria-label="Scroll left"
+      aria-label={t("scroll.left")}
     >
       <KeyboardArrowLeftIcon fontSize="large" />
     </button>
@@ -61,6 +63,7 @@ const LeftArrow = () => {
 
 const RightArrow = () => {
   const { canScroll, scrollByPage } = useArrowScroll();
+  const { t } = useLanguage();
 
   return (
     <button
@@ -68,7 +71,7 @@ const RightArrow = () => {
       onClick={() => scrollByPage(1)}
       disabled={!canScroll.next}
       className="scroll-arrow scroll-arrow--right"
-      aria-label="Scroll right"
+      aria-label={t("scroll.right")}
     >
       <KeyboardArrowRightIcon fontSize="large" />
     </button>

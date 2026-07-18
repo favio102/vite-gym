@@ -11,6 +11,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import ClearIcon from "@mui/icons-material/Clear";
 import { useEffect, useState } from "react";
 import { getExercises, getExercisesByBodyPart } from "../utils/exerciseDb";
+import { useLanguage } from "../context/languageContext";
 
 // The hero search bar — rendered inside HeroBanner, floats on the photo.
 export const SearchExercises = ({
@@ -19,13 +20,14 @@ export const SearchExercises = ({
   searchTerm,
   setSearchTerm,
 }) => {
+  const { t, language } = useLanguage();
   const [search, setSearch] = useState("");
   const [error, setError] = useState(null);
 
   const runSearch = async (term) => {
     if (!term) return;
     setError(null);
-    const exercisesData = await getExercises().catch(() => null);
+    const exercisesData = await getExercises(language).catch(() => null);
 
     if (exercisesData) {
       const searchedExercises = exercisesData.filter(
@@ -38,7 +40,7 @@ export const SearchExercises = ({
       setExercises(searchedExercises);
       setSearchTerm(term);
     } else {
-      setError("No results. Please try again later.");
+      setError(t("search.error"));
       setExercises([]);
     }
   };
@@ -49,13 +51,13 @@ export const SearchExercises = ({
     setError(null);
     const exercisesData =
       bodyPart === "all"
-        ? await getExercises().catch(() => null)
-        : await getExercisesByBodyPart(bodyPart).catch(() => null);
+        ? await getExercises(language).catch(() => null)
+        : await getExercisesByBodyPart(bodyPart, language).catch(() => null);
 
     if (exercisesData) {
       setExercises(exercisesData);
     } else {
-      setError("No results. Please try again later.");
+      setError(t("search.error"));
     }
     setSearchTerm("");
   };
@@ -106,9 +108,9 @@ export const SearchExercises = ({
           value={search}
           onChange={(e) => setSearch(e.target.value.toLowerCase())}
           onKeyDown={(e) => e.key === "Enter" && handleSearch()}
-          placeholder="Find an exercise, muscle, or equipment"
+          placeholder={t("search.placeholder")}
           type="text"
-          inputProps={{ "aria-label": "Search exercises" }}
+          inputProps={{ "aria-label": t("search.aria") }}
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
@@ -122,7 +124,7 @@ export const SearchExercises = ({
               >
                 <IconButton
                   onClick={() => setSearch("")}
-                  aria-label="Clear search"
+                  aria-label={t("search.clear")}
                   size="small"
                 >
                   <ClearIcon />
@@ -147,7 +149,7 @@ export const SearchExercises = ({
           }}
           onClick={handleSearch}
         >
-          Search
+          {t("search.button")}
         </Button>
       </Box>
       {error && (

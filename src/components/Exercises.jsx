@@ -14,6 +14,7 @@ import { useEffect, useMemo, useState } from "react";
 import { getExercises, getExercisesByBodyPart } from "../utils/exerciseDb";
 import { ExerciseCard } from "./ExerciseCard";
 import { ExerciseCardSkeleton } from "./ExerciseCardSkeleton";
+import { useLanguage } from "../context/languageContext";
 
 export const Exercises = ({
   exercises,
@@ -23,6 +24,7 @@ export const Exercises = ({
   searchTerm,
   setSearchTerm,
 }) => {
+  const { t, term, language } = useLanguage();
   const [currentPage, setCurrentPage] = useState(1);
   const [error, setError] = useState(null);
   const [equipmentFilter, setEquipmentFilter] = useState("all");
@@ -37,18 +39,18 @@ export const Exercises = ({
       setError(null); // Reset error state
       const exercisesData =
         bodyPart === "all"
-          ? await getExercises().catch(() => null)
-          : await getExercisesByBodyPart(bodyPart).catch(() => null);
+          ? await getExercises(language).catch(() => null)
+          : await getExercisesByBodyPart(bodyPart, language).catch(() => null);
 
       if (exercisesData) {
         setExercises(exercisesData);
       } else {
-        setError("No results. Please try again later.");
+        setError(t("search.error"));
       }
     };
 
     fetchExercisesData();
-  }, [bodyPart, setExercises, setSearchTerm]);
+  }, [bodyPart, setExercises, setSearchTerm, t, language]);
 
   // A new search or filter change can shrink the result set below the
   // current page; a new list can also invalidate the equipment selection
@@ -111,10 +113,10 @@ export const Exercises = ({
         mb="46px"
       >
         {searchTerm
-          ? `Results for “${searchTerm}”`
+          ? t("exercises.results", { term: searchTerm })
           : bodyPart === "all"
-            ? "All exercises"
-            : `${bodyPart} exercises`}
+            ? t("exercises.all")
+            : t("exercises.forBodyPart", { bodyPart: term(bodyPart) })}
         {displayedExercises.length > 0 && (
           <Typography
             component="span"
@@ -138,10 +140,12 @@ export const Exercises = ({
           sx={{ gap: 2, mb: "32px", justifyContent: "flex-end" }}
         >
           <FormControl size="small" sx={{ minWidth: 190 }}>
-            <InputLabel id="equipment-filter-label">Equipment</InputLabel>
+            <InputLabel id="equipment-filter-label">
+              {t("exercises.equipment")}
+            </InputLabel>
             <Select
               labelId="equipment-filter-label"
-              label="Equipment"
+              label={t("exercises.equipment")}
               value={equipmentFilter}
               onChange={(e) => setEquipmentFilter(e.target.value)}
               sx={{
@@ -150,30 +154,30 @@ export const Exercises = ({
                 textTransform: equipmentFilter === "all" ? "none" : "capitalize",
               }}
             >
-              <MenuItem value="all">All equipment</MenuItem>
+              <MenuItem value="all">{t("exercises.allEquipment")}</MenuItem>
               {equipmentOptions.map((equipment) => (
                 <MenuItem
                   key={equipment}
                   value={equipment}
                   sx={{ textTransform: "capitalize" }}
                 >
-                  {equipment}
+                  {term(equipment)}
                 </MenuItem>
               ))}
             </Select>
           </FormControl>
           <FormControl size="small" sx={{ minWidth: 150 }}>
-            <InputLabel id="sort-order-label">Sort</InputLabel>
+            <InputLabel id="sort-order-label">{t("exercises.sort")}</InputLabel>
             <Select
               labelId="sort-order-label"
-              label="Sort"
+              label={t("exercises.sort")}
               value={sortOrder}
               onChange={(e) => setSortOrder(e.target.value)}
               sx={{ minHeight: "44px", fontSize: "16px" }}
             >
-              <MenuItem value="default">Default</MenuItem>
-              <MenuItem value="az">Name A–Z</MenuItem>
-              <MenuItem value="za">Name Z–A</MenuItem>
+              <MenuItem value="default">{t("exercises.sortDefault")}</MenuItem>
+              <MenuItem value="az">{t("exercises.sortAz")}</MenuItem>
+              <MenuItem value="za">{t("exercises.sortZa")}</MenuItem>
             </Select>
           </FormControl>
         </Stack>
@@ -205,7 +209,7 @@ export const Exercises = ({
             component="p"
             sx={{ color: "var(--text-primary)", textAlign: "center" }}
           >
-            No exercises found
+            {t("exercises.emptyTitle")}
           </Typography>
           <Typography
             sx={{
@@ -214,7 +218,7 @@ export const Exercises = ({
               maxWidth: 400,
             }}
           >
-            Try a different search term or pick another body part.
+            {t("exercises.emptyBody")}
           </Typography>
           {equipmentFilter !== "all" ? (
             <Button
@@ -231,7 +235,7 @@ export const Exercises = ({
                 },
               }}
             >
-              Clear equipment filter
+              {t("exercises.clearEquipment")}
             </Button>
           ) : (
             setBodyPart &&
@@ -250,7 +254,7 @@ export const Exercises = ({
                   },
                 }}
               >
-                Browse all exercises
+                {t("exercises.browseAll")}
               </Button>
             )
           )}

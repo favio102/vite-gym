@@ -51,36 +51,66 @@ const toAppShape = (exercise) => {
 
 // Lazily import the ~1MB dataset so it lands in its own chunk instead of the
 // main bundle, and map it once; subsequent calls reuse the cached promise.
-let exercisesPromise = null;
+let basePromise = null;
 
-export const getExercises = () => {
-  exercisesPromise ??= import("../data/exercises.json").then((module) =>
+const getBaseExercises = () => {
+  basePromise ??= import("../data/exercises.json").then((module) =>
     module.default.map(toAppShape),
   );
-  return exercisesPromise;
+  return basePromise;
 };
 
-export const getExercisesByBodyPart = async (bodyPart) => {
-  const exercises = await getExercises();
+// Layer 3 (i18n): exercises.json is English-only. exercises.es.json is an
+// override map { id: { name, instructions } } — only ids present there get
+// translated content; everything else falls back to English. The Spanish
+// list is memoized per-language so we build it at most once.
+const localizedPromises = { en: null };
+
+const getSpanishOverrides = () =>
+  import("../data/exercises.es.json")
+    .then((module) => module.default)
+    .catch(() => ({}));
+
+const getLocalizedExercises = (lang) => {
+  if (lang !== "es") return getBaseExercises();
+  localizedPromises.es ??= Promise.all([
+    getBaseExercises(),
+    getSpanishOverrides(),
+  ]).then(([exercises, overrides]) =>
+    exercises.map((exercise) => {
+      const override = overrides[exercise.id];
+      return override ? { ...exercise, ...override } : exercise;
+    }),
+  );
+  return localizedPromises.es;
+};
+
+// lang defaults to "en" so existing/untranslated call sites keep working.
+export const getExercises = (lang = "en") => getLocalizedExercises(lang);
+
+export const getExercisesByBodyPart = async (bodyPart, lang = "en") => {
+  const exercises = await getExercises(lang);
   return exercises.filter((exercise) => exercise.bodyPart === bodyPart);
 };
 
 export const getBodyPartList = async () => {
-  const exercises = await getExercises();
+  // body parts come from a fixed vocabulary translated in the UI layer, so
+  // this always reads the (cheaper) English base
+  const exercises = await getBaseExercises();
   return [...new Set(exercises.map((exercise) => exercise.bodyPart))].sort();
 };
 
-export const getExerciseById = async (id) => {
-  const exercises = await getExercises();
+export const getExerciseById = async (id, lang = "en") => {
+  const exercises = await getExercises(lang);
   return exercises.find((exercise) => exercise.id === id) ?? null;
 };
 
-export const getExercisesByTarget = async (target) => {
-  const exercises = await getExercises();
+export const getExercisesByTarget = async (target, lang = "en") => {
+  const exercises = await getExercises(lang);
   return exercises.filter((exercise) => exercise.target === target);
 };
 
-export const getExercisesByEquipment = async (equipment) => {
-  const exercises = await getExercises();
+export const getExercisesByEquipment = async (equipment, lang = "en") => {
+  const exercises = await getExercises(lang);
   return exercises.filter((exercise) => exercise.equipment === equipment);
 };

@@ -4,8 +4,12 @@ import GitHubIcon from "@mui/icons-material/GitHub";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import Logo from "@/assets/images/logo1.webp";
+import { useLanguage } from "../context/languageContext";
 
-export const Footer = () => (
+export const Footer = () => {
+  const { t } = useLanguage();
+
+  return (
   <Box component="footer" mt="80px" sx={{ bgcolor: "var(--bg-footer)" }}>
     <Stack alignItems="center" sx={{ px: { xs: "16px", sm: "24px", md: "40px" } }} pt="40px" pb="24px">
       {/* Logo + Brand */}
@@ -34,7 +38,7 @@ export const Footer = () => (
           fontWeight={500}
           sx={{ color: "var(--text-primary)", letterSpacing: "1px" }}
         >
-          Unleash your inner titan
+          {t("footer.tagline")}
         </Typography>
         <FitnessCenterIcon sx={{ color: "var(--accent)", fontSize: "20px" }} />
       </Stack>
@@ -95,9 +99,10 @@ export const Footer = () => (
 
       {/* Copyright */}
       <Typography variant="body2" sx={{ color: "var(--text-secondary)" }}>
-        &copy; {new Date().getFullYear()} Titan Strength. All rights reserved.
+        &copy; {new Date().getFullYear()} Titan Strength. {t("footer.rights")}
       </Typography>
     </Stack>
   </Box>
-);
+  );
+};
 

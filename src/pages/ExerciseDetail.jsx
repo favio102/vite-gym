@@ -9,6 +9,7 @@ import {
   getExercisesByTarget,
 } from "../utils/exerciseDb";
 import { addRecentlyViewed } from "../utils/recentlyViewed";
+import { useLanguage } from "../context/languageContext";
 import { Detail } from "../components/Detail";
 import { ExerciseVideos } from "../components/ExerciseVideos";
 import { SimilarExercises } from "../components/SimilarExercises";
@@ -22,6 +23,7 @@ export const ExerciseDetail = () => {
   const [targetMuscleExercises, setTargetMuscleExercises] = useState(null);
   const [equipmentExercise, setEquipmentExercise] = useState(null);
   const { id } = useParams();
+  const { t, language } = useLanguage();
 
   useEffect(() => {
     // Reset to top of page and clear stale data so the user sees the new
@@ -40,7 +42,9 @@ export const ExerciseDetail = () => {
     let cancelled = false;
 
     const fetchExercisesData = async () => {
-      const exerciseDetailData = await getExerciseById(id).catch(() => null);
+      const exerciseDetailData = await getExerciseById(id, language).catch(
+        () => null
+      );
       if (cancelled) return;
       if (!exerciseDetailData) {
         setNotFound(true);
@@ -55,8 +59,10 @@ export const ExerciseDetail = () => {
             `${YOUTUBE_SEARCH}/search?query=${exerciseDetailData.name}`,
             youtubeOptions
           ),
-          getExercisesByTarget(exerciseDetailData.target).catch(() => null),
-          getExercisesByEquipment(exerciseDetailData.equipment).catch(
+          getExercisesByTarget(exerciseDetailData.target, language).catch(
+            () => null
+          ),
+          getExercisesByEquipment(exerciseDetailData.equipment, language).catch(
             () => null
           ),
         ]);
@@ -74,7 +80,7 @@ export const ExerciseDetail = () => {
     return () => {
       cancelled = true;
     };
-  }, [id]);
+  }, [id, language]);
 
   if (notFound) {
     return (
@@ -90,7 +96,7 @@ export const ExerciseDetail = () => {
           sx={{ fontSize: { lg: "44px", xs: "30px" }, textAlign: "center" }}
           fontWeight={700}
         >
-          Exercise not found
+          {t("detail.notFoundTitle")}
         </Typography>
         <Typography
           sx={{
@@ -99,7 +105,7 @@ export const ExerciseDetail = () => {
             maxWidth: 400,
           }}
         >
-          This exercise doesn&apos;t exist or may have been removed.
+          {t("detail.notFoundBody")}
         </Typography>
         <Button
           component={Link}
@@ -116,7 +122,7 @@ export const ExerciseDetail = () => {
             },
           }}
         >
-          Browse all exercises
+          {t("exercises.browseAll")}
         </Button>
       </Stack>
     );

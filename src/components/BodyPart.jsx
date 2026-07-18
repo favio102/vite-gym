@@ -1,10 +1,14 @@
 import { Typography } from "@mui/material";
+import { useLanguage } from "../context/languageContext";
 
 // Compact filter pill (YouTube-style category chip). The old card showed the
 // same generic gym icon on every item, so the icon carried no information
 // and was dropped with the card layout.
 export const BodyPart = ({ item, bodyPart, setBodyPart }) => {
+  const { t, term } = useLanguage();
   const selected = bodyPart === item;
+  // "all" is a UI concept, not a dataset value → use the translation table
+  const label = item === "all" ? t("filter.all") : term(item);
 
   return (
     <Typography
@@ -52,7 +56,7 @@ export const BodyPart = ({ item, bodyPart, setBodyPart }) => {
           ?.scrollIntoView({ behavior: "smooth" });
       }}
     >
-      {item}
+      {label}
     </Typography>
   );
 };
