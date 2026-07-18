@@ -207,7 +207,7 @@ export const ExerciseVideos = ({ exerciseVideos, name }) => {
             <iframe
               id="video-dialog-title"
               title={activeVideo.title}
-              src={`https://www.youtube-nocookie.com/embed/${activeVideo.videoId}?autoplay=1`}
+              src={`https://www.youtube-nocookie.com/embed/${activeVideo.videoId}?autoplay=1&mute=1&controls=1&loop=1&playlist=${activeVideo.videoId}&rel=0&cc_load_policy=0`}
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
               allowFullScreen
               style={{
