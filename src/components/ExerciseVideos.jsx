@@ -19,17 +19,19 @@ export const ExerciseVideos = ({ exerciseVideos, name }) => {
   return (
     <Box
       component="section"
-      sx={{ marginTop: { lg: "20px", xs: "20px" } }}
-      p="20px"
+      sx={{ mt: "var(--space-2xl)", px: "var(--page-px)" }}
     >
       <Typography
         component="h2"
-        fontWeight={700}
         sx={{
           color: "var(--text-primary)",
-          fontSize: { lg: "44px", xs: "25px" },
+          fontSize: { lg: "40px", xs: "28px" },
+          fontWeight: 700,
+          lineHeight: 1.1,
+          pb: "var(--space-md)",
+          mb: "var(--space-xl)",
+          borderBottom: "1px solid var(--card-border)",
         }}
-        mb="33px"
       >
         {/* keep the exercise name accented wherever {name} sits in the
             translated title (word order differs between languages) */}
@@ -68,15 +70,23 @@ export const ExerciseVideos = ({ exerciseVideos, name }) => {
               <Skeleton
                 variant="rectangular"
                 width="100%"
-                sx={{ aspectRatio: "16 / 9", height: "auto", borderRadius: "16px" }}
+                sx={{
+                  aspectRatio: "16 / 9",
+                  height: "auto",
+                  borderRadius: "16px",
+                }}
               />
               <Box>
                 <Skeleton
                   variant="text"
                   width="90%"
-                  sx={{ fontSize: { lg: "28px", xs: "18px" } }}
+                  sx={{ fontSize: { lg: "18px", xs: "16px" } }}
                 />
-                <Skeleton variant="text" width="40%" sx={{ fontSize: "14px" }} />
+                <Skeleton
+                  variant="text"
+                  width="40%"
+                  sx={{ fontSize: "14px" }}
+                />
               </Box>
             </Box>
           ))}
@@ -125,7 +135,7 @@ export const ExerciseVideos = ({ exerciseVideos, name }) => {
               key={item.video.videoId}
               onClick={() => setActiveVideo(item.video)}
               className="exercise-video"
-              aria-label={`Play: ${item.video.title}`}
+              aria-label={t("videos.play", { title: item.video.title })}
               sx={{
                 background: "none",
                 border: 0,
@@ -134,6 +144,11 @@ export const ExerciseVideos = ({ exerciseVideos, name }) => {
                 color: "inherit",
                 textAlign: "left",
                 cursor: "pointer",
+                "&:focus-visible": {
+                  outline: "2px solid var(--accent)",
+                  outlineOffset: "4px",
+                  borderRadius: "var(--radius-md)",
+                },
               }}
             >
               <img
@@ -145,12 +160,14 @@ export const ExerciseVideos = ({ exerciseVideos, name }) => {
               />
               <Box>
                 {/* fixed 2-line title area so video cards line up evenly */}
+                {/* was 28px on desktop — a YouTube video title rendered
+                    larger than the exercise's own name on the card grid */}
                 <Typography
                   fontWeight={600}
                   title={item.video.title}
                   sx={{
                     color: "var(--text-primary)",
-                    fontSize: { lg: "28px", xs: "18px" },
+                    fontSize: { lg: "18px", xs: "16px" },
                     lineHeight: 1.3,
                     minHeight: "2.6em",
                     display: "-webkit-box",
@@ -181,7 +198,7 @@ export const ExerciseVideos = ({ exerciseVideos, name }) => {
         aria-labelledby="video-dialog-title"
       >
         <IconButton
-          aria-label="Close video"
+          aria-label={t("videos.close")}
           onClick={() => setActiveVideo(null)}
           sx={{
             position: "absolute",

@@ -22,6 +22,15 @@ export const Detail = ({ exerciseDetail }) => {
   const { isFavorite, toggleFavorite } = useFavorites();
   const { t, term } = useLanguage();
   const favorite = isFavorite(exerciseDetail.id);
+
+  // On a direct visit (shared link, new tab) there is no in-app history, so
+  // navigate(-1) walked the user off the site entirely. React Router tracks
+  // its position in the history stack as state.idx — 0 means we arrived here
+  // first and "Back" should mean "go home".
+  const goBack = () => {
+    if (window.history.state?.idx > 0) navigate(-1);
+    else navigate("/");
+  };
   const {
     bodyPart,
     gifUrl,
@@ -45,8 +54,8 @@ export const Detail = ({ exerciseDetail }) => {
   return (
     <Stack
       sx={{
-        p: { xs: "12px", sm: "20px" },
-        gap: { lg: "60px", xs: "32px" },
+        px: "var(--page-px)",
+        gap: "var(--space-2xl)",
       }}
     >
       {/* Header: image + meta */}
@@ -61,14 +70,15 @@ export const Detail = ({ exerciseDetail }) => {
           <>
             <Stack sx={{ width: { lg: "729px" } }}>
               <Button
-                onClick={() => navigate(-1)}
-                startIcon={<ArrowBackIosNewIcon />}
+                onClick={goBack}
+                startIcon={<ArrowBackIosNewIcon sx={{ fontSize: "14px" }} />}
                 sx={{
-                  color: "var(--text-primary)",
+                  color: "var(--text-secondary)",
                   alignSelf: "flex-start",
-                  mb: "16px",
+                  mb: "var(--space-md)",
                   textTransform: "none",
                   fontSize: "16px",
+                  transition: "color var(--dur-fast) var(--ease-out)",
                   "&:hover": { color: "var(--accent)" },
                 }}
               >
@@ -98,13 +108,19 @@ export const Detail = ({ exerciseDetail }) => {
                 )}
               </Box>
             </Stack>
-            <Stack sx={{ gap: { lg: "35px", xs: "20px" } }}>
-              <Stack direction="row" alignItems="center" gap="12px">
+            <Stack sx={{ gap: "var(--space-lg)" }}>
+              <Stack direction="row" alignItems="center" gap="var(--space-sm)">
+                {/* 64px competed with the exercise photo for attention and
+                    wrapped to three lines on long names like "barbell
+                    incline bench press"; 44px still leads the page */}
                 <Typography
                   component="h1"
-                  sx={{ fontSize: { lg: "64px", xs: "30px" } }}
-                  fontWeight={700}
-                  textTransform="capitalize"
+                  sx={{
+                    fontSize: { lg: "44px", xs: "28px" },
+                    fontWeight: 700,
+                    lineHeight: 1.1,
+                    textTransform: "capitalize",
+                  }}
                 >
                   {name}
                 </Typography>
@@ -131,7 +147,9 @@ export const Detail = ({ exerciseDetail }) => {
               <Typography
                 sx={{
                   color: "var(--text-secondary)",
-                  fontSize: { lg: "24px", xs: "18px" },
+                  fontSize: { lg: "20px", xs: "17px" },
+                  lineHeight: 1.5,
+                  maxWidth: "48ch",
                 }}
               >
                 {t("detail.lede", {
@@ -145,50 +163,70 @@ export const Detail = ({ exerciseDetail }) => {
                     worth calling out */}
                 {equipment === "body only" && ` ${t("detail.noEquipment")}`}
               </Typography>
-              {extraDetail.map((item) => (
-                <Stack
-                  key={item.label}
-                  direction="row"
-                  gap="24px"
-                  alignItems="center"
-                >
-                  <Box
-                    sx={{
-                      background: "var(--detail-icon-bg)",
-                      borderRadius: "50%",
-                      width: { lg: "100px", xs: "70px" },
-                      height: { lg: "100px", xs: "70px" },
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      flexShrink: 0,
-                    }}
+              {/* Three 100px icon bubbles at 35px apart spent most of the
+                  right-hand column on three one-word values. Same content,
+                  same icons, roughly half the height — grouped as one block
+                  so it reads as a spec table rather than three sections. */}
+              <Stack
+                sx={{
+                  gap: "var(--space-md)",
+                  p: "var(--space-md)",
+                  border: "1px solid var(--card-border)",
+                  borderRadius: "var(--radius-md)",
+                  background: "var(--card-bg)",
+                }}
+              >
+                {extraDetail.map((item) => (
+                  <Stack
+                    key={item.label}
+                    direction="row"
+                    gap="var(--space-md)"
+                    alignItems="center"
                   >
-                    <img
-                      src={item.icon}
-                      alt={`${item.label} icon`}
-                      style={{ width: "50px", height: "50px" }}
-                    />
-                  </Box>
-                  <Stack>
-                    <Typography
+                    <Box
                       sx={{
-                        color: "var(--text-secondary)",
-                        fontSize: { lg: "16px", xs: "14px" },
-                        letterSpacing: "0.5px",
+                        background: "var(--detail-icon-bg)",
+                        borderRadius: "50%",
+                        width: "52px",
+                        height: "52px",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        flexShrink: 0,
                       }}
                     >
-                      {item.label}
-                    </Typography>
-                    <Typography
-                      textTransform="capitalize"
-                      sx={{ fontSize: { lg: "30px", xs: "20px" } }}
-                    >
-                      {item.name}
-                    </Typography>
+                      <img
+                        src={item.icon}
+                        alt=""
+                        aria-hidden="true"
+                        style={{ width: "26px", height: "26px" }}
+                      />
+                    </Box>
+                    <Stack sx={{ minWidth: 0 }}>
+                      <Typography
+                        sx={{
+                          color: "var(--text-secondary)",
+                          fontSize: "12px",
+                          fontWeight: 700,
+                          letterSpacing: "1px",
+                          textTransform: "uppercase",
+                        }}
+                      >
+                        {item.label}
+                      </Typography>
+                      <Typography
+                        sx={{
+                          fontSize: { lg: "20px", xs: "18px" },
+                          fontWeight: 600,
+                          textTransform: "capitalize",
+                        }}
+                      >
+                        {item.name}
+                      </Typography>
+                    </Stack>
                   </Stack>
-                </Stack>
-              ))}
+                ))}
+              </Stack>
             </Stack>
           </>
         ) : (
@@ -213,29 +251,39 @@ export const Detail = ({ exerciseDetail }) => {
                 }}
               />
             </Stack>
-            <Stack
-              sx={{ gap: { lg: "35px", xs: "20px" }, flex: 1, width: "100%" }}
-            >
+            <Stack sx={{ gap: "var(--space-lg)", flex: 1, width: "100%" }}>
               <Skeleton
                 variant="text"
                 width="60%"
-                sx={{ fontSize: { lg: "64px", xs: "30px" } }}
+                sx={{ fontSize: { lg: "44px", xs: "28px" } }}
               />
-              <Skeleton variant="text" width="100%" height={32} />
-              <Skeleton variant="text" width="90%" height={32} />
-              {[1, 2, 3].map((i) => (
-                <Stack key={i} direction="row" gap="24px" alignItems="center">
-                  <Skeleton
-                    variant="circular"
-                    sx={{
-                      width: { lg: "100px", xs: "70px" },
-                      height: { lg: "100px", xs: "70px" },
-                      flexShrink: 0,
-                    }}
-                  />
-                  <Skeleton variant="text" width={150} height={40} />
-                </Stack>
-              ))}
+              <Skeleton variant="text" width="100%" height={28} />
+              <Skeleton variant="text" width="90%" height={28} />
+              {/* mirrors the real meta block: same border, padding and
+                  52px bubbles, so nothing shifts when the data lands */}
+              <Stack
+                sx={{
+                  gap: "var(--space-md)",
+                  p: "var(--space-md)",
+                  border: "1px solid var(--card-border)",
+                  borderRadius: "var(--radius-md)",
+                }}
+              >
+                {[1, 2, 3].map((i) => (
+                  <Stack
+                    key={i}
+                    direction="row"
+                    gap="var(--space-md)"
+                    alignItems="center"
+                  >
+                    <Skeleton
+                      variant="circular"
+                      sx={{ width: "52px", height: "52px", flexShrink: 0 }}
+                    />
+                    <Skeleton variant="text" width={140} height={44} />
+                  </Stack>
+                ))}
+              </Stack>
             </Stack>
           </>
         )}
@@ -246,19 +294,22 @@ export const Detail = ({ exerciseDetail }) => {
         <Box
           component="section"
           sx={{
-            p: { lg: 4, xs: 3 },
+            p: { lg: "var(--space-xl)", xs: "var(--space-lg)" },
             border: "1px solid var(--card-border)",
-            borderRadius: "12px",
+            borderRadius: "var(--radius-md)",
             background: "var(--card-bg)",
             boxShadow: "var(--shadow-sm)",
           }}
         >
+          {/* "How to do it" and "Also works" are peer sections but sat at
+              36px and 28px — one size for both */}
           <Typography
             component="h2"
             sx={{
-              fontSize: { lg: "36px", xs: "26px" },
+              fontSize: { lg: "28px", xs: "22px" },
               fontWeight: 700,
-              mb: 3,
+              lineHeight: 1.2,
+              mb: "var(--space-lg)",
             }}
           >
             {t("detail.howTo")}
@@ -300,12 +351,13 @@ export const Detail = ({ exerciseDetail }) => {
             sx={{
               fontSize: { lg: "28px", xs: "22px" },
               fontWeight: 700,
-              mb: 2,
+              lineHeight: 1.2,
+              mb: "var(--space-md)",
             }}
           >
             {t("detail.alsoWorks")}
           </Typography>
-          <Stack direction="row" gap={1} flexWrap="wrap">
+          <Stack direction="row" gap="var(--space-xs)" flexWrap="wrap">
             {secondaryMuscles.map((muscle) => (
               <Chip
                 key={muscle}

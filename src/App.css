@@ -18,6 +18,38 @@
   --card-border: #e5e7eb;
   --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06);
   --shadow-md: 0 12px 24px rgba(0, 0, 0, 0.08);
+  --scrollbar-thumb: rgba(24, 24, 27, 0.28);
+  --scrollbar-thumb-hover: rgba(24, 24, 27, 0.45);
+
+  /* 4pt spacing scale — replaces the ad-hoc px values that made every
+     section sit at a slightly different rhythm */
+  --space-2xs: 4px;
+  --space-xs: 8px;
+  --space-sm: 12px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 40px;
+  --space-2xl: 64px;
+  /* gutter shared by the hero's outer margin and every section's padding,
+     so all left edges line up down the page */
+  --page-px: 20px;
+
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-fast: 150ms;
+  --dur-base: 250ms;
+}
+
+@media screen and (max-width: 600px) {
+  :root {
+    --page-px: 16px;
+    --space-xl: 32px;
+    --space-2xl: 44px;
+  }
 }
 
 [data-theme="dark"] {
@@ -38,6 +70,8 @@
   --card-border: #2b2b30;
   --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.4);
   --shadow-md: 0 12px 24px rgba(0, 0, 0, 0.5);
+  --scrollbar-thumb: rgba(244, 244, 245, 0.28);
+  --scrollbar-thumb-hover: rgba(244, 244, 245, 0.45);
 }
 
 /* Display font only for true headlines (page titles) — h3+ use Barlow with weight variation */
@@ -65,8 +99,47 @@ body {
   box-sizing: border-box;
 }
 
+/* The page scrollbar was `width: 0`, which removed the only indicator of
+   how far down a long exercise grid you were, and removed the drag handle
+   for mouse users with no wheel. It's back, styled thin so it reads as part
+   of the page rather than as OS chrome. Firefox uses the standard
+   properties; Chrome/Safari need the -webkit- pseudo-elements. */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-thumb) transparent;
+}
+
 ::-webkit-scrollbar {
-  width: 0px;
+  width: 12px;
+  height: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  /* transparent border + background-clip insets the thumb, so the visible
+     bar is ~6px inside a 12px hit area that's still easy to grab */
+  background-color: var(--scrollbar-thumb);
+  background-clip: content-box;
+  border: 3px solid transparent;
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--scrollbar-thumb-hover);
+}
+
+/* The card rows are the exception: they carry their own .scroll-arrow
+   buttons as the scroll affordance, so a native bar under every row would
+   be redundant chrome (and would shift the row heights). */
+.react-horizontal-scrolling-menu--scroll-container {
+  scrollbar-width: none;
+}
+
+.react-horizontal-scrolling-menu--scroll-container::-webkit-scrollbar {
+  display: none;
 }
 
 /* Carousel arrows — circular buttons overlaid at the row's edges,
@@ -208,10 +281,10 @@ body {
   text-decoration: none;
   display: flex;
   flex-direction: column;
-  padding-bottom: 12px;
+  padding-bottom: var(--space-md);
   transition:
-    transform 0.2s ease-out,
-    box-shadow 0.2s ease-out;
+    transform var(--dur-base) var(--ease-out),
+    box-shadow var(--dur-base) var(--ease-out);
   box-shadow: var(--shadow-sm);
 }
 

@@ -1,8 +1,6 @@
 import { Box, IconButton, Stack, Typography } from "@mui/material";
 import FitnessCenterIcon from "@mui/icons-material/FitnessCenter";
 import GitHubIcon from "@mui/icons-material/GitHub";
-import TwitterIcon from "@mui/icons-material/Twitter";
-import InstagramIcon from "@mui/icons-material/Instagram";
 import Logo from "@/assets/images/logo1.webp";
 import { useLanguage } from "../context/languageContext";
 
@@ -10,99 +8,98 @@ export const Footer = () => {
   const { t } = useLanguage();
 
   return (
-  <Box component="footer" mt="80px" sx={{ bgcolor: "var(--bg-footer)" }}>
-    <Stack alignItems="center" sx={{ px: { xs: "16px", sm: "24px", md: "40px" } }} pt="40px" pb="24px">
-      {/* Logo + Brand */}
-      <Stack direction="row" alignItems="center" gap="12px" mb="16px">
-        <img src={Logo} alt="Titan Strength Logo" width="60px" height="60px" />
-        <Typography
-          sx={{
-            fontFamily: "'Bebas Neue', sans-serif",
-            fontSize: { xs: "22px", sm: "28px", md: "32px" },
-            color: "var(--accent)",
-            lineHeight: 1.2,
-            letterSpacing: "2px",
-          }}
-        >
-          Titan{" "}
-          <span style={{ color: "var(--text-primary)" }}>Strength</span>
-        </Typography>
-      </Stack>
-
-      {/* Tagline */}
-      <Stack direction="row" alignItems="center" gap="8px" mb="20px">
-        <FitnessCenterIcon sx={{ color: "var(--accent)", fontSize: "20px" }} />
-        <Typography
-          variant="h6"
-          component="p"
-          fontWeight={500}
-          sx={{ color: "var(--text-primary)", letterSpacing: "1px" }}
-        >
-          {t("footer.tagline")}
-        </Typography>
-        <FitnessCenterIcon sx={{ color: "var(--accent)", fontSize: "20px" }} />
-      </Stack>
-
-      {/* Divider */}
-      <Box
+    <Box
+      component="footer"
+      mt="var(--space-2xl)"
+      sx={{
+        bgcolor: "var(--bg-footer)",
+        borderTop: "1px solid var(--card-border)",
+      }}
+    >
+      <Stack
+        alignItems="center"
         sx={{
-          width: "80px",
-          height: "3px",
-          bgcolor: "var(--accent)",
-          borderRadius: "2px",
-          mb: "20px",
+          px: "var(--page-px)",
+          pt: "var(--space-xl)",
+          pb: "var(--space-lg)",
         }}
-      />
+      >
+        {/* Logo + Brand */}
+        <Stack
+          direction="row"
+          alignItems="center"
+          gap="var(--space-sm)"
+          mb="var(--space-md)"
+        >
+          <img
+            src={Logo}
+            alt="Titan Strength Logo"
+            width="56px"
+            height="56px"
+          />
+          <Typography
+            sx={{
+              fontFamily: "'Bebas Neue', sans-serif",
+              fontSize: { xs: "24px", sm: "30px" },
+              color: "var(--accent)",
+              lineHeight: 1.1,
+              letterSpacing: "2px",
+            }}
+          >
+            Titan <span style={{ color: "var(--text-primary)" }}>Strength</span>
+          </Typography>
+        </Stack>
 
-      {/* Social Links — TODO: replace remaining href="#" with actual profile URLs */}
-      <Stack direction="row" gap="8px" mb="20px">
-        <IconButton
-          component="a"
-          href="https://github.com/favio102/vite-gym"
-          aria-label="GitHub"
-          target="_blank"
-          rel="noopener noreferrer"
-          sx={{
-            color: "var(--text-secondary)",
-            "&:hover": { color: "var(--accent)" },
-          }}
+        {/* Tagline — one dumbbell, not a matched pair flanking the text.
+          Symmetrical decorative icons around a line of copy is filler. */}
+        <Stack
+          direction="row"
+          alignItems="center"
+          gap="var(--space-xs)"
+          mb="var(--space-lg)"
         >
-          <GitHubIcon />
-        </IconButton>
-        <IconButton
-          component="a"
-          href="#"
-          aria-label="Twitter"
-          target="_blank"
-          rel="noopener noreferrer"
-          sx={{
-            color: "var(--text-secondary)",
-            "&:hover": { color: "var(--accent)" },
-          }}
-        >
-          <TwitterIcon />
-        </IconButton>
-        <IconButton
-          component="a"
-          href="#"
-          aria-label="Instagram"
-          target="_blank"
-          rel="noopener noreferrer"
-          sx={{
-            color: "var(--text-secondary)",
-            "&:hover": { color: "var(--accent)" },
-          }}
-        >
-          <InstagramIcon />
-        </IconButton>
+          <FitnessCenterIcon
+            sx={{ color: "var(--accent)", fontSize: "20px" }}
+          />
+          <Typography
+            component="p"
+            sx={{
+              color: "var(--text-primary)",
+              fontSize: "18px",
+              fontWeight: 500,
+              letterSpacing: "0.5px",
+            }}
+          >
+            {t("footer.tagline")}
+          </Typography>
+        </Stack>
+
+        {/* Only the GitHub link points anywhere. Twitter and Instagram were
+          href="#" with target="_blank" — they opened a blank tab and were
+          announced to screen readers as real destinations. Add them back
+          here once there are actual profile URLs. */}
+        <Stack direction="row" gap="var(--space-xs)" mb="var(--space-lg)">
+          <IconButton
+            component="a"
+            href="https://github.com/favio102/vite-gym"
+            aria-label="GitHub"
+            target="_blank"
+            rel="noopener noreferrer"
+            sx={{
+              color: "var(--text-secondary)",
+              transition: "color var(--dur-fast) var(--ease-out)",
+              "&:hover": { color: "var(--accent)" },
+            }}
+          >
+            <GitHubIcon />
+          </IconButton>
+        </Stack>
+
+        {/* Copyright */}
+        <Typography variant="body2" sx={{ color: "var(--text-secondary)" }}>
+          &copy; {new Date().getFullYear()} Titan Strength. {t("footer.rights")}
+        </Typography>
       </Stack>
-
-      {/* Copyright */}
-      <Typography variant="body2" sx={{ color: "var(--text-secondary)" }}>
-        &copy; {new Date().getFullYear()} Titan Strength. {t("footer.rights")}
-      </Typography>
-    </Stack>
-  </Box>
+    </Box>
   );
 };
-

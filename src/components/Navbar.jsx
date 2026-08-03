@@ -19,8 +19,8 @@ export const Navbar = () => {
       alignItems="center"
       justifyContent="space-between"
       sx={{
-        mt: { sm: "32px", xs: "12px" },
-        px: { xs: "12px", sm: "20px" },
+        mt: { xs: "var(--space-sm)", sm: "var(--space-lg)" },
+        px: "var(--page-px)",
         flexWrap: "wrap",
         position: "relative",
         zIndex: 10,
@@ -41,17 +41,15 @@ export const Navbar = () => {
           style={{ width: "48px", height: "48px" }}
         />
         <Typography
-          fontWeight={700}
           sx={{
             fontFamily: "'Bebas Neue', sans-serif",
-            fontSize: { sm: "24px", xs: "18px" },
+            // Bebas Neue ships a single 400 weight — the previous 700 only
+            // got the browser's synthetic bold, which smears the letterforms
+            fontWeight: 400,
+            fontSize: { sm: "26px", xs: "20px" },
             color: "var(--accent)",
-            lineHeight: 1.2,
+            lineHeight: 1.1,
             letterSpacing: "2px",
-            // halo in page-bg color — invisible on clean bg, creates readable
-            // outline when navbar overlaps the hero image (desktop)
-            textShadow:
-              "0 0 8px var(--bg-primary), 0 0 4px var(--bg-primary)",
           }}
         >
           Titan
@@ -65,10 +63,13 @@ export const Navbar = () => {
         direction="row"
         alignItems="center"
         sx={{
-          gap: { xs: "8px", sm: "20px", md: "32px" },
-          fontSize: { xs: "14px", sm: "18px", md: "24px" },
-          textShadow:
-            "0 0 8px var(--bg-primary), 0 0 4px var(--bg-primary)",
+          gap: { xs: "var(--space-xs)", sm: "var(--space-lg)" },
+          // was 24px at md — nav links that size compete with the page's own
+          // section headings. The halo text-shadow that used to sit here was
+          // for a hero overlap that no longer happens (the hero has a top
+          // margin), and only softened the text.
+          fontSize: { xs: "15px", sm: "17px" },
+          fontWeight: 600,
         }}
       >
         <Link
@@ -126,4 +127,3 @@ export const Navbar = () => {
     </Stack>
   );
 };
-

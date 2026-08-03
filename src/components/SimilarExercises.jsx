@@ -39,45 +39,52 @@ const SimilarList = ({ exercises }) => {
   return <HorizontalScrollbar data={exercises} />;
 };
 
-export const SimilarExercises = ({ targetMuscleExercises, equipmentExercise }) => {
+// Heading + row, matching the ExerciseRow treatment used on Home so the two
+// screens share one section rhythm. The heading used to sit at ml:20px over
+// a row padded p:2 (16px), so the title was 4px out from the cards under it.
+const SimilarSection = ({ lead, highlight, exercises }) => (
+  <Box
+    component="section"
+    sx={{ px: "var(--page-px)", mt: "var(--space-2xl)" }}
+  >
+    <Typography
+      component="h2"
+      sx={{
+        color: "var(--text-primary)",
+        fontSize: { lg: "40px", xs: "28px" },
+        fontWeight: 700,
+        lineHeight: 1.1,
+        pb: "var(--space-md)",
+        mb: "var(--space-lg)",
+        borderBottom: "1px solid var(--card-border)",
+      }}
+    >
+      {lead} <span style={{ color: "var(--accent)" }}>{highlight}</span>
+    </Typography>
+    <Box sx={{ position: "relative" }}>
+      <SimilarList exercises={exercises} />
+    </Box>
+  </Box>
+);
+
+export const SimilarExercises = ({
+  targetMuscleExercises,
+  equipmentExercise,
+}) => {
   const { t } = useLanguage();
 
   return (
-  <Box component="section" sx={{ mt: { lg: "10px", xs: "0px" } }}>
-    <Typography
-      component="h2"
-      sx={{
-        fontSize: { lg: "44px", xs: "25px" },
-        ml: "20px",
-        mt: { lg: "100px", xs: "60px" },
-        color: "var(--text-primary)",
-      }}
-      fontWeight={700}
-      mb="33px"
-    >
-      {t("similar.muscleLead")}{" "}
-      <span style={{ color: "var(--accent)" }}>{t("similar.muscle")}</span>
-    </Typography>
-    <Stack direction="row" sx={{ p: 2, position: "relative" }}>
-      <SimilarList exercises={targetMuscleExercises} />
-    </Stack>
-    <Typography
-      component="h2"
-      sx={{
-        fontSize: { lg: "44px", xs: "25px" },
-        ml: "20px",
-        mt: { lg: "100px", xs: "60px" },
-        color: "var(--text-primary)",
-      }}
-      fontWeight={700}
-      mb="33px"
-    >
-      {t("similar.equipmentLead")}{" "}
-      <span style={{ color: "var(--accent)" }}>{t("similar.equipment")}</span>
-    </Typography>
-    <Stack direction="row" sx={{ p: 2, position: "relative" }}>
-      <SimilarList exercises={equipmentExercise} />
-    </Stack>
-  </Box>
+    <>
+      <SimilarSection
+        lead={t("similar.muscleLead")}
+        highlight={t("similar.muscle")}
+        exercises={targetMuscleExercises}
+      />
+      <SimilarSection
+        lead={t("similar.equipmentLead")}
+        highlight={t("similar.equipment")}
+        exercises={equipmentExercise}
+      />
+    </>
   );
 };

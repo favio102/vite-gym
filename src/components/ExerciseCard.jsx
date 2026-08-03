@@ -61,7 +61,18 @@ const ExerciseCardImpl = ({ exercise }) => {
           {favorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
         </IconButton>
       </Box>
-      <Stack direction="row" gap="8px" sx={{ ml: "21px", mt: "12px" }}>
+      {/* Chips and title share one 16px inset. They used to sit at ml:21px
+          and px:12px with the title centered, so nothing on the card lined
+          up with anything else. */}
+      <Stack
+        direction="row"
+        flexWrap="wrap"
+        sx={{
+          gap: "var(--space-xs)",
+          px: "var(--space-md)",
+          mt: "var(--space-sm)",
+        }}
+      >
         <Chip
           label={term(exercise.bodyPart)}
           sx={{
@@ -86,22 +97,21 @@ const ExerciseCardImpl = ({ exercise }) => {
       {/* Fixed 2-line name area so every card ends up the same height;
           longer names clamp with an ellipsis (full name in the tooltip) */}
       <Typography
-        px="12px"
         title={exercise.name}
         sx={{
           color: "var(--text-primary)",
-          fontSize: { lg: "24px", xs: "20px" },
+          px: "var(--space-md)",
+          mt: "var(--space-sm)",
+          fontSize: { lg: "20px", xs: "18px" },
+          fontWeight: 700,
           lineHeight: 1.3,
           minHeight: "2.6em",
+          textTransform: "capitalize",
           display: "-webkit-box",
           WebkitLineClamp: 2,
           WebkitBoxOrient: "vertical",
           overflow: "hidden",
         }}
-        fontWeight="bold"
-        mt="11px"
-        textTransform="capitalize"
-        textAlign="center"
       >
         {exercise.name}
       </Typography>

@@ -91,18 +91,34 @@ export const SearchExercises = ({
   }, [bodyPart]);
 
   return (
-    <Stack sx={{ width: "100%", maxWidth: "680px", gap: 1 }}>
-      <Box position="relative" sx={{ width: "100%" }}>
+    <Stack sx={{ width: "100%", maxWidth: "680px", gap: "var(--space-xs)" }}>
+      {/* Input and button are siblings in a flex row, not a button floated
+          over the input. The old overlay forced the clear icon to carry a
+          hard-coded right margin matched to the button width — it drifted
+          out of sync at any size the breakpoints didn't cover. */}
+      <Box
+        sx={{
+          display: "flex",
+          width: "100%",
+          borderRadius: "var(--radius-md)",
+          boxShadow: "var(--shadow-md)",
+          overflow: "hidden",
+        }}
+      >
         <TextField
           sx={{
-            width: "100%",
-            input: { fontWeight: "700" },
+            flex: 1,
+            minWidth: 0,
             backgroundColor: "var(--input-bg)",
-            borderRadius: "12px",
-            boxShadow: "var(--shadow-md)",
-            "& .MuiOutlinedInput-root": { borderRadius: "12px" },
+            input: { fontWeight: 600 },
+            "& .MuiOutlinedInput-root": { borderRadius: 0, height: "56px" },
+            "& fieldset": { borderColor: "transparent" },
+            "& .MuiOutlinedInput-root:hover fieldset": {
+              borderColor: "var(--card-border)",
+            },
             "& .MuiOutlinedInput-root.Mui-focused fieldset": {
               borderColor: "var(--accent)",
+              borderWidth: "2px",
             },
           }}
           value={search}
@@ -114,20 +130,17 @@ export const SearchExercises = ({
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
-                <SearchIcon sx={{ color: "var(--text-secondary)", ml: 1 }} />
+                <SearchIcon sx={{ color: "var(--text-secondary)" }} />
               </InputAdornment>
             ),
             endAdornment: search ? (
-              <InputAdornment
-                position="end"
-                sx={{ mr: { xs: "88px", sm: "116px" } }}
-              >
+              <InputAdornment position="end">
                 <IconButton
                   onClick={() => setSearch("")}
                   aria-label={t("search.clear")}
                   size="small"
                 >
-                  <ClearIcon />
+                  <ClearIcon fontSize="small" />
                 </IconButton>
               </InputAdornment>
             ) : null,
@@ -136,16 +149,20 @@ export const SearchExercises = ({
         <Button
           className="search-btn"
           sx={{
+            flexShrink: 0,
             bgcolor: "var(--accent)",
             color: "#fff",
             textTransform: "none",
             fontWeight: 600,
-            width: { xs: "84px", sm: "112px" },
-            fontSize: { xs: "14px", sm: "16px" },
+            width: { xs: "88px", sm: "116px" },
+            fontSize: { xs: "15px", sm: "16px" },
             height: "56px",
-            position: "absolute",
-            right: "0px",
-            borderRadius: "0 12px 12px 0",
+            borderRadius: 0,
+            transition: "background-color var(--dur-fast) var(--ease-out)",
+            "&:focus-visible": {
+              outline: "2px solid #fff",
+              outlineOffset: "-4px",
+            },
           }}
           onClick={handleSearch}
         >

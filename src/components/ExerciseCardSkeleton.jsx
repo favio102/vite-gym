@@ -13,7 +13,7 @@ export const ExerciseCardSkeleton = () => (
       borderRadius: "16px",
       overflow: "hidden",
       background: "var(--card-bg)",
-      pb: "12px",
+      pb: "var(--space-md)",
     }}
   >
     <Skeleton
@@ -21,24 +21,30 @@ export const ExerciseCardSkeleton = () => (
       width="100%"
       sx={{ height: "auto", aspectRatio: "3 / 2" }}
     />
-    <Stack direction="row" gap="8px" sx={{ ml: "21px", mt: "12px" }}>
+    {/* insets, type size and alignment must track ExerciseCard exactly —
+        any drift here shows up as a layout jump when the real card loads */}
+    <Stack
+      direction="row"
+      sx={{
+        gap: "var(--space-xs)",
+        px: "var(--space-md)",
+        mt: "var(--space-sm)",
+      }}
+    >
       <Skeleton variant="rounded" width={80} height={32} />
       <Skeleton variant="rounded" width={80} height={32} />
     </Stack>
     {/* same fixed 2-line block as the real card's clamped name */}
     <Box
       sx={{
-        mt: "11px",
+        px: "var(--space-md)",
+        mt: "var(--space-sm)",
         minHeight: "2.6em",
-        fontSize: { lg: "24px", xs: "20px" },
+        fontSize: { lg: "20px", xs: "18px" },
         lineHeight: 1.3,
       }}
     >
-      <Skeleton
-        variant="text"
-        width="60%"
-        sx={{ mx: "auto", fontSize: "inherit" }}
-      />
+      <Skeleton variant="text" width="60%" sx={{ fontSize: "inherit" }} />
     </Box>
   </Box>
 );

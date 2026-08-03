@@ -73,7 +73,9 @@ export const Exercises = ({
     const filtered =
       equipmentFilter === "all"
         ? exercises
-        : exercises.filter((exercise) => exercise.equipment === equipmentFilter);
+        : exercises.filter(
+            (exercise) => exercise.equipment === equipmentFilter,
+          );
     if (sortOrder === "az")
       return [...filtered].sort((a, b) => a.name.localeCompare(b.name));
     if (sortOrder === "za")
@@ -99,89 +101,112 @@ export const Exercises = ({
     <Box
       component="section"
       id="exercises"
-      sx={{ mt: { lg: "40px", xs: "32px" } }}
-      p="20px"
+      sx={{ mt: "var(--space-2xl)", px: "var(--page-px)" }}
     >
-      <Typography
-        variant="h3"
-        component="h2"
+      {/* Heading and controls share one baseline row with a hairline under
+          it, so the filters read as belonging to this list rather than
+          floating free at the right edge */}
+      <Stack
+        direction="row"
+        flexWrap="wrap"
         sx={{
-          fontSize: { lg: "44px", xs: "30px" },
-          textTransform:
-            searchTerm || bodyPart === "all" ? "none" : "capitalize",
+          gap: "var(--space-md)",
+          alignItems: "flex-end",
+          justifyContent: "space-between",
+          pb: "var(--space-md)",
+          mb: "var(--space-xl)",
+          borderBottom: "1px solid var(--card-border)",
         }}
-        mb="46px"
       >
-        {searchTerm
-          ? t("exercises.results", { term: searchTerm })
-          : bodyPart === "all"
-            ? t("exercises.all")
-            : t("exercises.forBodyPart", { bodyPart: term(bodyPart) })}
-        {displayedExercises.length > 0 && (
-          <Typography
-            component="span"
-            sx={{
-              color: "var(--text-secondary)",
-              ml: 2,
-              fontSize: "0.5em",
-              fontWeight: 400,
-              textTransform: "none",
-              verticalAlign: "middle",
-            }}
-          >
-            ({displayedExercises.length})
-          </Typography>
-        )}
-      </Typography>
-      {!error && exercises.length > 0 && (
-        <Stack
-          direction="row"
-          flexWrap="wrap"
-          sx={{ gap: 2, mb: "32px", justifyContent: "flex-end" }}
+        {/* Section headings across Home are Barlow 700 at one size. This one
+            used variant="h3" (Barlow 400) while ExerciseRow used bare
+            body1 at 700 — same nominal 44px, visibly different weight. */}
+        <Typography
+          component="h2"
+          sx={{
+            fontSize: { lg: "40px", xs: "28px" },
+            fontWeight: 700,
+            lineHeight: 1.1,
+            textTransform:
+              searchTerm || bodyPart === "all" ? "none" : "capitalize",
+          }}
         >
-          <FormControl size="small" sx={{ minWidth: 190 }}>
-            <InputLabel id="equipment-filter-label">
-              {t("exercises.equipment")}
-            </InputLabel>
-            <Select
-              labelId="equipment-filter-label"
-              label={t("exercises.equipment")}
-              value={equipmentFilter}
-              onChange={(e) => setEquipmentFilter(e.target.value)}
+          {searchTerm
+            ? t("exercises.results", { term: searchTerm })
+            : bodyPart === "all"
+              ? t("exercises.all")
+              : t("exercises.forBodyPart", { bodyPart: term(bodyPart) })}
+          {displayedExercises.length > 0 && (
+            <Typography
+              component="span"
               sx={{
-                minHeight: "44px",
-                fontSize: "16px",
-                textTransform: equipmentFilter === "all" ? "none" : "capitalize",
+                color: "var(--text-secondary)",
+                ml: "var(--space-sm)",
+                fontSize: "0.45em",
+                fontWeight: 500,
+                textTransform: "none",
+                verticalAlign: "middle",
               }}
             >
-              <MenuItem value="all">{t("exercises.allEquipment")}</MenuItem>
-              {equipmentOptions.map((equipment) => (
-                <MenuItem
-                  key={equipment}
-                  value={equipment}
-                  sx={{ textTransform: "capitalize" }}
-                >
-                  {term(equipment)}
+              ({displayedExercises.length})
+            </Typography>
+          )}
+        </Typography>
+        {!error && exercises.length > 0 && (
+          <Stack
+            direction="row"
+            flexWrap="wrap"
+            sx={{ gap: "var(--space-sm)", justifyContent: "flex-end" }}
+          >
+            <FormControl size="small" sx={{ minWidth: 190 }}>
+              <InputLabel id="equipment-filter-label">
+                {t("exercises.equipment")}
+              </InputLabel>
+              <Select
+                labelId="equipment-filter-label"
+                label={t("exercises.equipment")}
+                value={equipmentFilter}
+                onChange={(e) => setEquipmentFilter(e.target.value)}
+                sx={{
+                  minHeight: "44px",
+                  fontSize: "16px",
+                  textTransform:
+                    equipmentFilter === "all" ? "none" : "capitalize",
+                }}
+              >
+                <MenuItem value="all">{t("exercises.allEquipment")}</MenuItem>
+                {equipmentOptions.map((equipment) => (
+                  <MenuItem
+                    key={equipment}
+                    value={equipment}
+                    sx={{ textTransform: "capitalize" }}
+                  >
+                    {term(equipment)}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+            <FormControl size="small" sx={{ minWidth: 150 }}>
+              <InputLabel id="sort-order-label">
+                {t("exercises.sort")}
+              </InputLabel>
+              <Select
+                labelId="sort-order-label"
+                label={t("exercises.sort")}
+                value={sortOrder}
+                onChange={(e) => setSortOrder(e.target.value)}
+                sx={{ minHeight: "44px", fontSize: "16px" }}
+              >
+                <MenuItem value="default">
+                  {t("exercises.sortDefault")}
                 </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-          <FormControl size="small" sx={{ minWidth: 150 }}>
-            <InputLabel id="sort-order-label">{t("exercises.sort")}</InputLabel>
-            <Select
-              labelId="sort-order-label"
-              label={t("exercises.sort")}
-              value={sortOrder}
-              onChange={(e) => setSortOrder(e.target.value)}
-              sx={{ minHeight: "44px", fontSize: "16px" }}
-            >
-              <MenuItem value="default">{t("exercises.sortDefault")}</MenuItem>
-              <MenuItem value="az">{t("exercises.sortAz")}</MenuItem>
-              <MenuItem value="za">{t("exercises.sortZa")}</MenuItem>
-            </Select>
-          </FormControl>
-        </Stack>
-      )}
+                <MenuItem value="az">{t("exercises.sortAz")}</MenuItem>
+                <MenuItem value="za">{t("exercises.sortZa")}</MenuItem>
+              </Select>
+            </FormControl>
+          </Stack>
+        )}
+      </Stack>
       {error ? (
         <Typography variant="h6" color="error" role="alert">
           {error}
@@ -271,7 +296,7 @@ export const Exercises = ({
               <ExerciseCard key={exercise.id} exercise={exercise} />
             ))}
           </Stack>
-          <Stack sx={{ mt: { lg: "114px", xs: "70px" } }} alignItems="center">
+          <Stack sx={{ mt: "var(--space-2xl)" }} alignItems="center">
             {displayedExercises.length > exercisesPage && (
               <Pagination
                 color="standard"
@@ -288,4 +313,3 @@ export const Exercises = ({
     </Box>
   );
 };
-

@@ -37,11 +37,13 @@ export const translations = {
     "exercises.browseAll": "Browse all exercises",
     "exercises.clearEquipment": "Clear equipment filter",
     // home rows
+    "home.browse": "Browse by body part",
     "home.favorites": "Favorites",
     "home.recent": "Recently viewed",
     // detail
     "detail.back": "Back",
-    "detail.lede": "{name} is a {bodyPart} exercise that targets your {target}.",
+    "detail.lede":
+      "{name} is a {bodyPart} exercise that targets your {target}.",
     "detail.noEquipment": "No equipment needed.",
     "detail.howTo": "How to do it",
     "detail.alsoWorks": "Also works",
@@ -62,6 +64,8 @@ export const translations = {
     "videos.title": "Watch {name} exercise videos",
     "videos.empty": "No videos found right now.",
     "videos.youtube": "Search “{name}” on YouTube",
+    "videos.play": "Play {title}",
+    "videos.close": "Close video",
     // cards
     "card.addFav": "Add {name} to favorites",
     "card.removeFav": "Remove {name} from favorites",
@@ -102,6 +106,7 @@ export const translations = {
     "exercises.emptyBody": "Prueba otro término o elige otra parte del cuerpo.",
     "exercises.browseAll": "Ver todos los ejercicios",
     "exercises.clearEquipment": "Quitar filtro de equipo",
+    "home.browse": "Explora por parte del cuerpo",
     "home.favorites": "Favoritos",
     "home.recent": "Vistos recientemente",
     "detail.back": "Atrás",
@@ -116,7 +121,8 @@ export const translations = {
     "detail.target": "Músculo objetivo",
     "detail.equipmentLabel": "Equipo",
     "detail.notFoundTitle": "Ejercicio no encontrado",
-    "detail.notFoundBody": "Este ejercicio no existe o pudo haber sido eliminado.",
+    "detail.notFoundBody":
+      "Este ejercicio no existe o pudo haber sido eliminado.",
     "similar.muscleLead": "Ejercicios que trabajan el",
     "similar.muscle": "mismo músculo",
     "similar.equipmentLead": "Ejercicios que usan el",
@@ -125,6 +131,8 @@ export const translations = {
     "videos.title": "Mira videos del ejercicio {name}",
     "videos.empty": "No hay videos disponibles ahora.",
     "videos.youtube": "Buscar “{name}” en YouTube",
+    "videos.play": "Reproducir {title}",
+    "videos.close": "Cerrar video",
     "card.addFav": "Añadir {name} a favoritos",
     "card.removeFav": "Quitar {name} de favoritos",
     "footer.tagline": "Libera tu titán interior",

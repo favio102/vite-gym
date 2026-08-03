@@ -43,7 +43,7 @@ export const ExerciseDetail = () => {
 
     const fetchExercisesData = async () => {
       const exerciseDetailData = await getExerciseById(id, language).catch(
-        () => null
+        () => null,
       );
       if (cancelled) return;
       if (!exerciseDetailData) {
@@ -53,19 +53,22 @@ export const ExerciseDetail = () => {
       setExerciseDetail(exerciseDetailData);
       addRecentlyViewed(exerciseDetailData.id);
 
-      const [exerciseVideosData, targetMuscleExercisesData, equipmentExerciseData] =
-        await Promise.all([
-          fetchData(
-            `${YOUTUBE_SEARCH}/search?query=${exerciseDetailData.name}`,
-            youtubeOptions
-          ),
-          getExercisesByTarget(exerciseDetailData.target, language).catch(
-            () => null
-          ),
-          getExercisesByEquipment(exerciseDetailData.equipment, language).catch(
-            () => null
-          ),
-        ]);
+      const [
+        exerciseVideosData,
+        targetMuscleExercisesData,
+        equipmentExerciseData,
+      ] = await Promise.all([
+        fetchData(
+          `${YOUTUBE_SEARCH}/search?query=${exerciseDetailData.name}`,
+          youtubeOptions,
+        ),
+        getExercisesByTarget(exerciseDetailData.target, language).catch(
+          () => null,
+        ),
+        getExercisesByEquipment(exerciseDetailData.equipment, language).catch(
+          () => null,
+        ),
+      ]);
       if (cancelled) return;
 
       // "Similar" lists shouldn't include the exercise being viewed
@@ -86,15 +89,23 @@ export const ExerciseDetail = () => {
     return (
       <Stack
         alignItems="center"
-        sx={{ gap: 2, py: { lg: "160px", xs: "100px" }, px: "20px" }}
+        sx={{
+          gap: "var(--space-md)",
+          py: { lg: "160px", xs: "100px" },
+          px: "var(--page-px)",
+        }}
       >
         <SearchOffIcon
           sx={{ fontSize: 96, color: "var(--text-secondary)", opacity: 0.4 }}
         />
         <Typography
           component="h1"
-          sx={{ fontSize: { lg: "44px", xs: "30px" }, textAlign: "center" }}
-          fontWeight={700}
+          sx={{
+            fontSize: { lg: "40px", xs: "28px" },
+            fontWeight: 700,
+            lineHeight: 1.1,
+            textAlign: "center",
+          }}
         >
           {t("detail.notFoundTitle")}
         </Typography>
@@ -129,7 +140,7 @@ export const ExerciseDetail = () => {
   }
 
   return (
-    <Box sx={{ mt: { lg: "96px", xs: "60px" } }}>
+    <Box sx={{ mt: "var(--space-xl)" }}>
       <Detail exerciseDetail={exerciseDetail} />
       <ExerciseVideos
         exerciseVideos={exerciseVideos}
@@ -142,4 +153,3 @@ export const ExerciseDetail = () => {
     </Box>
   );
 };
-
